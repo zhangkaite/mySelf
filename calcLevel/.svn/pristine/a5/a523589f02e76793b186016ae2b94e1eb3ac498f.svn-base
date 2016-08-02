@@ -1,0 +1,48 @@
+package com.ttmv.datacenter.da.storm.calcLevel;
+
+import com.ttmv.datacenter.da.storm.calcLevel.bolt.LevelVerificationBolt;
+import com.ttmv.datacenter.da.storm.calcLevel.spout.LevelVerificationSpout;
+import org.apache.log4j.Logger;
+
+import com.ttmv.datacenter.da.storm.calcLevel.bolt.HbaseUpdateBolt;
+import com.ttmv.datacenter.da.storm.calcLevel.bolt.RedisDataLevelBolt;
+import com.ttmv.datacenter.da.storm.calcLevel.context.Constant;
+import com.ttmv.datacenter.da.storm.calcLevel.spout.GetRedisDataSpout;
+
+import backtype.storm.Config;
+import backtype.storm.StormSubmitter;
+import backtype.storm.generated.AlreadyAliveException;
+import backtype.storm.generated.InvalidTopologyException;
+import backtype.storm.topology.TopologyBuilder;
+import org.json.JSONArray;
+
+/**
+ * 
+ * @author kate storm启动入口
+ *
+ */
+public class Main {
+	
+	private static Logger logger = Logger.getLogger(Main.class);
+	public static void main(String[] args) {
+		TopologyBuilder builder = new TopologyBuilder();
+		builder.setSpout(Constant.SPOUT_NAME, new GetRedisDataSpout(), 1);
+		builder.setBolt(Constant.CAL_LEVEL_BOLT_NAME, new RedisDataLevelBolt(), 4).shuffleGrouping(Constant.SPOUT_NAME);
+		builder.setBolt(Constant.STORE_LEVEL_BOLT_NAME, new HbaseUpdateBolt(),1).shuffleGrouping(Constant.CAL_LEVEL_BOLT_NAME);
+		builder.setSpout("levelVerificationSpout",new LevelVerificationSpout(),1);
+		builder.setBolt("levelVerificationBolt",new LevelVerificationBolt(),4).shuffleGrouping("levelVerificationSpout");
+		Config conf = new Config();
+		conf.setNumWorkers(2);
+		conf.setMaxSpoutPending(5000);
+		try {
+			StormSubmitter.submitTopology("calcLevel", conf, builder.createTopology());
+		} catch (AlreadyAliveException e) {
+			logger.error("calcLevel 的topology 已存在"+e);
+		} catch (InvalidTopologyException e) {
+			logger.error("calcLevel 的topology 无效"+e);
+		}
+
+
+
+	}
+}
