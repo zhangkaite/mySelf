@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ttmv.dao.inter.GoodNumberExpireMapper">
+	<resultMap id="BaseResultMap" type="com.ttmv.dao.bean.GoodNumberExpire">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="user_id" property="userId" jdbcType="BIGINT" />
+		<result column="good_number_id" property="goodNumberId"
+			jdbcType="BIGINT" />
+		<result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+		<result column="remind_time" property="remindTime" jdbcType="TIMESTAMP" />
+		<result column="flag" property="flag" jdbcType="VARCHAR" />
+		<result column="numType" property="numType" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, user_id, good_number_id,end_time,remind_time,numType
+	</sql>
+	<delete id="deleteByPrimaryKey" parameterType="java.math.BigInteger">
+		delete from good_number_expire
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+
+	<select id="selectByUserIdAndGoodNumber" resultMap="BaseResultMap"
+		parameterType="com.ttmv.dao.bean.query.QueryBean">
+		select
+		<include refid="Base_Column_List" />
+		from good_number_expire
+		where user_id = #{userId,jdbcType=BIGINT} and
+		good_number_id = #{tempId,jdbcType=BIGINT} 
+	</select>
+
+	<select id="selectByNumType" resultMap="BaseResultMap"
+		parameterType="com.ttmv.dao.bean.query.QueryBean">
+		select
+		<include refid="Base_Column_List" />
+		from good_number_expire
+		where user_id = #{userId,jdbcType=BIGINT} and
+		good_number_id =
+		#{tempId,jdbcType=BIGINT} and
+		numType=#{numType,jdbcType=INTEGER} and
+		flag is null
+	</select>
+
+
+
+
+
+	<select id="selectListByEndTime" resultMap="BaseResultMap"
+		parameterType="com.ttmv.dao.bean.query.QueryBean">
+		select
+		<include refid="Base_Column_List" />
+		from good_number_expire
+		where end_time between
+		#{startTime,jdbcType=VARCHAR} and
+		#{endTime,jdbcType=VARCHAR} and flag
+		is
+		null
+	</select>
+
+	<select id="selectListRemindTime" resultMap="BaseResultMap"
+		parameterType="com.ttmv.dao.bean.query.QueryBean">
+		select
+		<include refid="Base_Column_List" />
+		from good_number_expire
+		where remind_time &lt;=
+		#{remindTime,jdbcType=VARCHAR} and end_time >=
+		#{remindTime,jdbcType=VARCHAR}
+		and flag is null
+	</select>
+
+	<select id="queryListDelayNotify" resultMap="BaseResultMap"
+		parameterType="com.ttmv.dao.bean.query.QueryBean">
+		select
+		<include refid="Base_Column_List" />
+		from good_number_expire
+		where end_time &lt;=
+		#{endTime,jdbcType=VARCHAR} and end_time >
+		#{startTime,jdbcType=VARCHAR}
+		and flag is null
+	</select>
+
+	<insert id="insertSelective" parameterType="com.ttmv.dao.bean.GoodNumberExpire">
+		insert into good_number_expire
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="goodNumberId != null">
+				good_number_id,
+			</if>
+			<if test="endTime != null">
+				end_time,
+			</if>
+			<if test="remindTime != null">
+				remind_time,
+			</if>
+			<if test="numType != null">
+				numType,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=BIGINT},
+			</if>
+			<if test="goodNumberId != null">
+				#{goodNumberId,jdbcType=BIGINT},
+			</if>
+			<if test="endTime != null">
+				#{endTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remindTime != null">
+				#{remindTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="numType != null">
+				#{numType,jdbcType=INTEGER},
+			</if>
+
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.ttmv.dao.bean.GoodNumberExpire">
+		update good_number_expire
+		<set>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=BIGINT},
+			</if>
+			<if test="goodNumberId != null">
+				good_number_id = #{goodNumberId,jdbcType=BIGINT},
+			</if>
+			<if test="endTime != null">
+				end_time = #{endTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remindTime != null">
+				remind_time = #{remindTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="numType != null">
+				numType = #{numType,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+
+	<update id="updateByUserIDAndGoodNum" parameterType="com.ttmv.dao.bean.GoodNumberExpire">
+		update good_number_expire
+		<set>
+			flag = #{flag,jdbcType=VARCHAR},
+		</set>
+		where user_id = #{userId,jdbcType=BIGINT} and
+		good_number_id =
+		#{goodNumberId,jdbcType=BIGINT}
+	</update>
+
+	<!--根据用户id查询当前是否有已经绑定的靓号 -->
+	<select id="selectByUserId" resultMap="BaseResultMap"
+		parameterType="com.ttmv.dao.bean.GoodNumberExpire">
+		select
+		<include refid="Base_Column_List" />
+		from good_number_expire
+		where user_id = #{userId,jdbcType=BIGINT}
+		and
+		flag = #{flag,jdbcType=VARCHAR}
+	</select>
+
+
+
+
+
+</mapper>

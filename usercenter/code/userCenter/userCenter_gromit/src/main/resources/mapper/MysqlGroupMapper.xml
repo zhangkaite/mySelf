@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ttmv.datacenter.usercenter.dao.implement.mapper.MysqlGroupMapper" >
+  <resultMap id="BaseResultMap" type="com.ttmv.datacenter.usercenter.dao.implement.mapper.bean.group.MysqlGroup" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="default_type" property="defaultType" jdbcType="INTEGER" />
+    <result column="gorder" property="gorder" jdbcType="INTEGER" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="updated" property="updated" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, name, default_type, gorder, created, updated
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigInteger" >
+    select 
+    <include refid="Base_Column_List" />
+    from ugroup
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select * from ugroup
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigInteger" >
+    delete from ugroup
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ttmv.datacenter.usercenter.dao.implement.mapper.bean.group.MysqlGroup" >
+    insert into ugroup (id, user_id, name, 
+      default_type, gorder, created, 
+      updated)
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
+      #{defaultType,jdbcType=INTEGER}, #{gorder,jdbcType=INTEGER}, #{created,jdbcType=TIMESTAMP}, 
+      #{updated,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ttmv.datacenter.usercenter.dao.implement.mapper.bean.group.MysqlGroup" >
+    insert into ugroup
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="defaultType != null" >
+        default_type,
+      </if>
+      <if test="gorder != null" >
+        gorder,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+      <if test="updated != null" >
+        updated,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultType != null" >
+        #{defaultType,jdbcType=INTEGER},
+      </if>
+      <if test="gorder != null" >
+        #{gorder,jdbcType=INTEGER},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null" >
+        #{updated,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ttmv.datacenter.usercenter.dao.implement.mapper.bean.group.MysqlGroup" >
+    update ugroup
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultType != null" >
+        default_type = #{defaultType,jdbcType=INTEGER},
+      </if>
+      <if test="gorder != null" >
+        gorder = #{gorder,jdbcType=INTEGER},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null" >
+        updated = #{updated,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ttmv.datacenter.usercenter.dao.implement.mapper.bean.group.MysqlGroup" >
+    update ugroup
+    set user_id = #{userId,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      default_type = #{defaultType,jdbcType=INTEGER},
+      gorder = #{gorder,jdbcType=INTEGER},
+      created = #{created,jdbcType=TIMESTAMP},
+      updated = #{updated,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

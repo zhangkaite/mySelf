@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans
+							     	 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+							     	 http://www.springframework.org/schema/context     
+							     	 http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<!-- 配置jdbc.properties -->
+	<context:property-placeholder location="classpath:jdbc.properties" />
+	
+	<!-- 配置主 dataSource 数据源c3p0 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${jdbc.driver_m1}" />
+		<property name="jdbcUrl" value="${jdbc.url_m1}" />
+		<property name="user" value="${jdbc.username_m1}" />
+		<property name="password" value="${jdbc.password_m1}" />
+		<!--连接池中保留的最大连接数。默认值: 15 -->   
+        <property name="maxPoolSize" value="200"/>  
+        <!-- 连接池中保留的最小连接数，默认为：3-->  
+        <property name="minPoolSize" value="5"/>  
+        <!-- 当连接池连接耗尽时，客户端调用getConnection()后等待获取新连接的时间，超时后将抛出SQLException，如设为0则无限期等待。单位毫秒。默认: 0 -->   
+        <property name="checkoutTimeout" value="60000"/>  
+        <!--最大空闲时间，3600秒内未使用则连接被丢弃。若为0则永不丢弃。默认值: 0 -->   
+        <property name="maxIdleTime" value="3600"/>      
+	</bean>
+	
+	
+	
+	
+	
+
+
+</beans>

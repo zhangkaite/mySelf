@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springwork.org/schema/tx"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans
+							     	 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+							     	 http://www.springframework.org/schema/context     
+							     	 http://www.springframework.org/schema/context/spring-context-3.0.xsd
+							     	 http://www.springframework.org/schema/tx
+							     	 http://www.springframework.org/schema/tx/spring-tx-3.0.xsd ">
+
+	<!-- 生成 User ID -->
+	<bean id="userIdGenerate"
+		class="com.ttmv.datacenter.usercenter.service.processor.tools.UserIdGenerate">
+		<constructor-arg ref="generator32" />
+	</bean>
+
+	<!-- 000_添加用户 -->
+	<bean id="adminAddUserServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.userBasic.AdminAddUserServiceImpl">
+		<property name="userInfoDao" ref="userInfoDaoImpl" />
+		<property name="locker" ref="locker" />
+		<property name="userIdGenerate" ref="userIdGenerate" />
+		<property name="msgSenderTool" ref="msgSenderTool" />
+		<property name="initUserAccountTool" ref="initUserAccountTool" />
+		<property name="controlAgent" ref="controlAgent" />
+		<property name="tableIdGenerate" ref="tableIdGenerate" />
+	</bean>
+
+	<!-- 001_用户注册 -->
+	<bean id="addUserServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.userBasic.AddUserServiceImpl">
+		<property name="userInfoDao" ref="userInfoDaoImpl" />
+		<property name="tTnumGenerator" ref="tTnumGenerator" />
+		<property name="userIdGenerate" ref="userIdGenerate" />
+		<property name="locker" ref="locker" />
+		<property name="controlAgent" ref="controlAgent" />
+		<property name="msgSenderTool" ref="msgSenderTool" />
+		<property name="initUserAccountTool" ref="initUserAccountTool" />
+		<property name="hadoopAddUserTool" ref="hadoopAddUserTool" />
+	</bean>
+
+	<!-- 002_用户密码修改 -->
+	<bean id="resetPasswordServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.userBasic.ModifyPasswordServiceImpl">
+		<property name="userInfoDao" ref="userInfoDaoImpl" />
+	</bean>
+
+	<!-- 003_用户资料修改 -->
+	<bean id="modifyUserInfoServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.userBasic.ModifyUserInfoServiceImpl">
+		<property name="locker" ref="locker" />
+		<property name="userInfoDao" ref="userInfoDaoImpl" />
+		<property name="tokenCenterAgent" ref="tokenCenterAgent" />
+	</bean>
+
+	<!-- 004_登录方式开通 -->
+	<bean id="loginBindingServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.userBasic.LoginBindingServiceImpl">
+		<property name="userInfoDao" ref="userInfoDaoImpl" />
+		<property name="locker" ref="locker" />
+		<property name="controlAgent" ref="controlAgent" />
+		<property name="tokenCenterAgent" ref="tokenCenterAgent" />
+		<property name="overdueManageTTnum" ref="overdueManageTTnum" />
+		
+	</bean>
+
+	<!-- 005_实名认证 -->
+	<bean id="applyRealNameRegServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.userBasic.ApplyRealNameRegServiceImpl">
+		<property name="userInfoDao" ref="userInfoDaoImpl" />
+	</bean>
+
+	<!-- 012_创建好友分组 -->
+	<bean id="createFriendGroupServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.userRelation.CreateFriendGroupServiceImpl">
+		<property name="groupDao" ref="groupDaoImpl" />
+		<!-- <property name="tableIdGenerate" ref="tableIdGenerate" /> -->
+
+	</bean>
+
+	<!-- 013_修改好友分组 -->
+	<bean id="modifyFriendGroupServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.userRelation.ModifyFriendGroupServiceImpl">
+		<property name="groupDao" ref="groupDaoImpl" />
+	</bean>
+
+	<!-- 014_删除好友分组 -->
+	<bean id="removeFriendGroupServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.userRelation.RemoveFriendGroupServiceImpl">
+		<property name="groupDao" ref="groupDaoImpl" />
+	</bean>
+
+	<!-- 017_用户信息绑定 -->
+	<bean id="userInfoBindingServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.userBasic.UserInfoBindingServiceImpl">
+		<property name="userInfoDao" ref="userInfoDaoImpl" />
+		<property name="locker" ref="locker" />
+		<property name="controlAgent" ref="controlAgent" />
+		<property name="tokenCenterAgent" ref="tokenCenterAgent" />
+	</bean>
+
+	<!-- 018_账户信息校验 -->
+	<bean id="userValidationServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.userBasic.UserValidationServiceImpl">
+		<property name="userInfoDao" ref="userInfoDaoImpl" />
+	</bean>
+
+	<!-- 020_用户登录 -->
+	<bean id="loginServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.userBehavior.LoginServiceImpl">
+		<property name="terminalForbidDao" ref="terminalForbidDaoImpl" />
+		<property name="userInfoDao" ref="userInfoDaoImpl" />
+		<property name="controlAgent" ref="controlAgent" />
+		<property name="logMsgSenderTool" ref="logMsgSenderTool" />
+		<property name="tokenCenterAgent" ref="tokenCenterAgent" />
+	</bean>
+
+	<!-- 021_账户注销 -->
+	<bean id="logoutServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.userBehavior.LogoutServiceImpl">
+		<property name="tokenCenterAgent" ref="tokenCenterAgent" />
+		<property name="controlAgent" ref="controlAgent" />
+	</bean>
+
+	<!-- 023_封终端设备 -->
+	<bean id="forceOutDeviceServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.userManage.ForceOutDeviceServiceImpl">
+		<property name="terminalForbidDao" ref="terminalForbidDaoImpl" />
+	</bean>
+
+	<!-- 024_解封终端设备 -->
+	<bean id="unsetDeviceServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.userManage.UnsetDeviceServiceImpl">
+		<property name="terminalForbidDao" ref="terminalForbidDaoImpl" />
+	</bean>
+
+	<!-- 025_冻删用户 -->
+	<bean id="forbiddenUserServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.userManage.ForbiddenUserServiceImpl">
+		<property name="userInfoDao" ref="userInfoDaoImpl" />
+		<property name="overSentryAgentDJ" ref="overSentryAgentDJ" />
+	</bean>
+
+	<!-- 026_解冻撤删用户 -->
+	<bean id="removeForbiddenUserServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.userManage.RemoveForbiddenUserServiceImpl">
+		<property name="userInfoDao" ref="userInfoDaoImpl" />
+	</bean>
+
+	<!-- 032_用户上线记录查询 -->
+	<bean id="queryUserLogServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.userQuery.QueryUserLoginLogServiceImpl">
+		<property name="userLoginRecordDao" ref="userLoginRecordDaoImpl" />
+	</bean>
+
+	<!-- 034_用户基本信息查询 -->
+	<bean id="queryUserByIdServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.userQuery.QueryUserByIdServiceImpl">
+		<property name="userInfoDao" ref="userInfoDaoImpl" />
+	</bean>
+
+	<!-- 035_用户列表查询 -->
+	<bean id="queryUsersServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.userQuery.QueryUsersServiceImpl">
+		<property name="userInfoDao" ref="userInfoDaoImpl" />
+	</bean>
+
+	<!-- 036_用户好友列表查询 -->
+	<bean id="queryFriendServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.userQuery.QueryFriendServiceImpl">
+		<property name="userCrossRelationDao" ref="userCrossRelationDaoImpl" />
+	</bean>
+
+	<!-- 038_用户安全信息查询 -->
+	<bean id="querySecurityInfoServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.userQuery.QuerySecurityInfoServiceImpl">
+		<property name="userInfoDao" ref="userInfoDaoImpl" />
+	</bean>
+
+	<!-- 039_用户关注 -->
+	<bean id="addAttentionServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.userRelation.AddAttentionServiceImpl">
+		<property name="userCrossRelationDao" ref="userCrossRelationDaoImpl" />
+	</bean>
+
+	<!-- 040_用户取消关注 -->
+	<bean id="undoAttentionServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.userRelation.UndoAttentionServiceImpl">
+		<property name="userCrossRelationDao" ref="userCrossRelationDaoImpl" />
+	</bean>
+
+	<!-- 041_用户添加好友 -->
+	<bean id="addFriendServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.userRelation.FriendAddServiceImpl">
+		<property name="userCrossRelationDao" ref="userCrossRelationDaoImpl" />
+		<property name="groupDao" ref="groupDaoImpl" />
+	</bean>
+
+	<!-- 042_用户删除好友 -->
+	<bean id="removeFriendServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.userRelation.RemoveFriendServiceImpl">
+		<property name="userCrossRelationDao" ref="userCrossRelationDaoImpl" />
+	</bean>
+
+	<!-- 044_靓号状态修改 -->
+	<bean id="goodTTnumManageServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.userManage.GoodTTnumManageServiceImpl">
+		<property name="userInfoDao" ref="userInfoDaoImpl" />
+	</bean>
+
+	<!-- 045_申诉账号检测 -->
+	<bean id="complainValidationServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.userManage.ComplainValidationServiceImpl">
+		<property name="userInfoDao" ref="userInfoDaoImpl" />
+	</bean>
+
+	<!-- 046_好友信息DIY -->
+	<bean id="diyFiendInfoServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.userRelation.DiyFiendInfoServiceImpl">
+		<property name="userCrossRelationDao" ref="userCrossRelationDaoImpl" />
+	</bean>
+
+	<!-- 047_批量查询好友信息 -->
+	<bean id="queryFriendInfosServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.userQuery.QueryFriendInfosServiceImpl">
+		<property name="userInfoDao" ref="userInfoDaoImpl" />
+	</bean>
+
+	<!-- 048_查询用户好友分组关系 -->
+	<bean id="queryUserFriendGroupServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.userQuery.QueryUserFriendGroupServiceImpl">
+		<property name="userCrossRelationDao" ref="userCrossRelationDaoImpl" />
+		<property name="groupDao" ref="groupDaoImpl" />
+
+	</bean>
+
+	<!-- 049_查询好友分组信息查询 -->
+	<bean id="queryFriendGroupInfoServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.userQuery.QueryFriendGroupInfoServiceImpl">
+		<property name="groupDao" ref="groupDaoImpl" />
+	</bean>
+
+	<!-- 050_第三方登录 -->
+	<bean id="sdkLoginServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.userBehavior.SdkLoginServiceImpl">
+		<property name="userInfoDao" ref="userInfoDaoImpl" />
+		<property name="userIdGenerate" ref="userIdGenerate" />
+		<property name="tTnumGenerator" ref="tTnumGenerator" />
+		<property name="tokenCenterAgent" ref="tokenCenterAgent" />
+		<property name="msgSenderTool" ref="msgSenderTool" />
+		<property name="initUserAccountTool" ref="initUserAccountTool" />
+	</bean>
+
+	<!-- 051_银行卡信息绑定 -->
+	<bean id="bindingBankCardServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.userBasic.BindingBankCardServiceImpl">
+		<property name="userInfoDao" ref="userInfoDaoImpl" />
+		<property name="tokenCenterAgent" ref="tokenCenterAgent" />
+	</bean>
+
+	<!-- 052_用户token校验 -->
+	<bean id="tokenValidationServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.userBasic.TokenValidationServiceImpl">
+		<property name="tokenCenterAgent" ref="tokenCenterAgent" />
+	</bean>
+
+	<!-- 053_用户防骚扰设置 -->
+	<bean id="setFriendVerifyInfoServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.userBasic.SetFriendVerifyInfoServiceImpl">
+		<property name="userInfoDao" ref="userInfoDaoImpl" />
+	</bean>
+	<!-- 054_获取防骚扰信息 -->
+	<bean id="getFriendVerifyInfoServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.userQuery.QueryFriendVerifyInfoServiceImpl">
+		<property name="userInfoDao" ref="userInfoDaoImpl" />
+	</bean>
+
+	<!-- 055_登录号解绑 -->
+	<bean id="relieveLoginBindingServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.userBasic.RelieveLoginBindingServiceImpl">
+		<property name="userInfoDao" ref="userInfoDaoImpl" />
+		<property name="locker" ref="locker" />
+		<property name="controlAgent" ref="controlAgent" />
+		<property name="overdueManageTTnum" ref="overdueManageTTnum" />
+	</bean>
+
+	<!-- 056_是否存在密码 -->
+	<bean id="pwdValidationServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.userBasic.PwdValidationServiceImpl">
+		<property name="userInfoDao" ref="userInfoDaoImpl" />
+	</bean>
+	
+	<!-- 057_开通会员 -->
+	<bean id="openingVIPServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.userBasic.OpeningVIPServiceImpl">
+		<property name="userInfoDao" ref="userInfoDaoImpl" />
+		<property name="tokenCenterAgent" ref="tokenCenterAgent" />
+		<property name="overSentryAgentVIP" ref="overSentryAgentVIP" />
+	</bean>
+	
+	<!-- 058_获取用户id -->
+	<bean id="takeUserIDServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.userManage.TakeUserIDServiceImpl">
+		<property name="userIdGenerate" ref="userIdGenerate" />
+	</bean>	
+	
+	<!-- 059_贡献周榜查询 -->
+	<bean id="queryContributionListServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.statistics.QueryContributionListServiceImpl">
+		<property name="userContributeDao" ref="userContributeDaoImpl" />
+	</bean>		
+	
+	<!-- 060_成为主播 -->
+	<bean id="becomeAnnouncerServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.userBasic.BecomeAnnouncerServiceImpl">
+		<property name="userInfoDao" ref="userInfoDaoImpl" />
+		<property name="tokenCenterAgent" ref="tokenCenterAgent" />
+		<property name="damsUcResetStarEXPTool" ref="damsUcResetStarEXPTool" />
+		
+	</bean>		
+		
+	<!-- XXX_vip到期回调 -->
+	<bean id="vipCallBackServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.overCallBack.VipCallBackServiceImpl">
+		<property name="userInfoDao" ref="userInfoDaoImpl" />
+	</bean>		
+		
+	<!-- XXX_经验等级统计回调 -->
+	<bean id="levelCallBackServiceImpl"
+		class="com.ttmv.datacenter.usercenter.service.facade.impl.overCallBack.LevelCallBackServiceImpl">
+		<property name="userInfoDao" ref="userInfoDaoImpl" />
+	</bean>		
+	
+	
+	
+	
+	
+	
+</beans>

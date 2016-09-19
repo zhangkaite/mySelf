@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ttmv.datacenter.usercenter.dao.implement.mapper.MysqlUserInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.ttmv.datacenter.usercenter.dao.implement.mapper.bean.userinfo.MysqlUserInfo" >
+    <id column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="ttnum" property="TTnum" jdbcType="VARCHAR" />
+    <result column="upassword" property="upassword" jdbcType="VARCHAR" />
+    <result column="bindingemail" property="bindingemail" jdbcType="VARCHAR" />
+    <result column="loginemail" property="loginemail" jdbcType="VARCHAR" />
+    <result column="bindingmobile" property="bindingmobile" jdbcType="VARCHAR" />
+    <result column="loginmobile" property="loginmobile" jdbcType="VARCHAR" />
+    <result column="mark" property="mark" jdbcType="BIT" />
+    <result column="login_good_ttnum" property="loginGoodTtnum" jdbcType="VARCHAR" />
+    <result column="login_good_ttnum_type" property="loginGoodTtnumType" jdbcType="INTEGER" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="updated" property="updated" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_id, username, ttnum, upassword, bindingemail, loginemail, bindingmobile, loginmobile, 
+    mark, login_good_ttnum,login_good_ttnum_type, created, updated
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigInteger" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_base
+    where user_id = #{userId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigInteger" >
+    delete from user_base
+    where user_id = #{userId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ttmv.datacenter.usercenter.dao.implement.mapper.bean.userinfo.MysqlUserInfo" >
+    insert into user_base (user_id, username, ttnum, 
+      upassword, bindingemail, loginemail, 
+      bindingmobile, loginmobile, mark, 
+      login_good_ttnum, login_good_ttnum_type,created, updated
+      )
+    values (#{userId,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{TTnum,jdbcType=VARCHAR}, 
+      #{upassword,jdbcType=VARCHAR}, #{bindingemail,jdbcType=VARCHAR}, #{loginemail,jdbcType=VARCHAR}, 
+      #{bindingmobile,jdbcType=VARCHAR}, #{loginmobile,jdbcType=VARCHAR}, #{mark,jdbcType=BIT}, 
+      #{loginGoodTtnum,jdbcType=VARCHAR}, #{loginGoodTtnumType,jdbcType=INTEGER},#{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ttmv.datacenter.usercenter.dao.implement.mapper.bean.userinfo.MysqlUserInfo" >
+    insert into user_base
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="TTnum != null" >
+        TTnum,
+      </if>
+      <if test="upassword != null" >
+        upassword,
+      </if>
+      <if test="bindingemail != null" >
+        bindingemail,
+      </if>
+      <if test="loginemail != null" >
+        loginemail,
+      </if>
+      <if test="bindingmobile != null" >
+        bindingmobile,
+      </if>
+      <if test="loginmobile != null" >
+        loginmobile,
+      </if>
+      <if test="mark != null" >
+        mark,
+      </if>
+      <if test="loginGoodTtnum != null" >
+        login_good_ttnum,
+      </if>
+      <if test="loginGoodTtnumType != null" >
+        login_good_ttnum_type,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+      <if test="updated != null" >
+        updated,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="TTnum != null" >
+        #{TTnum,jdbcType=VARCHAR},
+      </if>
+      <if test="upassword != null" >
+        #{upassword,jdbcType=VARCHAR},
+      </if>
+      <if test="bindingemail != null" >
+        #{bindingemail,jdbcType=VARCHAR},
+      </if>
+      <if test="loginemail != null" >
+        #{loginemail,jdbcType=VARCHAR},
+      </if>
+      <if test="bindingmobile != null" >
+        #{bindingmobile,jdbcType=VARCHAR},
+      </if>
+      <if test="loginmobile != null" >
+        #{loginmobile,jdbcType=VARCHAR},
+      </if>
+      <if test="mark != null" >
+        #{mark,jdbcType=BIT},
+      </if>
+      <if test="loginGoodTtnum != null" >
+        #{loginGoodTtnum,jdbcType=VARCHAR},
+      </if>
+      <if test="loginGoodTtnumType != null" >
+        #{loginGoodTtnumType,jdbcType=INTEGER},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null" >
+        #{updated,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ttmv.datacenter.usercenter.dao.implement.mapper.bean.userinfo.MysqlUserInfo" >
+    update user_base
+    <set >
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="TTnum != null" >
+        ttnum = #{TTnum,jdbcType=VARCHAR},
+      </if>
+      <if test="upassword != null" >
+        upassword = #{upassword,jdbcType=VARCHAR},
+      </if>
+      <if test="bindingemail != null" >
+        bindingemail = #{bindingemail,jdbcType=VARCHAR},
+      </if>
+      <if test="loginemail != null" >
+        loginemail = #{loginemail,jdbcType=VARCHAR},
+      </if>
+      <if test="bindingmobile != null" >
+        bindingmobile = #{bindingmobile,jdbcType=VARCHAR},
+      </if>
+      <if test="loginmobile != null" >
+        loginmobile = #{loginmobile,jdbcType=VARCHAR},
+      </if>
+      <if test="mark != null" >
+        mark = #{mark,jdbcType=BIT},
+      </if>
+      <if test="loginGoodTtnum != null" >
+        login_good_ttnum = #{loginGoodTtnum,jdbcType=VARCHAR},
+      </if>
+      <if test="loginGoodTtnumType != null" >
+        login_good_ttnum_type = #{loginGoodTtnumType,jdbcType=INTEGER},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null" >
+        updated = #{updated,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ttmv.datacenter.usercenter.dao.implement.mapper.bean.userinfo.MysqlUserInfo" >
+    update user_base
+    set username = #{username,jdbcType=VARCHAR},
+      ttnum = #{TTnum,jdbcType=VARCHAR},
+      upassword = #{upassword,jdbcType=VARCHAR},
+      bindingemail = #{bindingemail,jdbcType=VARCHAR},
+      loginemail = #{loginemail,jdbcType=VARCHAR},
+      bindingmobile = #{bindingmobile,jdbcType=VARCHAR},
+      loginmobile = #{loginmobile,jdbcType=VARCHAR},
+      mark = #{mark,jdbcType=BIT},
+      login_good_ttnum = #{loginGoodTtnum,jdbcType=VARCHAR},
+      login_good_ttnum_type = #{loginGoodTtnumType,jdbcType=INTEGER},
+      created = #{created,jdbcType=TIMESTAMP},
+      updated = #{updated,jdbcType=TIMESTAMP}
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+</mapper>

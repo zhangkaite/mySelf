@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="OFF">
+	<appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%-5level %d{yyyy-MM-dd HH:mm:ss }[%class{36}]  %msg%n" />
+		</Console>
+		<RollingFile name="RollingFile" fileName="overdue_logs/overdueAll.log"
+			filePattern="log/$${date:yyyy-MM}/overdueAll-%d{MM-dd-yyyy}-%i.log.gz">
+			<PatternLayout
+				pattern="%d{yyyy-MM-dd 'at' HH:mm:ss z} %-5level %class{36} %L %M - %msg%xEx%n" />
+			<SizeBasedTriggeringPolicy size="250MB" />
+		</RollingFile>
+		
+
+		<RollingFile name="serviceLogFile" fileName="overdue_logs/service.log"
+			filePattern="overdues/$${date:yyyy-MM}/overdue_service%d{MM-dd-yyyy}-%i.log.gz">
+			<PatternLayout>
+				<Pattern>%-5level %d{yyyy-MM-dd HH:mm:ss }[%class{36}] %msg%n
+				</Pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="250 MB" />
+			</Policies>
+			
+		</RollingFile>
+			<RollingFile name="webLogFile" fileName="overdue_logs/web.log"
+			filePattern="overdues/$${date:yyyy-MM}/overdue_web%d{MM-dd-yyyy}-%i.log.gz">
+			<PatternLayout>
+				<Pattern>%-5level %d{yyyy-MM-dd HH:mm:ss }[%class{36}] %msg%n
+				</Pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="250 MB" />
+			</Policies>
+		</RollingFile>
+		
+		<RollingFile name="daoLogFile" fileName="overdue_logs/dao.log"
+			filePattern="overdues/$${date:yyyy-MM}/overdue_dao%d{MM-dd-yyyy}-%i.log.gz">
+			<PatternLayout>
+				<Pattern>%-5level %d{yyyy-MM-dd HH:mm:ss }[%class{36}] %msg%n
+				</Pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="250 MB" />
+			</Policies>
+		</RollingFile>
+		
+	</appenders>
+	
+	<loggers>
+		<logger name="com.ttmv.service"  level="debug" additivity="true">
+			<appender-ref ref="serviceLogFile" />
+		</logger> 
+		
+		<logger name="com.ttmv.web"  level="info" additivity="true">
+			<appender-ref ref="webLogFile" />
+		</logger> 
+		
+		<logger name="com.ttmv.dao"  level="info" additivity="true">
+			<appender-ref ref="daoLogFile" />
+		</logger> 
+
+		<root level="debug">
+			<appender-ref ref="RollingFile" />
+			<appender-ref ref="Console" />
+		</root>
+	</loggers>
+</configuration>

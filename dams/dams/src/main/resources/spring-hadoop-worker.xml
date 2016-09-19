@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans
+							     	 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+							     	 ">
+
+	<!-- 声明hadoop业务处理bean -->
+	<bean id="tbRedisToHdfsWorker"
+		class="com.datacenter.dams.input.redis.worker.redis2hdfs.TbRedisToHdfsWorker">
+	</bean>
+
+
+	<bean id="pollRedisJobInfoWorker"
+		class="com.datacenter.dams.input.redis.worker.hdfs2hbase.PollRedisJobInfoWorker">
+
+	</bean>
+
+
+	<bean id="hdfsData2HbaseWorker"
+		class="com.datacenter.dams.input.redis.worker.hdfs2hbase.HdfsData2HbaseWorker">
+
+	</bean>
+
+	
+
+
+</beans>

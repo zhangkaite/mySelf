@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ttmv.monitoring.imp.UserInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.ttmv.monitoring.entity.UserInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_real_name" property="userRealName" jdbcType="VARCHAR" />
+    <result column="user_passwd" property="userPasswd" jdbcType="VARCHAR" />
+    <result column="user_mobile" property="userMobile" jdbcType="VARCHAR" />
+    <result column="user_mail" property="userMail" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="user_status" property="userStatus" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_name, user_real_name, user_passwd, user_mobile, user_mail, remark, user_status, 
+    create_time
+  </sql>
+  
+  <!-- 根据Id查询 -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigInteger" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_base
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <!-- 精确条件查询  -->
+   <select id="selectByConditions" resultMap="BaseResultMap" parameterType="com.ttmv.monitoring.entity.querybean.UserInfoQuery" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_base
+    where 1=1
+      <if test="userRealName != null and ''!= userRealName" >
+       and user_real_name = #{userRealName,jdbcType=VARCHAR}
+      </if>
+      <if test="userName != null and ''!= userName" >
+       and user_name = #{userName,jdbcType=VARCHAR}
+      </if>
+      <if test="userMail != null and ''!= userMail " >
+       and user_mail = #{userMail,jdbcType=VARCHAR}
+      </if>
+       <if test="userMobile != null and ''!= userMobile " >
+       and user_mobile = #{userMobile,jdbcType=VARCHAR}
+      </if>
+      <if test="userStatus != null and ''!= userStatus" >
+       and user_status = #{userStatus,jdbcType=INTEGER}
+      </if>
+   </select>
+  
+   <!-- 模糊条件查询  -->
+   <select id="selectByFuzzyConditions" resultMap="BaseResultMap" parameterType="com.ttmv.monitoring.entity.querybean.UserInfoQuery" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_base
+    where 1=1
+      <if test="userRealName != null and ''!= userRealName" >
+       and user_real_name like '%${userRealName}%'
+      </if>
+      <if test="userName != null and ''!= userName" >
+       and user_name like '%${userName}%'
+      </if>
+      <if test="userMobile != null" >
+       and user_mobile like '%${userMobile}%'
+      </if>
+      <if test="userMail != null" >
+       and user_mail like '%${userMail}%'
+      </if>
+      <if test="userStatus != null and ''!= userStatus" >
+       and user_status = #{userStatus,jdbcType=INTEGER}
+      </if>
+       limit #{start},#{pageSize}
+  </select>
+  
+  <!-- 模糊条件查询 , 查询全部  -->
+   <select id="selectByFuzzyConditionsAll" resultType="java.lang.Integer" parameterType="com.ttmv.monitoring.entity.querybean.UserInfoQuery" >
+    select 
+    count(*)
+    from user_base
+    where 1=1
+      <if test="userRealName != null and ''!= userRealName" >
+       and user_real_name like '%${userRealName}%'
+      </if>
+       <if test="userName != null and ''!= userName" >
+       and user_name like '%${userName}%'
+      </if>
+      <if test="userMobile != null" >
+       and user_mobile like '%${userMobile}%'
+      </if>
+      <if test="userMail != null" >
+       and user_mail like '%${userMail}%'
+      </if>
+      <if test="userStatus != null and ''!= userStatus" >
+       and user_status = #{userStatus,jdbcType=INTEGER}
+      </if>
+  </select>
+  
+  <!-- 登陆 -->
+  <select id="login" resultMap="BaseResultMap" parameterType="com.ttmv.monitoring.entity.UserInfo" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_base
+    where 1=1
+      <if test="userName != null and ''!= userName" >
+       and user_name = #{userName,jdbcType=VARCHAR}
+      </if>
+      <if test="userPasswd != null and ''!= userPasswd" >
+       and user_passwd = #{userPasswd,jdbcType=VARCHAR}
+       </if>
+  </select>
+
+  <!-- 根据有值字段进行添加 -->
+  <insert id="insertSelective" parameterType="com.ttmv.monitoring.entity.UserInfo" >
+    insert into user_base
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="userRealName != null" >
+        user_real_name,
+      </if>
+      <if test="userPasswd != null" >
+        user_passwd,
+      </if>
+      <if test="userMobile != null" >
+        user_mobile,
+      </if>
+      <if test="userMail != null" >
+        user_mail,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="userStatus != null" >
+        user_status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userRealName != null" >
+        #{userRealName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPasswd != null" >
+        #{userPasswd,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobile != null" >
+        #{userMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="userMail != null" >
+        #{userMail,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="userStatus != null" >
+        #{userStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 更新有值的字段 -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.ttmv.monitoring.entity.UserInfo" >
+    update user_base
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userRealName != null" >
+        user_real_name = #{userRealName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPasswd != null" >
+        user_passwd = #{userPasswd,jdbcType=VARCHAR},
+      </if>
+      <if test="userMobile != null" >
+        user_mobile = #{userMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="userMail != null" >
+        user_mail = #{userMail,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="userStatus != null" >
+        user_status = #{userStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

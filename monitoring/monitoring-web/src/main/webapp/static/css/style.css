@@ -1,0 +1,66 @@
+.title{
+    margin-bottom: 20px;
+}
+.btn-large{
+    height: 50px;
+}
+.main-content{
+    min-height: 400px;background-color:#eee
+}
+.detail-textArea{
+    resize: none;
+}
+.btn-normal{
+    background-color: #dddddd;
+    min-width: 100px;
+    margin:5px;
+}
+.br-20{
+    margin-bottom:20px;
+    margin-left:20px;
+}
+.width-100{
+    width: 100%
+}
+.width-80{
+    width: 80%
+}
+.check_point{
+    background-color: #e3b100;
+}
+.selected_target{
+    font-size: 24px;
+    font-weight:bold;
+    color:brown;
+}
+.console_window{
+    background-color:#0F0F10;
+    color: #dddddd;
+    resize: none;
+}
+.script_detail{
+    display: none;
+}
+.script_edit_window{
+    resize: none;
+    height: 50%;
+    width: 100%
+}
+.hide{
+    display: none;
+}
+.page-list .pagination {float:left;}
+.page-list .pagination span {cursor: pointer;}
+.page-list .pagination .separate span{cursor: default; border-top:none;border-bottom:none;}
+.page-list .pagination .separate span:hover {background: none;}
+.page-list .page-total {float:left; margin: 25px 20px;}
+.page-list .page-total input, .page-list .page-total select{height: 26px; border: 1px solid #ddd;}
+.page-list .page-total input {width: 40px; padding-left:3px;}
+.page-list .page-total select {width: 50px;}
+
+
+.center-vertical {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}

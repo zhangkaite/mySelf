@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springwork.org/schema/tx"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans
+							     	 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+							     	 http://www.springframework.org/schema/context     
+							     	 http://www.springframework.org/schema/context/spring-context-3.0.xsd
+							     	 http://www.springframework.org/schema/tx
+							     	 http://www.springframework.org/schema/tx/spring-tx-3.0.xsd ">
+							     	 
+	<!-- 配置jdbc.properties -->
+	<context:property-placeholder location="classpath:jdbc.properties" />
+	
+	<!-- 导入各个配置文件-->
+	<import resource="spring-mybatis-datasource.xml"/>
+	
+	<!-- 配置sqlSessionFactoryBean；绑定mybatis -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:sql_config.xml" />
+	</bean>
+
+	<!-- 配置事务；txManager事务管理 -->
+	<bean id="txManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.ttmv.datacenter.usercenter.daoimplement" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+	</bean>
+	
+	<!-- 业务区-->
+	 <!-- kate 新增开始 -->
+	<bean id="showImDataListDaoMapper" class="com.ttmv.monitoring.imDataList.ShowImDataListDaoMapper">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	<bean id="showImDataListDao" class="com.ttmv.monitoring.imDataList.ShowImDataListDao">
+	   <property name="showImDataListDaoMapper" ref="showImDataListDaoMapper"></property>
+	</bean>
+	
+	<bean id="cpuInfoDaoMapper" class="com.ttmv.monitoring.collection.mapper.CpuInfoDaoMapper">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="cpuInfoImpl" class="com.ttmv.monitoring.collection.impl.CpuInfoImpl">
+	   <property name="cpuInfoDaoMapper" ref="cpuInfoDaoMapper"></property>
+	</bean>
+	 <!-- kate 新增结束 -->
+	<bean id="userInfoDaoMapper" class="com.ttmv.monitoring.mapper.UserInfoDaoMapper">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="mediaForwardDataDaoMapper" class="com.ttmv.monitoring.mapper.MediaForwardDataDaoMapper">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="dataDictionaryDaoMapper" class="com.ttmv.monitoring.mapper.DataDictionaryDaoMapper">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="alerterInfoDaoMapper" class="com.ttmv.monitoring.mapper.AlerterInfoDaoMapper">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="thresholdInfoDaoMapper" class="com.ttmv.monitoring.mapper.ThresholdInfoDaoMapper">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="pHPServerDataDaoMapper" class="com.ttmv.monitoring.mapper.PHPServerDataDaoMapper">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="pHPVideoServerDataDaoMapper" class="com.ttmv.monitoring.mapper.PHPVideoServerDataDaoMapper">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="pHPManagerServerDataDaoMapper" class="com.ttmv.monitoring.mapper.PHPManagerServerDataDaoMapper">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="mediaControlDataDaoMapper" class="com.ttmv.monitoring.mapper.MediaControlDataDaoMapper">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="serverSubSysinfoDaoMapper" class="com.ttmv.monitoring.mapper.ServerSubSysinfoDaoMapper">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="screenShotDataDaoMapper" class="com.ttmv.monitoring.mapper.ScreenShotDataDaoMapper">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="transcodingDataDaoMapper" class="com.ttmv.monitoring.mapper.TranscodingDataDaoMapper">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="whiteListDaoMapper" class="com.ttmv.monitoring.mapper.WhiteListDaoMapper">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="alertRecordInfoDaoMapper" class="com.ttmv.monitoring.mapper.AlertRecordInfoDaoMapper">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="hpServerDataDaoMapper" class="com.ttmv.monitoring.mapper.HpServerDataDaoMapper">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="lbsServerDataDaoMapper" class="com.ttmv.monitoring.mapper.LbsServerDataDaoMapper">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="mdsServerDataDaoMapper" class="com.ttmv.monitoring.mapper.MdsServerDataDaoMapper">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="mssServerDataDaoMapper" class="com.ttmv.monitoring.mapper.MssServerDataDaoMapper">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="mtsServerDataDaoMapper" class="com.ttmv.monitoring.mapper.MtsServerDataDaoMapper">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="prsServerDataDaoMapper" class="com.ttmv.monitoring.mapper.PrsServerDataDaoMapper">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="rmsServerDataDaoMapper" class="com.ttmv.monitoring.mapper.RmsServerDataDaoMapper">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="tasServerDataDaoMapper" class="com.ttmv.monitoring.mapper.TasServerDataDaoMapper">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="umsServerDataDaoMapper" class="com.ttmv.monitoring.mapper.UmsServerDataDaoMapper">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	
+	
+	
+	<bean id="iUserInfoInterImpl" class="com.ttmv.monitoring.imp.IUserInfoInterImpl">
+		<property name="userInfoDaoMapper" ref="userInfoDaoMapper"/>
+	</bean>
+	<bean id ="iMediaForwardDataInterImpl" class="com.ttmv.monitoring.imp.IMediaForwardDataInterImpl">
+		<property name="mediaForwardDataDaoMapper" ref="mediaForwardDataDaoMapper"/>
+	</bean>
+	<bean id="iDataDictionaryInterImpl" class="com.ttmv.monitoring.imp.IDataDictionaryInterImpl">
+		<property name="dataDictionaryDaoMapper" ref="dataDictionaryDaoMapper"/>
+	</bean>
+	<bean id="iAlerterInfoInterImpl" class="com.ttmv.monitoring.imp.IAlerterInfoInterImpl">
+		<property name="alerterInfoDaoMapper" ref="alerterInfoDaoMapper"/>
+	</bean>
+	<bean id="iThresholdInfoInterImpl" class="com.ttmv.monitoring.imp.IThresholdInfoInterImpl">
+		<property name="thresholdInfoDaoMapper" ref="thresholdInfoDaoMapper"/>
+	</bean>
+	<bean id="iPHPServerDataInterImpl" class="com.ttmv.monitoring.imp.IPHPServerDataInterImpl">
+		<property name="pHPServerDataDaoMapper" ref="pHPServerDataDaoMapper"/>
+	</bean>
+	<bean id="iPHPVideoServerDataInterImpl" class="com.ttmv.monitoring.imp.IPHPVideoServerDataInterImpl">
+		<property name="pHPVideoServerDataDaoMapper" ref="pHPVideoServerDataDaoMapper"/>
+	</bean>
+	<bean id="iPHPManagerServerDataInterImpl" class="com.ttmv.monitoring.imp.IPHPManagerServerDataInterImpl">
+		<property name="pHPManagerServerDataDaoMapper" ref="pHPManagerServerDataDaoMapper"/>
+	</bean>
+	<bean id="iMediaControlDataInterImpl" class="com.ttmv.monitoring.imp.IMediaControlDataInterImpl">
+		<property name="mediaControlDataDaoMapper" ref="mediaControlDataDaoMapper"/>
+	</bean>
+	<bean id="iServerSubSysinfoInterImpl" class="com.ttmv.monitoring.imp.IServerSubSysinfoInterImpl">
+		<property name="serverSubSysinfoDaoMapper" ref="serverSubSysinfoDaoMapper"/>
+	</bean>
+	<bean id="iScreenShotDataInterImpl" class="com.ttmv.monitoring.imp.IScreenShotDataInterImpl">
+		<property name="screenShotDataDaoMapper" ref="screenShotDataDaoMapper"/>
+	</bean>
+	<bean id="iTranscodingDataInterImpl" class="com.ttmv.monitoring.imp.ITranscodingDataInterImpl">
+		<property name="transcodingDataDaoMapper" ref="transcodingDataDaoMapper"/>
+	</bean>
+	<bean id="iWhiteListInterImpl" class="com.ttmv.monitoring.imp.IWhiteListInterImpl">
+		<property name="whiteListDaoMapper" ref="whiteListDaoMapper"/>
+	</bean>
+	<bean id="iAlertRecordInfoInterImpl" class="com.ttmv.monitoring.imp.IAlertRecordInfoInterImpl">
+		<property name="alertRecordInfoDaoMapper" ref="alertRecordInfoDaoMapper"/>
+	</bean>
+	<bean id="iHpServerDataInterImpl" class="com.ttmv.monitoring.imp.IHpServerDataInterImpl">
+		<property name="hpServerDataDaoMapper" ref="hpServerDataDaoMapper"/>
+	</bean>
+	<bean id="iLbsServerDataInterImpl" class="com.ttmv.monitoring.imp.ILbsServerDataInterImpl">
+		<property name="lbsServerDataDaoMapper" ref="lbsServerDataDaoMapper"/>
+	</bean>
+	<bean id="iMdsServerDataInterImpl" class="com.ttmv.monitoring.imp.IMdsServerDataInterImpl">
+		<property name="mdsServerDataDaoMapper" ref="mdsServerDataDaoMapper"/>
+	</bean>
+	<bean id="iMssServerDataInterImpl" class="com.ttmv.monitoring.imp.IMssServerDataInterImpl">
+		<property name="mssServerDataDaoMapper" ref="mssServerDataDaoMapper"/>
+	</bean>
+	<bean id="iMtsServerDataInterImpl" class="com.ttmv.monitoring.imp.IMtsServerDataInterImpl">
+		<property name="mtsServerDataDaoMapper" ref="mtsServerDataDaoMapper"/>
+	</bean>
+	<bean id="iPrsServerDataInterImpl" class="com.ttmv.monitoring.imp.IPrsServerDataInterImpl">
+		<property name="prsServerDataDaoMapper" ref="prsServerDataDaoMapper"/>
+	</bean>
+	<bean id="iRmsServerDataInterImpl" class="com.ttmv.monitoring.imp.IRmsServerDataInterImpl">
+		<property name="rmsServerDataDaoMapper" ref="rmsServerDataDaoMapper"/>
+	</bean>
+	<bean id="iTasServerDataInterImpl" class="com.ttmv.monitoring.imp.ITasServerDataInterImpl">
+		<property name="tasServerDataDaoMapper" ref="tasServerDataDaoMapper"/>
+	</bean>
+	<bean id="iUmsServerDataInterImpl" class="com.ttmv.monitoring.imp.IUmsServerDataInterImpl">
+		<property name="umsServerDataDaoMapper" ref="umsServerDataDaoMapper"/>
+	</bean>
+</beans>

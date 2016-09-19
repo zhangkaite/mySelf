@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans
+							     	 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+							     	">
+
+	<bean id="scheduler" class="org.quartz.impl.StdSchedulerFactory" factory-method="getDefaultScheduler" />
+	<bean id="retryPolicy" class="org.apache.curator.retry.ExponentialBackoffRetry">
+		<constructor-arg value="1000" />
+		<constructor-arg value="20" />
+		<constructor-arg value="10" />
+	</bean>
+	<bean id="zkClient" class="org.apache.curator.framework.CuratorFrameworkFactory"
+		factory-method="newClient">
+		<constructor-arg type="java.lang.String" value="${zookeeper.group.hosts}" />
+		<constructor-arg ref="retryPolicy" />
+	</bean>
+	<bean id="workerRegistered" class="com.datacenter.worker.WorkerRegistered">
+		<constructor-arg ref="zkClient" />
+		<constructor-arg value="/com/ttmv/datacenter/worker" />
+		<constructor-arg ref="scheduler" />
+	</bean>
+	<bean id="initWorker" class="com.datacenter.dams.InitWorker" init-method="init">
+		<property name="scheduler" ref="scheduler" />
+		<property name="workerRegistered" ref="workerRegistered" />
+		<property name="cron" value="${zookeeper.group.cron}" />
+		<property name="map">
+			<map key-type="java.lang.String">
+				<entry key="workerInput">
+					<map key-type="java.lang.String">
+						<entry key="tcoinConsume" value-ref="tcoinConsumeQueueSpendWorker" />
+						<entry key="tquanConsume" value-ref="tquanConsumeQueueSpendWorker" />
+						<entry key="tcoinRechargeWorker" value-ref="tcoinRechargeWorker" />
+						<entry key="tquanRechargeWorker" value-ref="tquanRechargeWorker" />
+						<entry key="brokerageRechargeWorker" value-ref="brokerageRechargeWorker" />
+						<entry key="brokerageConsumeQueueSpendWorker" value-ref="brokerageConsumeQueueSpendWorker" />
+						<entry key="userLoginRecordWorker" value-ref="userLoginRecordWorker" />
+						<entry key="addUserRecordWorker" value-ref="addUserRecordWorker" />
+					</map>
+				</entry>
+				<entry key="workerOutput">
+					<map key-type="java.lang.String">
+						<entry key="richerRankListWorker" value-ref="richerRankListWorker" />
+						<entry key="famouserRankListWorker" value-ref="famouserRankListWorker" />
+						<entry key="activityStarRankOutputWorker" value-ref="activityStarRankOutputWorker" />
+						<entry key="activityUserRankOutputWorker" value-ref="activityUserRankOutputWorker" />
+						<entry key="activitySwingTagOutputWorker" value-ref="activitySwingTagOutputWorker" />
+						<entry key="flowerSpendWorker" value-ref="flowerSpendWorker" />
+						<entry key="monthDownLevelWorker" value-ref="monthDownLevelWorker" />
+						<entry key="starExpIncrementWorker" value-ref="starExpIncrementWorker" />
+						<entry key="starOnlineSpendWorker" value-ref="starOnlineSpendWorker" />
+						<entry key="takeHeartSpendWorker" value-ref="takeHeartSpendWorker" />
+						<entry key="userExpIncrementWorker" value-ref="userExpIncrementWorker" />
+						<entry key="userOnlineSpendWorker" value-ref="userOnlineSpendWorker" />
+						<entry key="userExpOutputWorker" value-ref="userExpOutputWorker" />
+						<entry key="userLevelUpOutputWorker" value-ref="userLevelUpOutputWorker" />
+						<entry key="userExpResetWorker" value-ref="userExpResetWorker" />
+					</map>
+				</entry>
+				<entry key="workerHadoop">
+					<map key-type="java.lang.String">
+						<!--排行榜work开始 -->
+						<entry key="tbRedisToHdfsWorker" value-ref="tbRedisToHdfsWorker" />
+						<entry key="hdfsData2HbaseWorker" value-ref="hdfsData2HbaseWorker" />
+						<entry key="pollRedisJobInfoWorker" value-ref="pollRedisJobInfoWorker" />
+						<!--排行榜work结束 -->
+						<!--财务统计work开始 -->
+						<entry key="allDataToHdfsWorker" value-ref="allDataToHdfsWorker" />
+						<entry key="statisticsMapReduceWorker" value-ref="statisticsMapReduceWorker" />
+						<entry key="statisticResultDataToSdmsWorker" value-ref="statisticResultDataToSdmsWorker" />
+						<!--财务统计work结束 -->
+						<!--运营业务统计work开始 -->
+						<entry key="busStatisticsMapReduceWorker" value-ref="busStatisticsMapReduceWorker" />
+						<entry key="busStatisticResultDataToSdmsWorker" value-ref="busStatisticResultDataToSdmsWorker" />
+						<entry key="userLoginResultDataToSdmsWorker" value-ref="userLoginResultDataToSdmsWorker" />
+						<entry key="userRegisterResultDataToSdmsWorker" value-ref="userRegisterResultDataToSdmsWorker"></entry>
+						<entry key="rechConsMapReduceWorker" value-ref="rechConsMapReduceWorker"></entry>
+						<entry key="rechConsStatisticsWork" value-ref="rechConsStatisticsWork"></entry>
+						<!--运营业务统计work结束 -->
+					</map>
+				</entry>
+				<entry key="workRedis2Hbase">
+					<map key-type="java.lang.String">
+						<!--吊牌活动排行更新work -->
+						<entry key="activityTagsRedisUpHbase" value-ref="activityTagsRedisUpHbase" />
+					</map>
+				</entry>
+			</map>
+		</property>
+	</bean>
+</beans> 

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.ttmv.datacenter.usercenter</groupId>
+  <artifactId>userCenter</artifactId>
+  <version>3.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <name>userCenter</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	<userCenter.version>3.1-SNAPSHOT</userCenter.version>
+  </properties>
+
+  <modules>
+    <!--  <module>userCenter_web</module> -->
+    <module>userCenter_domain</module>
+    <module>userCenter_dao_implement</module>
+    <module>userCenter_dao_interface</module>
+    <module>userCenter_gromit</module>
+    <module>userCenter_service_business</module>
+    <module>userCenter_worker</module>
+    <module>userCenter_statistics</module>
+  </modules>
+</project>

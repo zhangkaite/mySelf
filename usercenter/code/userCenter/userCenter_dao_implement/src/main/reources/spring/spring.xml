@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springwork.org/schema/tx"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans
+							     	 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+							     	 http://www.springframework.org/schema/context     
+							     	 http://www.springframework.org/schema/context/spring-context-3.0.xsd
+							     	 http://www.springframework.org/schema/tx
+							     	 http://www.springframework.org/schema/tx/spring-tx-3.0.xsd ">
+
+	<!-- 配置jdbc.properties -->
+	<context:property-placeholder location="classpath:jdbc.properties" />
+	<!-- 导入各个配置文件 -->
+	<import resource="spring-activemq.xml" />
+	<import resource="mybatis-datasource.xml" />
+	<import resource="spring-solr-implement.xml" />
+	<import resource="spring-hbase-implement.xml" />
+	<import resource="spring-redis-implement.xml" />
+	<import resource="spring-mysql-implement.xml" />
+
+	<!-- 配置sqlSessionFactoryBean；绑定mybatis -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:sql_config.xml" />
+	</bean>
+
+
+	<!-- 配置事务；txManager事务管理 -->
+	<bean id="txManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage"
+			value="com.ttmv.datacenter.usercenter.dao.implement.mapper" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+	</bean>
+
+	<bean id="userInfoDaoImpl"
+		class="com.ttmv.datacenter.usercenter.dao.implement.impl.UserInfoDaoImpl">
+		<property name="updateUserInfoDestination" ref="destination_userInfo_update" />
+		<property name="addUserInfoDestination" ref="destination_userInfo" />
+		<property name="solrUserInfoMapper" ref="solrUserInfoMapper" />
+		<property name="mysqlUserInfoMapper" ref="mysqlUserInfoMapper" />
+		<property name="hbaseUserInfoMapper" ref="hbaseUserInfoMapper" />
+		<property name="redisUserInfoMapper" ref="redisUserInfoMapper" />
+		<property name="jmsTemplate" ref="jmsTemplate" />
+	</bean>
+
+	<bean id="groupDaoImpl"
+		class="com.ttmv.datacenter.usercenter.dao.implement.impl.GroupDaoImpl">
+		<property name="addGroupDestination" ref="destination_group" />
+		<property name="updateGroupDestination" ref="destination_group_update" />
+		<property name="deleteGroupDestination" ref="destination_group_delete" />
+		<property name="solrGroupMapper" ref="solrGroupMapper" />
+		<property name="redisGroupMapper" ref="redisGroupMapper" />
+		<!-- <property name="tableIdGenerate" ref="tableIdGenerate"/> -->
+		<property name="jmsTemplate" ref="jmsTemplate" />
+	</bean>
+
+	<bean id="userLoginRecordDaoImpl"
+		class=" com.ttmv.datacenter.usercenter.dao.implement.impl.UserLoginRecordDaoImpl">
+		<property name="hbaseUserLoginRecordMapper" ref="hbaseUserLoginRecordMapper" />
+		<!-- <property name="tableIdGenerate" ref="tableIdGenerate"/> -->
+	</bean>
+
+	<bean id="terminalForbidDaoImpl"
+		class="com.ttmv.datacenter.usercenter.dao.implement.impl.TerminalForbidDaoImpl">
+		<property name="redisTerminalForbidMapper" ref="redisTerminalForbidMapper" />
+		<!-- <property name="tableIdGenerate" ref="tableIdGenerate"/> -->
+	</bean>
+
+	<bean id="userCrossRelationDaoImpl"
+		class="com.ttmv.datacenter.usercenter.dao.implement.impl.UserCrossRelationDaoImpl">
+		<property name="addUserCrossRelationDestination" ref="destination_userCrossRelation" />
+		<property name="deleteUserCrossRelationDestination" ref="destination_userCrossRelation_delete" />
+		<property name="updateUserCrossRelationDestination" ref="destination_userCrossRelation_update" />
+		<property name="redisUserCrossRelationMapper" ref="redisUserCrossRelationMapper" />
+		<property name="solrUserCrossRelationMapper" ref="solrUserCrossRelationMapper" />
+		<!-- <property name="tableIdGenerate" ref="tableIdGenerate"/> -->
+		<property name="jmsTemplate" ref="jmsTemplate" />
+	</bean>
+
+	<bean id="parameterDaoImpl"
+		class="com.ttmv.datacenter.usercenter.dao.implement.impl.ParameterDaoImpl">
+
+	</bean>
+	
+	<bean id="quickSentry" class="com.ttmv.datacenter.sentry.handle.QuickSentry">
+		<property name="httpRequestPost" ref="httpRequestPost"></property>
+	</bean>
+	<bean id="httpRequestPost" class="com.ttmv.datacenter.sentry.http.HttpRequestPost">
+		<constructor-arg value="http://192.168.13.160:8080/alertingDataReport"></constructor-arg>
+	</bean>
+
+
+	<!-- <bean id="tableIdGenerate" class="com.ttmv.datacenter.usercenter.dao.implement.util.TableIdGenerate"> 
+		<constructor-arg> <ref bean="unifyCounter"/> </constructor-arg> </bean> -->
+
+	<!-- <bean id="unifyCounter" class="com.ttmv.datacenter.generator.GUID.UnifyCounter"> 
+		<constructor-arg value="dc_redis_counter" /> <constructor-arg value="50000" 
+		/> <constructor-arg value="108"/> <constructor-arg value="20"/> <constructor-arg 
+		value="60000"/> <constructor-arg value="30000"/> </bean> -->
+</beans>

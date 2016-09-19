@@ -1,0 +1,26 @@
+dc_zk_service_center 30000
+dc_redis_counter 50000
+dc_zk_coordinator 50001
+dc_zk_control 50002
+
+dc_redis_lock_m1 50003
+dc_redis_lock_m1_s1 50004
+dc_hbase_lock 50040
+
+dc_msgque 50005
+
+uc_redis_token 50039
+
+uc_redis_m1 50031
+uc_redis_m1_s1 50032
+
+uc_solr 50020
+
+uc_mysql_m1 50030
+uc_mysql_m1_s1 50030
+uc_mysql_m1_s2 50030
+uc_mysql_m2 50030
+uc_mysql_m2_s1 50030
+uc_mysql_m2_s2 50030
+
+uc_hbase 50010

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ttmv.monitoring.inter.ServerSubSysinfoMapper" >
+  <resultMap id="BaseResultMap" type="com.ttmv.monitoring.entity.ServerSubSysinfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="sys_type" property="sysType" jdbcType="VARCHAR" />
+    <result column="sys_name" property="sysName" jdbcType="VARCHAR" />
+    <result column="sys_key" property="sysKey" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, sys_type, sys_name, sys_key, remark
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigInteger" >
+    select 
+    <include refid="Base_Column_List" />
+    from server_sub_sysinfo
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+ 
+  <select id="selectBySystype" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from server_sub_sysinfo
+    where sys_type = #{sysType,jdbcType=BIGINT}
+  </select>
+ 
+  <insert id="insertSelective" parameterType="com.ttmv.monitoring.entity.ServerSubSysinfo" >
+    insert into server_sub_sysinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="sysType != null" >
+        sys_type,
+      </if>
+      <if test="sysName != null" >
+        sys_name,
+      </if>
+      <if test="sysKey != null" >
+        sys_key,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="sysType != null" >
+        #{sysType,jdbcType=VARCHAR},
+      </if>
+      <if test="sysName != null" >
+        #{sysName,jdbcType=VARCHAR},
+      </if>
+      <if test="sysKey != null" >
+        #{sysKey,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

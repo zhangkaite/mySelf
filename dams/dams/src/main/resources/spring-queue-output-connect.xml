@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation=" http://www.springframework.org/schema/beans
+							     	 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+							     	  ">
+							     	 
+	<!-- spring管理connectionFactory -->
+	<bean id="connectionFactory" class="org.springframework.jms.connection.SingleConnectionFactory">
+		<property name="targetConnectionFactory" ref="poolConnectionFactory" />
+	</bean>
+	<!-- 产生Connection的ConnectionFactory，由对应的 JMS服务厂商提供 -->
+	<bean id="targetConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+		<property name="brokerURL" value="${PC_ActiveMQ.brokerURL}" />
+		<property name="useAsyncSend" value="true"></property><!--消息异步发送  -->
+	</bean>
+	<!-- mq连接池 -->
+	<bean id="poolConnectionFactory" class="org.apache.activemq.pool.PooledConnectionFactory">
+		<property name="connectionFactory" ref="targetConnectionFactory" />
+		<property name="maxConnections" value="100" />
+	</bean>
+	<!-- 消息发送到服务器 -->
+	<bean id="outputJmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="connectionFactory" />
+	</bean>
+	
+	<!-- spring管理connectionFactory -->
+	<bean id="userExpConnectionFactory" class="org.springframework.jms.connection.SingleConnectionFactory">
+		<property name="targetConnectionFactory" ref="userExpPoolConnectionFactory" />
+	</bean>
+	<!-- 产生Connection的ConnectionFactory，由对应的 JMS服务厂商提供 -->
+	<bean id="userExpTargetConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+		<property name="brokerURL" value="${UserExp.ActiveMQ.brokerURL}" />
+		<property name="useAsyncSend" value="true"></property><!--消息异步发送  -->
+	</bean>
+	<!-- mq连接池 -->
+	<bean id="userExpPoolConnectionFactory" class="org.apache.activemq.pool.PooledConnectionFactory">
+		<property name="connectionFactory" ref="userExpTargetConnectionFactory" />
+		<property name="maxConnections" value="100" />
+	</bean>
+	<!-- 消息发送到服务器 -->
+	<bean id="userExpOutputJmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="userExpConnectionFactory" />
+	</bean>
+	
+	
+	
+	
+	<!-- 富豪排行榜,对SDMS推送队列 -->
+	<bean id="destination_richerranklist" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="${richer.ranklist.queue}" />
+	</bean>
+	<!-- 明星排行榜,对SDMS推送队列 -->
+	<bean id="destination_famouserranklist" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="${famouser.ranklist.queue}" />
+	</bean>
+	<!-- 用户积分排行榜,对SDMS推送队列 -->
+	<bean id="destination_useractivityrank" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="${activity.user.ranklist.queue}" />
+	</bean>
+	<!-- 明星积分排行榜,对SDMS推送队列 -->
+	<bean id="destination_staractivityrank" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="${activity.star.ranklist.queue}" />
+	</bean>
+	<!-- 用户主播经验变更 -->
+	<bean id="destination_userpexp" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="${user.exp}" />
+	</bean>
+</beans>

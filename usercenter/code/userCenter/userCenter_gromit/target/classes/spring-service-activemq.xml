@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+    					http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    					http://www.springframework.org/schema/context     
+						http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<!-- MQ连接池 -->
+	<bean id="connectionFactory" class="org.apache.activemq.pool.PooledConnectionFactory"
+		destroy-method="stop">
+		<property name="connectionFactory" ref="innerConnectionFactory" />
+		<property name="maxConnections" value="200" />
+	</bean>
+
+	<!-- MQ地址配置 -->
+	<bean id="innerConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+		<property name="brokerURL" value="${activeMQ.brokerURL.innerConnectionFactory}" />
+		<property name="useAsyncSend" value="true"></property><!--消息异步发送  -->
+	</bean>
+
+	<bean id="addjmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="connectionFactory"></property>
+		<property name="defaultDestination" ref="destination"></property>
+		<property name="receiveTimeout" value="600"></property>
+	</bean>
+
+	<bean id="logjmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="connectionFactory"></property>
+		<property name="defaultDestination" ref="logdestination"></property>
+		<property name="receiveTimeout" value="600"></property>
+	</bean>
+
+	<bean id="initUserAccountjmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="connectionFactory"></property>
+		<property name="defaultDestination" ref="initUserAccountdestination"></property>
+		<property name="receiveTimeout" value="600"></property>
+	</bean>
+	
+	<bean id="hadoopAddUserjmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="connectionFactory"></property>
+		<property name="defaultDestination" ref="hadoopAddUserdestination"></property>
+		<property name="receiveTimeout" value="600"></property>
+	</bean>
+
+
+
+	<!-- 用户注册队列名称配置 -->
+	<bean id="destination" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg index="0" value="UC_service_addUser_Queue"></constructor-arg>
+	</bean>
+	<!-- 日志记录队列名称配置 -->
+	<bean id="logdestination" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg index="0" value="UC_service_log_Queue"></constructor-arg>
+	</bean>
+	<!-- 资金账户初始化 队列名 -->
+	<bean id="initUserAccountdestination" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg index="0"
+			value="PC_service_initUserAccount_Queue"></constructor-arg>
+	</bean>
+	
+	<!-- hadoop 注册用户统计分析 队列名 -->
+	<bean id="hadoopAddUserdestination" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg index="0"
+			value="HD_addUser_Queue"></constructor-arg>
+	</bean>
+
+
+	<!-- hadoop注册用户消息生产者 -->
+	<bean id="hadoopAddUserTool"
+		class="com.ttmv.datacenter.usercenter.service.facade.tools.HadoopAddUserTool">
+		<property name="hadoopAddUserjmsTemplate" ref="hadoopAddUserjmsTemplate"></property>
+	</bean>
+
+	<!-- 注册用户消息生产者 -->
+	<bean id="msgSenderTool"
+		class="com.ttmv.datacenter.usercenter.service.facade.tools.MsgSenderTool">
+		<property name="addjmsTemplate" ref="addjmsTemplate"></property>
+	</bean>
+	<!-- 日志记录消息生产者 -->
+	<bean id="logMsgSenderTool"
+		class="com.ttmv.datacenter.usercenter.service.facade.tools.LogMsgSenderTool">
+		<property name="logjmsTemplate" ref="logjmsTemplate"></property>
+	</bean>
+	<!-- 资金账户初始化 消息生产 -->
+	<bean id="initUserAccountTool"
+		class="com.ttmv.datacenter.usercenter.service.facade.tools.InitUserAccountTool">
+		<property name="initUserAccountjmsTemplate" ref="initUserAccountjmsTemplate"></property>
+	</bean>
+</beans>

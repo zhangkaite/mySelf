@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springwork.org/schema/tx"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans
+							     	 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+							     	 http://www.springframework.org/schema/context     
+							     	 http://www.springframework.org/schema/context/spring-context-3.0.xsd
+							     	 http://www.springframework.org/schema/tx
+							     	 http://www.springframework.org/schema/tx/spring-tx-3.0.xsd ">
+    <!-- uuidGenerator -->
+	<bean id="uuid_redisAgent" class="com.ttmv.datacenter.agent.redis.jedis.impl.JedisPoolAgent">
+	   <!--  <constructor-arg value="dc_redis_counter" /> --> 
+	   <constructor-arg value="127.0.0.1" />
+		<constructor-arg value="50000" />
+		<constructor-arg value="108"></constructor-arg>
+		<constructor-arg value="20"></constructor-arg>
+		<constructor-arg value="60000"></constructor-arg>
+		<constructor-arg value="30000"></constructor-arg>
+	</bean>	
+	<bean id="generator32" class="com.ttmv.datacenter.generator.GUID.GUIDGenerator32">
+		<constructor-arg ref="uuid_redisAgent" />
+	</bean>
+	<bean id="generator64" class="com.ttmv.datacenter.generator.GUID.GUIDGenerator64">
+		<constructor-arg ref="uuid_redisAgent" />
+	</bean>	
+	
+	<!-- table id 的生成 -->						     	 
+	<bean id="tableIdGenerate" class="com.ttmv.datacenter.paycenter.dao.implement.util.TableIdGenerate">
+		<constructor-arg ref="generator32" />
+	</bean>
+	<bean id="tableIdGenerate64" class="com.ttmv.datacenter.paycenter.dao.implement.util.TableIdGenerate64">
+		<constructor-arg ref="generator64" />
+	</bean>	
+
+</beans>

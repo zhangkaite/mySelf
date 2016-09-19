@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation=" http://www.springframework.org/schema/beans
+							     	 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+							     	  ">
+							     	 
+	<!-- redis队列使用,读取外部队列数据 -->
+	<bean id="dams_outInput_redisPoolConfig" class="com.ttmv.datacenter.agent.redis.RedisPoolConfig">
+	    <constructor-arg value="108"></constructor-arg>
+		<constructor-arg value="20"></constructor-arg>
+		<constructor-arg value="2000"></constructor-arg>
+	</bean>	
+	<bean id="outInputRedisQueueImpi" class="com.ttmv.datacenter.agent.redis.queue.RedisQueueImpi">
+		<constructor-arg value="${outer.input.redisqueue.host}"/>
+		<constructor-arg value="${outer.input.redisqueue.port}"/>
+		<constructor-arg ref="dams_outInput_redisPoolConfig"/>
+		<constructor-arg value="2000"/>
+	</bean>			     	 
+	
+</beans>

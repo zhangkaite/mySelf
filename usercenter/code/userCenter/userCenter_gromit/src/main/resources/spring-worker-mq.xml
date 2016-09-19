@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		    http://www.springframework.org/schema/task 
+		    http://www.springframework.org/schema/task/spring-task-3.0.xsd
+		    http://www.springframework.org/schema/context     
+		    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<import resource="spring.xml"/>
+	<!-- 用户注册service 异步队列 -->
+	<bean id="addUserJmsReceiverListener"
+		class="com.ttmv.datacenter.usercenter.worker.listener.AddUserJmsReceiverListener"
+		init-method="doStart">
+		<property name="url" value="${activeMQ.brokerURL}" />
+		<property name="queue" value="UC_service_addUser_Queue" />
+		<property name="addUserExcuteMessageServiceImpl" ref="addUserExcuteMessageServiceImpl" />
+	</bean>
+	
+	<!-- 用户日志记录service 异步队列 -->
+	<bean id="logjmsReceiverListener"
+		class="com.ttmv.datacenter.usercenter.worker.listener.LogJmsReceiverListener"
+		init-method="doStart">
+		<property name="url" value="${activeMQ.brokerURL}" />
+		<property name="queue" value="UC_service_log_Queue" />
+		<property name="logExcuteMessageServiceImpl" ref="logExcuteMessageServiceImpl" />
+	</bean>
+	
+	<!--  ====================Damon 2015年12月28日15:47:41  ====================== -->
+	<!--用户经验、等级变化监听队列  -->
+	<bean id="upLevelExpJmsReceiverListener"
+		class="com.ttmv.datacenter.usercenter.worker.listener.UpLevelExpJmsReceiverListener"
+		init-method="doStart">
+		<property name="url" value="${activeMQ.brokerURL}" />
+		<property name="queue" value="UC_LevelExp_Queue" />
+		<property name="upLevelExpExcuteMessageServiceImpl" ref="upLevelExpExcuteMessageServiceImpl" />
+	</bean>	
+	<!-- 等级经验变化worker执行器 -->
+	<bean id="upLevelExpExcuteMessageServiceImpl"
+		class="com.ttmv.datacenter.usercenter.worker.service.UpLevelExpExcuteMessageServiceImpl">
+		<property name="levelCallBackServiceImpl" ref="levelCallBackServiceImpl"/>
+	</bean>
+	<!--            ===================      -->
+	
+	
+	<!-- 日志记录worker执行器 -->
+	<bean id="logExcuteMessageServiceImpl"
+		class="com.ttmv.datacenter.usercenter.worker.service.LogExcuteMessageServiceImpl">
+		<property name="workerLoginLogService" ref="workerLoginLogService"/>
+	</bean>
+	
+	<!-- 注册worker执行器 -->
+	<bean id="addUserExcuteMessageServiceImpl"
+		class="com.ttmv.datacenter.usercenter.worker.service.AddUserExcuteMessageServiceImpl">
+		<property name="workerAddUserServiceImpl" ref="workerAddUserServiceImpl"/>
+	</bean>
+	
+	<bean id="workerAddUserServiceImpl" class="com.ttmv.datacenter.usercenter.worker.service.AddUserServiceImpl">
+		<property name="groupDao" ref="groupDaoImpl"/>
+	</bean>
+	
+	<bean id="workerLoginLogService" class="com.ttmv.datacenter.usercenter.worker.service.LoginLogService">
+		<property name="loginRecordDao" ref="userLoginRecordDaoImpl"/>
+	</bean>
+
+
+	<!-- 添加用户信息的监听器 -->
+	<bean id="addUserInfoListener" class="com.ttmv.datacenter.usercenter.worker.daolistener.userinfo.AddUserInfoListener">
+		<property name="solrUserInfoMapper" ref="solrUserInfoMapper" />
+		<property name="hbaseUserInfoMapper" ref="hbaseUserInfoMapper" />
+		<property name="mysqlUserInfoMapper" ref="mysqlUserInfoMapper" />
+		<property name="addUserInfoDestination" ref="destination_userInfo" />
+		<property name="ucErrorDestination" ref="destination_uc_error"/>
+		<property name="jmsTemplate" ref="jmsTemplate" />
+	</bean>
+	<bean id="addContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="destination" ref="destination_userInfo" />
+		<property name="messageListener" ref="addUserInfoListener" />
+	</bean>
+
+	<!-- 修改用户信息的监听器 -->
+	<bean id="updateUserInfoListener" class="com.ttmv.datacenter.usercenter.worker.daolistener.userinfo.UpdateUserInfoListener" >
+		<property name="solrUserInfoMapper" ref="solrUserInfoMapper" />
+		<property name="hbaseUserInfoMapper" ref="hbaseUserInfoMapper" />
+		<property name="mysqlUserInfoMapper" ref="mysqlUserInfoMapper" />
+		<property name="updateUserInfoDestination" ref="destination_userInfo_update" />
+		<property name="ucErrorDestination" ref="destination_uc_error"/>
+		<property name="jmsTemplate" ref="jmsTemplate" />
+	</bean>
+	<bean id="updateContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="destination" ref="destination_userInfo_update" />
+		<property name="messageListener" ref="updateUserInfoListener" />
+	</bean>
+	
+	<!-- Group信息 新增信息 -->
+	<bean id="addGroupListener"
+		class="com.ttmv.datacenter.usercenter.worker.daolistener.group.AddGroupListener">
+		<property name="solrGroupMapper" ref="solrGroupMapper" />
+		<property name="addGroupDestination" ref="destination_group" />
+		<property name="mysqlGroupMapper" ref="mysqlGroupMapper" />
+		<property name="ucErrorDestination" ref="destination_uc_error"/>
+		<property name="jmsTemplate" ref="jmsTemplate" />
+	</bean>
+	<bean id="addGroupContainer"
+		class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="destination" ref="destination_group" />
+		<property name="messageListener" ref="addGroupListener" />
+	</bean>
+
+
+	<!-- Group信息修改信息 -->
+	<bean id="updateGroupListener"
+		class="com.ttmv.datacenter.usercenter.worker.daolistener.group.UpdateGroupListener">
+		<property name="solrGroupMapper" ref="solrGroupMapper" />
+		<property name="mysqlGroupMapper" ref="mysqlGroupMapper" />
+		<property name="updateGroupDestination" ref="destination_group_update" />
+		<property name="ucErrorDestination" ref="destination_uc_error"/>
+		<property name="jmsTemplate" ref="jmsTemplate" />
+	</bean>
+	<bean id="updateGroupContainer"
+		class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="destination" ref="destination_group_update" />
+		<property name="messageListener" ref="updateGroupListener" />
+	</bean>
+
+	<!-- Group信息删除信息 -->
+	<bean id="deleteGroupListener"
+		class="com.ttmv.datacenter.usercenter.worker.daolistener.group.DeleteGroupListener">
+		<property name="solrGroupMapper" ref="solrGroupMapper" />
+		<property name="mysqlGroupMapper" ref="mysqlGroupMapper" />
+		<property name="deleteGroupDestination" ref="destination_group_delete" />
+		<property name="ucErrorDestination" ref="destination_uc_error"/>
+		<property name="jmsTemplate" ref="jmsTemplate" />
+	</bean>
+	<bean id="deleteGroupContainer"
+		class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="destination" ref="destination_group_delete" />
+		<property name="messageListener" ref="deleteGroupListener" />
+	</bean>
+
+	<!-- 添加用户好友 -->
+	<bean id="addCrossRelationListener"
+		class="com.ttmv.datacenter.usercenter.worker.daolistener.crossrelation.AddCrossRelationListener">
+		<property name="solrUserCrossRelationMapper" ref="solrUserCrossRelationMapper" />
+		<property name="mysqlUserCrossRelationMapper" ref="mysqlUserCrossRelationMapper" />
+		<property name="addCrossDestination" ref="destination_userCrossRelation" />
+		<property name="ucErrorDestination" ref="destination_uc_error"/>
+		<property name="jmsTemplate" ref="jmsTemplate" />
+	</bean>
+	<bean id="addCrossRelationContainer"
+		class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="destination" ref="destination_userCrossRelation" />
+		<property name="messageListener" ref="addCrossRelationListener" />
+	</bean>
+
+	<!-- 更新用户好友 -->
+	<bean id="updateCrossRelationListener"
+		class="com.ttmv.datacenter.usercenter.worker.daolistener.crossrelation.UpdateCrossRelationListener">
+		<property name="solrUserCrossRelationMapper" ref="solrUserCrossRelationMapper" />
+		<property name="mysqlUserCrossRelationMapper" ref="mysqlUserCrossRelationMapper" />
+		<property name="updateCrossDestination" ref="destination_userCrossRelation_update" />
+		<property name="ucErrorDestination" ref="destination_uc_error"/>
+		<property name="jmsTemplate" ref="jmsTemplate" />
+	</bean>
+	<bean id="updateCrossRelationContainer"
+		class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="destination" ref="destination_userCrossRelation_update" />
+		<property name="messageListener" ref="updateCrossRelationListener" />
+	</bean>
+
+	<!-- 删除用户好友 -->
+	<bean id="deleteCrossRelationListener"
+		class="com.ttmv.datacenter.usercenter.worker.daolistener.crossrelation.DeleteCrossRelationListener">
+		<property name="solrUserCrossRelationMapper" ref="solrUserCrossRelationMapper" />
+		<property name="mysqlUserCrossRelationMapper" ref="mysqlUserCrossRelationMapper" />
+		<property name="deleteCrossDestination" ref="destination_userCrossRelation_delete" />
+		<property name="ucErrorDestination" ref="destination_uc_error"/>
+		<property name="jmsTemplate" ref="jmsTemplate" />
+	</bean>
+	<bean id="deleteCrossRelationContainer"
+		class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="destination" ref="destination_userCrossRelation_delete" />
+		<property name="messageListener" ref="deleteCrossRelationListener" />
+	</bean> 
+	
+	<!-- mysqlUserInfo回刷 -->
+	<bean id="mysqlUserInfoFlushDataSolrUserInfo" class="com.ttmv.datacenter.usercenter.worker.daolistener.userinfo.MysqlUserInfoFlushDataSolrUserInfo">
+		<property name="mysqlUserInfoMapper" ref="mysqlUserInfoMapper" />
+		<property name="hbaseUserInfoMapper" ref="hbaseUserInfoMapper" />
+		<property name="solrUserInfoMapper" ref="solrUserInfoMapper" />
+	</bean>
+	 <!-- <task:scheduled-tasks>   
+        <task:scheduled ref="mysqlUserInfoFlushDataSolrUserInfo" method="executeFlush" cron="* 0/1 * * * ?"/>   
+	</task:scheduled-tasks>  
+	<context:component-scan base-package="com.ttmv.datacenter.usercenter.worker.daolistener"/>  -->
+	<!-- mysqGroup回刷 -->
+	<bean id="mysqlGroupFlushDataSolrGroup" class="com.ttmv.datacenter.usercenter.worker.daolistener.group.MysqlGroupFlushDataSolrGroup">
+		<property name="mysqlGroupMapper" ref="mysqlGroupMapper" />
+		<property name="solrGroupMapper" ref="solrGroupMapper" />	
+	</bean>
+	
+	<!-- mysqlUserCrossRelation回刷 -->
+	<bean id="mysqlCrossRelationFlushDataSolrCrossRelation" class="com.ttmv.datacenter.usercenter.worker.daolistener.crossrelation.MysqlCrossRelationFlushDataSolrCrossRelation">
+		<property name="mysqlUserCrossRelationMapper" ref="mysqlUserCrossRelationMapper" />
+		<property name="solrUserCrossRelationMapper" ref="solrUserCrossRelationMapper" />
+	</bean>
+</beans>

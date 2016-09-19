@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springwork.org/schema/tx"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans
+							     	 http://www.springframework.org/schema/beans/spring-beans-4.0.xsd 
+							     	 http://www.springframework.org/schema/context     
+							     	 http://www.springframework.org/schema/context/spring-context-4.0.xsd
+							     	 http://www.springframework.org/schema/tx
+							     	 http://www.springframework.org/schema/tx/spring-tx-4.0.xsd 
+							     	 http://www.springframework.org/schema/task
+							     	 http://www.springframework.org/schema/task/spring-task-4.0.xsd">
+	<!-- 导入propertites文件 -->
+	<context:property-placeholder location="classpath:overdue.all.properties" />					     
+	<context:annotation-config/>
+	<context:component-scan base-package="com.ttmv.dao"/>	
+	     	
+	<!-- 配置主 dataSource 数据源c3p0 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${jdbc.driver_m1}" />
+		<property name="jdbcUrl" value="${jdbc.url_m1}" />
+		<property name="user" value="${jdbc.username_m1}" />
+		<property name="password" value="${jdbc.password_m1}" />
+		<!--连接池中保留的最大连接数。默认值: 15 -->   
+        <property name="maxPoolSize" value="200"/>  
+        <!-- 连接池中保留的最小连接数，默认为：3-->  
+        <property name="minPoolSize" value="5"/>  
+        <!-- 当连接池连接耗尽时，客户端调用getConnection()后等待获取新连接的时间，超时后将抛出SQLException，如设为0则无限期等待。单位毫秒。默认: 0 -->   
+        <property name="checkoutTimeout" value="3000"/>  
+        <!--最大空闲时间，3600秒内未使用则连接被丢弃。若为0则永不丢弃。默认值: 0 -->   
+        <property name="maxIdleTime" value="3600"/>      
+	</bean>
+    
+	<!-- 配置sqlSessionFactoryBean；绑定mybatis -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:sql_config.xml" />
+	</bean>
+
+	<!-- 配置事务；txManager事务管理 -->
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.ttmv.dao.mapper.mysql" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+	</bean>
+		
+	<!--****** EC redis pool config连接池配置  ******-->
+	<bean id="ec_redisPoolConfig" class="com.ttmv.datacenter.agent.redis.RedisPoolConfig">
+	    <constructor-arg value="108"></constructor-arg>
+		<constructor-arg value="20"></constructor-arg>
+		<constructor-arg value="60000"></constructor-arg>
+	</bean>	
+	<bean id="jedisAgent" class="com.ttmv.datacenter.agent.redis.jedis.impl.JedisPoolAgent">
+		<constructor-arg value="${jedisAgent.host}"/>
+		<constructor-arg value="${jedisAgent.dc.overdue.port}"/>
+		<constructor-arg ref="ec_redisPoolConfig"/>
+		<constructor-arg value="30000"/>
+	</bean>
+	
+	<!-- redis队列 -->
+	<bean id="jedisAgentImQueue" class="com.ttmv.datacenter.agent.redis.queue.RedisQueueImpi">
+		<constructor-arg value="${jedisAgent.host}"/><!-- ip地址 -->
+		<constructor-arg value="${jedisAgent.ot.overdue.port}"/><!-- 端口 -->
+		<constructor-arg ref="ec_redisPoolConfig"/>
+		<constructor-arg value="30000"/>
+	</bean>
+	
+	<!-- redis队列 -->
+	<bean id="jedisAgentPhpQueue" class="com.ttmv.datacenter.agent.redis.queue.RedisQueueImpi">
+		<constructor-arg value="${jedisAgent.host}"/><!-- ip地址 -->
+		<constructor-arg value="${jedisAgent.ot.overdue.port}"/><!-- 端口 -->
+		<constructor-arg ref="ec_redisPoolConfig"/>
+		<constructor-arg value="30000"/>
+	</bean>
+	
+	<!-- 监控代理 -->
+	<bean id="quickSentry" class="com.ttmv.datacenter.sentry.handle.QuickSentry">
+	    <property name="httpRequestPost" ref="httpRequestPost"></property>
+	    <property name="queue" ref="queue"></property>
+	</bean>
+	
+	<bean id="queue" class="java.util.LinkedList"></bean> 
+	
+    <bean id="httpRequestPost" class="com.ttmv.datacenter.sentry.http.HttpRequestPost">
+       <constructor-arg value="${userCenterSMSAgentUrl}"></constructor-arg>
+    </bean>
+    
+    <!-- <task:scheduled-tasks>
+		<task:scheduled ref="quickSentry" method="start" cron=" 0/10 * * * * ?" />
+	</task:scheduled-tasks> -->
+</beans>

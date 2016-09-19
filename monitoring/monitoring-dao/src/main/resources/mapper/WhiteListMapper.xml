@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ttmv.monitoring.inter.WhiteListMapper" >
+  <resultMap id="BaseResultMap" type="com.ttmv.monitoring.entity.WhiteList" >
+     <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="start_ip" property="startIp" jdbcType="VARCHAR" />
+    <result column="end_ip" property="endIp" jdbcType="VARCHAR" />
+  </resultMap>
+   <sql id="Base_Column_List" >
+    id, type, start_ip, end_ip
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigInteger" >
+    select 
+    <include refid="Base_Column_List" />
+    from ip_allowed
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectByConditions" resultMap="BaseResultMap" parameterType="com.ttmv.monitoring.entity.WhiteList" >
+    select 
+    <include refid="Base_Column_List" />
+    from ip_allowed
+    where 1=1 
+    <if test="type != null" >
+       and type = #{type,jdbcType=INTEGER}
+      </if>
+      <if test="startIp != null" >
+       and start_ip =  #{startIp,jdbcType=VARCHAR}
+      </if>
+      <if test="endIp != null" >
+        and end_ip = #{endIp,jdbcType=VARCHAR}
+      </if>
+  </select>
+  
+  <!-- 模糊条件查询  -->
+   <select id="selectByFuzzyConditions" resultMap="BaseResultMap" parameterType="com.ttmv.monitoring.entity.querybean.WhiteListQuery" >
+    select 
+    <include refid="Base_Column_List" />
+    from ip_allowed
+    where 1=1
+      <if test="startIp != null and ''!= startIp" >
+       and start_ip = #{startIp,jdbcType=INTEGER}
+      </if>
+       limit #{start},#{pageSize}
+  </select>
+  
+  <!-- 模糊条件查询 , 查询全部  -->
+   <select id="selectByFuzzyConditionsAll" resultType="java.lang.Integer" parameterType="com.ttmv.monitoring.entity.querybean.WhiteListQuery" >
+    select 
+    count(*)
+    from ip_allowed
+    where 1=1
+     <if test="startIp != null and ''!= startIp" >
+       and start_ip = #{startIp,jdbcType=INTEGER}
+      </if>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigInteger" >
+    delete from ip_allowed
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  
+  <insert id="insertSelective" parameterType="com.ttmv.monitoring.entity.WhiteList" >
+    insert into ip_allowed
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="startIp != null" >
+        start_ip,
+      </if>
+      <if test="endIp != null" >
+        end_ip,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="startIp != null" >
+        #{startIp,jdbcType=VARCHAR},
+      </if>
+      <if test="endIp != null" >
+        #{endIp,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.ttmv.monitoring.entity.WhiteList" >
+   update ip_allowed
+    <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="startIp != null" >
+        start_ip = #{startIp,jdbcType=VARCHAR},
+      </if>
+      <if test="endIp != null" >
+        end_ip = #{endIp,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

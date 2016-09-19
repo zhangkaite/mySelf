@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/task  
+	http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+
+	<import resource="spring/spring.xml" />
+<!-- 	<bean id="addHbaseRowKeysListener"
+		class="com.ttmv.datacenter.paycenter.worker.listener.AddHbaseRowKeysListener">
+		<property name="mysqlBrokerageInfoMapper" ref="mysqlBrokerageInfoMapper" />
+		<property name="mysqlTcoinInfoMapper" ref="mysqlTcoinInfoMapper" />
+		<property name="mysqlTquanInfoMapper" ref="mysqlTquanInfoMapper" />
+		<property name="hbaseOperationInfoMapper" ref="hbaseOperationInfoMapper" />
+	</bean>
+
+
+	<bean id="addHbaseRowKeysContainer"
+		class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="destination" ref="destination_addHbase" />
+		<property name="messageListener" ref="addHbaseRowKeysListener" />
+	</bean> -->
+
+	<bean id="operationTaskTimer"
+	class="com.ttmv.datacenter.paycenter.worker.paycenter.OperationTaskTimer">
+		<property name="mysqlBrokerageInfoMapper" ref="mysqlBrokerageInfoMapper"/>
+		<property name="mysqlTcoinInfoMapper" ref="mysqlTcoinInfoMapper"/>
+		<property name="mysqlTquanInfoMapper" ref="mysqlTquanInfoMapper"/>
+		<property name="hbaseOperationInfoMapper" ref="hbaseOperationInfoMapper"/>
+		<property name="timeRedisMapper" ref="timeRedisMapper"/>
+	</bean>
+	
+	<bean id="timeRedisMapper" class="com.ttmv.datacenter.paycenter.worker.paycenter.time.TimeRedisMapper"/>
+	
+	<task:scheduled-tasks>
+		<task:scheduled ref="operationTaskTimer" method="taskTimer" cron="0 0/1 * * * ?" />
+	</task:scheduled-tasks>
+
+</beans>

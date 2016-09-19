@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springwork.org/schema/tx"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans
+							     	 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+							     	 http://www.springframework.org/schema/context     
+							     	 http://www.springframework.org/schema/context/spring-context-3.0.xsd
+							     	 http://www.springframework.org/schema/tx
+							     	 http://www.springframework.org/schema/tx/spring-tx-3.0.xsd ">
+
+	<!-- 余额查询 --> 
+	<bean id="userQueryAccountBalanceServiceImpl"
+		class="com.ttmv.datacenter.paycenter.service.facade.impl.query.UserQueryAccountBalanceServiceImpl">
+		<property name="accountInfoDao" ref="accountInfoDaoImpl"/>
+	</bean>
+	
+	<!-- T币充值 -->
+	<bean id="tBRechargeServiceImpl"
+		class="com.ttmv.datacenter.paycenter.service.facade.impl.account.TBRechargeServiceImpl">
+		<property name="tcoinInfoDao" ref="tcoinInfoDaoImpl" />
+		<property name="damsPcTBRechargeTool" ref="damsPcTBRechargeTool" />
+		<property name="controlAgent" ref="controlAgent" />
+	</bean>
+	
+	<!-- T币消费 -->
+	<bean id="tBConsumeServiceImpl"
+		class="com.ttmv.datacenter.paycenter.service.facade.impl.account.TBConsumeServiceImpl">
+		<property name="tcoinInfoDao" ref="tcoinInfoDaoImpl" />
+		<property name="damsPcTBConsumeTool" ref="damsPcTBConsumeTool" />
+		<property name="controlAgent" ref="controlAgent" />
+	</bean>
+	
+	<!-- T券充值 -->
+	<bean id="tQRechargeServiceImpl"
+		class="com.ttmv.datacenter.paycenter.service.facade.impl.account.TQRechargeServiceImpl">
+		<property name="tquanInfoDao" ref="tquanInfoDaoImpl" />
+		<property name="damsPcTQRechargeTool" ref="damsPcTQRechargeTool" />
+		<property name="controlAgent" ref="controlAgent" />
+	</bean>
+	
+	<!-- T券消费 -->
+	<bean id="tQConsumeServiceImpl"
+		class="com.ttmv.datacenter.paycenter.service.facade.impl.account.TQConsumeServiceImpl">
+		<property name="tquanInfoDao" ref="tquanInfoDaoImpl" />
+		<property name="damsPcTQConsumeTool" ref="damsPcTQConsumeTool" />
+		<property name="controlAgent" ref="controlAgent" />
+	</bean>
+	
+	<!-- 佣金转入 -->
+	<bean id="brokerageRechargeServiceImpl"
+		class="com.ttmv.datacenter.paycenter.service.facade.impl.account.BrokerageRechargeServiceImpl">
+		<property name="brokerageInfoDao" ref="brokerageInfoDaoImpl" />
+		<property name="damsPcYJRechargeTool" ref="damsPcYJRechargeTool" />
+		<property name="controlAgent" ref="controlAgent" />
+		
+	</bean>
+	
+	<!-- 佣金提现 -->
+	<bean id="brokerageConsumeServiceImpl"
+		class="com.ttmv.datacenter.paycenter.service.facade.impl.account.BrokerageConsumeServiceImpl">
+		<property name="brokerageInfoDao" ref="brokerageInfoDaoImpl" />
+		<property name="damsPcYJConsumeTool" ref="damsPcYJConsumeTool" />
+		<property name="controlAgent" ref="controlAgent" />
+	</bean>
+	
+	<!-- T券orT币消费 -->
+	<bean id="tQorTBConsumeServiceImpl"
+		class="com.ttmv.datacenter.paycenter.service.facade.impl.account.TQorTBConsumeServiceImpl">
+		<property name="tbConsumeService" ref="tBConsumeServiceImpl" />
+		<property name="tqConsumeService" ref="tQConsumeServiceImpl" />
+	</bean>
+	
+</beans>

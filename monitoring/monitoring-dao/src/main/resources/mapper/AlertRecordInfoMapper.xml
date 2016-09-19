@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ttmv.monitoring.inter.AlertRecordInfoDaoMapper" >
+  <resultMap id="BaseResultMap" type="com.ttmv.monitoring.entity.AlertRecordInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="server_type" property="serverType" jdbcType="VARCHAR" />
+    <result column="server_id" property="serverId" jdbcType="VARCHAR" />
+    <result column="alert_type" property="alertType" jdbcType="VARCHAR" />
+    <result column="alert_time" property="alertTime" jdbcType="TIMESTAMP" />
+    <result column="alert_msg" property="alertMsg" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, ip, server_type, alert_type, alert_time, alert_msg,server_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigInteger" >
+    select 
+    <include refid="Base_Column_List" />
+    from alerter_record
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+
+   <!-- 精确条件查询  -->
+   <select id="selectByConditions" resultMap="BaseResultMap" parameterType="com.ttmv.monitoring.entity.AlertRecordInfo" >
+    select 
+    <include refid="Base_Column_List" />
+    from alerter_record
+    where 1=1
+     <if test="ip != null and ''!= ip" >
+      and ip = #{ip,jdbcType=VARCHAR}
+     </if>
+     <if test="serverType != null and ''!= serverType" >
+      and server_type = #{serverType,jdbcType=VARCHAR}
+     </if>
+     <if test="alertType != null and ''!= alertType" >
+      and alert_type = #{alertType,jdbcType=VARCHAR}
+     </if>
+   </select>
+  
+   <!-- 模糊条件查询  -->
+   <select id="selectByFuzzyConditions" resultMap="BaseResultMap" parameterType="com.ttmv.monitoring.entity.querybean.AlertRecordInfoQuery" >
+    select 
+    <include refid="Base_Column_List" />
+    from alerter_record
+    where 1=1
+      <if test="ip != null and ''!= ip" >
+      and ip = #{ip,jdbcType=VARCHAR}
+     </if>
+     <if test="serverType != null and ''!= serverType" >
+      and server_type = #{serverType,jdbcType=VARCHAR}
+     </if>
+     <if test="alertType != null and ''!= alertType" >
+      and alert_type = #{alertType,jdbcType=VARCHAR}
+      </if>
+      <if test="startTime != null and ''!= startTime and endTime != null and ''!=endTime" >
+      and alert_time between #{startTime,jdbcType=VARCHAR} and #{endTime,jdbcType=VARCHAR} 
+      </if>
+      <if test="startTime != null and ''!= startTime and endTime == null " >
+      	and alert_time &gt;= #{startTime,jdbcType=VARCHAR} 
+      </if>
+       <if test="startTime == null and endTime != null and ''!=endTime" >
+      	and alert_time &lt;= #{endTime,jdbcType=VARCHAR} 
+      </if>
+      	order by alert_time desc limit ${start},${pageSize}
+   </select>
+  
+   <!-- 模糊条件查询 , 查询全部  -->
+   <select id="selectByFuzzyConditionsAll" resultType="java.lang.Integer" parameterType="com.ttmv.monitoring.entity.querybean.AlertRecordInfoQuery" >
+    select 
+    count(*)
+    from alerter_record
+    where 1=1
+     <if test="ip != null and ''!= ip" >
+      and ip = #{ip,jdbcType=VARCHAR}
+     </if>
+     <if test="serverType != null and ''!= serverType" >
+      and server_type = #{serverType,jdbcType=VARCHAR}
+     </if>
+     <if test="alertType != null and ''!= alertType" >
+      and alert_type = #{alertType,jdbcType=VARCHAR}
+      </if>
+      <if test="startTime != null and ''!= startTime and endTime != null and ''!=endTime" >
+      and alert_time between #{startTime,jdbcType=VARCHAR} and #{endTime,jdbcType=VARCHAR} 
+      </if>
+      <if test="startTime != null and ''!= startTime and endTime == null " >
+      	and alert_time &gt;= #{startTime,jdbcType=VARCHAR} 
+      </if>
+       <if test="startTime == null and endTime != null and ''!=endTime" >
+      	and alert_time &lt;= #{endTime,jdbcType=VARCHAR} 
+      </if>
+  </select>
+  
+  <insert id="insertSelective" parameterType="com.ttmv.monitoring.entity.AlertRecordInfo" >
+    insert into alerter_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="ip != null" >
+        ip,
+      </if>
+      <if test="serverType != null" >
+        server_type,
+      </if>
+      <if test="serverId != null" >
+        server_id,
+      </if>
+      <if test="alertType != null" >
+        alert_type,
+      </if>
+      <if test="alertTime != null" >
+        alert_time,
+      </if>
+      <if test="alertMsg != null" >
+        alert_msg,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="serverType != null" >
+        #{serverType,jdbcType=VARCHAR},
+      </if>
+      <if test="serverType != null" >
+        #{serverId,jdbcType=VARCHAR},
+      </if>
+      <if test="alertType != null" >
+        #{alertType,jdbcType=VARCHAR},
+      </if>
+      <if test="alertTime != null" >
+        #{alertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="alertMsg != null" >
+        #{alertMsg,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

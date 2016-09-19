@@ -1,0 +1,11 @@
+dbcp.default.connectURI=jdbc:mysql://10.0.1.201:3306/paycenter?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf8
+dbcp.default.username=root
+dbcp.default.password=root
+dbcp.default.driverClassName=com.mysql.jdbc.Driver
+dbcp.default.initialSize=0
+dbcp.default.maxActive=20
+dbcp.default.maxIdle=10
+dbcp.default.maxWait=60000
+pchome=/home/flume/log/pCenter
+flagFile=/home/flume/log/log.txt
+excFile=/home/flume/log/error.txt

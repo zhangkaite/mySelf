@@ -1,0 +1,1337 @@
+Failed to connect to que.
+javax.jms.JMSException: Could not connect to broker URL: tcp://dcMsgQue:50005. Reason: java.net.ConnectException: Connection refused: connect
+	at org.apache.activemq.util.JMSExceptionSupport.create(JMSExceptionSupport.java:36)
+	at org.apache.activemq.ActiveMQConnectionFactory.createActiveMQConnection(ActiveMQConnectionFactory.java:358)
+	at org.apache.activemq.ActiveMQConnectionFactory.createActiveMQConnection(ActiveMQConnectionFactory.java:303)
+	at org.apache.activemq.ActiveMQConnectionFactory.createConnection(ActiveMQConnectionFactory.java:243)
+	at org.jam.dataflow.worker.WorkerManager.<init>(WorkerManager.java:56)
+	at org.jam.dataflow.Dataflow.<init>(Dataflow.java:51)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:526)
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:126)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:74)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:958)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:911)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:485)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:456)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:291)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:288)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:190)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:580)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:895)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:425)
+	at org.springframework.context.support.ClassPathXmlApplicationContext.<init>(ClassPathXmlApplicationContext.java:139)
+	at org.springframework.context.support.ClassPathXmlApplicationContext.<init>(ClassPathXmlApplicationContext.java:93)
+	at com.ttmv.datacenter.paycenter.GromitStart.getSpringContainer(GromitStart.java:68)
+	at com.ttmv.datacenter.paycenter.GromitStart.main(GromitStart.java:35)
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.net.DualStackPlainSocketImpl.waitForConnect(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:85)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:339)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:200)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:182)
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:579)
+	at org.apache.activemq.transport.tcp.TcpTransport.connect(TcpTransport.java:501)
+	at org.apache.activemq.transport.tcp.TcpTransport.doStart(TcpTransport.java:464)
+	at org.apache.activemq.util.ServiceSupport.start(ServiceSupport.java:55)
+	at org.apache.activemq.transport.AbstractInactivityMonitor.start(AbstractInactivityMonitor.java:138)
+	at org.apache.activemq.transport.TransportFilter.start(TransportFilter.java:58)
+	at org.apache.activemq.transport.WireFormatNegotiator.start(WireFormatNegotiator.java:72)
+	at org.apache.activemq.transport.TransportFilter.start(TransportFilter.java:58)
+	at org.apache.activemq.transport.TransportFilter.start(TransportFilter.java:58)
+	at org.apache.activemq.ActiveMQConnectionFactory.createActiveMQConnection(ActiveMQConnectionFactory.java:338)
+	... 25 more
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect to que.
+javax.jms.JMSException: Could not connect to broker URL: tcp://dcMsgQue:50005. Reason: java.net.ConnectException: Connection refused: connect
+	at org.apache.activemq.util.JMSExceptionSupport.create(JMSExceptionSupport.java:36)
+	at org.apache.activemq.ActiveMQConnectionFactory.createActiveMQConnection(ActiveMQConnectionFactory.java:358)
+	at org.apache.activemq.ActiveMQConnectionFactory.createActiveMQConnection(ActiveMQConnectionFactory.java:303)
+	at org.apache.activemq.ActiveMQConnectionFactory.createConnection(ActiveMQConnectionFactory.java:243)
+	at org.jam.dataflow.worker.WorkerManager.<init>(WorkerManager.java:56)
+	at org.jam.dataflow.Dataflow.<init>(Dataflow.java:51)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:526)
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:126)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:74)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:958)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:911)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:485)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:456)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:291)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:288)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:190)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:580)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:895)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:425)
+	at org.springframework.context.support.ClassPathXmlApplicationContext.<init>(ClassPathXmlApplicationContext.java:139)
+	at org.springframework.context.support.ClassPathXmlApplicationContext.<init>(ClassPathXmlApplicationContext.java:93)
+	at com.ttmv.datacenter.paycenter.GromitStart.getSpringContainer(GromitStart.java:68)
+	at com.ttmv.datacenter.paycenter.GromitStart.main(GromitStart.java:35)
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.net.DualStackPlainSocketImpl.waitForConnect(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:85)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:339)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:200)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:182)
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:579)
+	at org.apache.activemq.transport.tcp.TcpTransport.connect(TcpTransport.java:501)
+	at org.apache.activemq.transport.tcp.TcpTransport.doStart(TcpTransport.java:464)
+	at org.apache.activemq.util.ServiceSupport.start(ServiceSupport.java:55)
+	at org.apache.activemq.transport.AbstractInactivityMonitor.start(AbstractInactivityMonitor.java:138)
+	at org.apache.activemq.transport.TransportFilter.start(TransportFilter.java:58)
+	at org.apache.activemq.transport.WireFormatNegotiator.start(WireFormatNegotiator.java:72)
+	at org.apache.activemq.transport.TransportFilter.start(TransportFilter.java:58)
+	at org.apache.activemq.transport.TransportFilter.start(TransportFilter.java:58)
+	at org.apache.activemq.ActiveMQConnectionFactory.createActiveMQConnection(ActiveMQConnectionFactory.java:338)
+	... 25 more
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Failed to connect to que.
+javax.jms.JMSException: Could not connect to broker URL: tcp://dcMsgQue:50005. Reason: java.net.ConnectException: Connection refused: connect
+	at org.apache.activemq.util.JMSExceptionSupport.create(JMSExceptionSupport.java:36)
+	at org.apache.activemq.ActiveMQConnectionFactory.createActiveMQConnection(ActiveMQConnectionFactory.java:358)
+	at org.apache.activemq.ActiveMQConnectionFactory.createActiveMQConnection(ActiveMQConnectionFactory.java:303)
+	at org.apache.activemq.ActiveMQConnectionFactory.createConnection(ActiveMQConnectionFactory.java:243)
+	at org.jam.dataflow.worker.WorkerManager.<init>(WorkerManager.java:56)
+	at org.jam.dataflow.Dataflow.<init>(Dataflow.java:51)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:526)
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:126)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:74)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:958)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:911)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:485)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:456)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:291)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:288)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:190)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:580)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:895)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:425)
+	at org.springframework.context.support.ClassPathXmlApplicationContext.<init>(ClassPathXmlApplicationContext.java:139)
+	at org.springframework.context.support.ClassPathXmlApplicationContext.<init>(ClassPathXmlApplicationContext.java:93)
+	at com.ttmv.datacenter.paycenter.GromitStart.getSpringContainer(GromitStart.java:68)
+	at com.ttmv.datacenter.paycenter.GromitStart.main(GromitStart.java:35)
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.net.DualStackPlainSocketImpl.waitForConnect(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:85)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:339)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:200)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:182)
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:579)
+	at org.apache.activemq.transport.tcp.TcpTransport.connect(TcpTransport.java:501)
+	at org.apache.activemq.transport.tcp.TcpTransport.doStart(TcpTransport.java:464)
+	at org.apache.activemq.util.ServiceSupport.start(ServiceSupport.java:55)
+	at org.apache.activemq.transport.AbstractInactivityMonitor.start(AbstractInactivityMonitor.java:138)
+	at org.apache.activemq.transport.TransportFilter.start(TransportFilter.java:58)
+	at org.apache.activemq.transport.WireFormatNegotiator.start(WireFormatNegotiator.java:72)
+	at org.apache.activemq.transport.TransportFilter.start(TransportFilter.java:58)
+	at org.apache.activemq.transport.TransportFilter.start(TransportFilter.java:58)
+	at org.apache.activemq.ActiveMQConnectionFactory.createActiveMQConnection(ActiveMQConnectionFactory.java:338)
+	... 25 more
+Failed to connect que.
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:28)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Job dataflowJob.org.jam.dataflow.worker.flow.WritePostDB threw an unhandled Exception: 
+java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:52)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Job (dataflowJob.org.jam.dataflow.worker.flow.WritePostDB threw an exception.
+org.quartz.SchedulerException: Job threw an unhandled exception. [See nested exception: java.lang.NullPointerException]
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:213)
+	at org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+Caused by: java.lang.NullPointerException
+	at org.jam.dataflow.worker.flow.WritePostDB.execute(WritePostDB.java:52)
+	at org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	... 1 more

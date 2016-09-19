@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans
+							     	 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+							     	 ">
+							     	 
+	<!-- 支付中心获取Tcoin消费数据,定时任务 -->
+	<bean id="tcoinConsumeQueueSpendWorker" class="com.datacenter.dams.input.queue.woker.TcoinConsumeQueueSpendWorker"/>
+	
+	<!-- 支付中心获取Tquan消费数据,定时任务 -->
+	<bean id="tquanConsumeQueueSpendWorker" class="com.datacenter.dams.input.queue.woker.TquanConsumeQueueSpendWorker"/>
+
+	<!-- 主播经验清零worker -->
+	<bean id="userExpResetWorker" class="com.datacenter.dams.input.queue.woker.UserExpResetWorker"/>
+	
+	<!-- 送花 -->
+	<bean id="flowerSpendWorker" class="com.datacenter.dams.input.redis.worker.FlowerSpendWorker"/>
+	
+	<!-- 送心 -->
+	<bean id="takeHeartSpendWorker" class="com.datacenter.dams.input.redis.worker.TakeHeartSpendWorker"/>
+	 
+	<!-- 明星经验增长worker -->
+	<bean id="starExpIncrementWorker" class="com.datacenter.dams.input.redis.worker.StarExpIncrementWorker"/>
+	
+	<!-- 用户经验增长worker -->
+	<bean id="userExpIncrementWorker" class="com.datacenter.dams.input.redis.worker.UserExpIncrementWorker"/>
+	 
+	<!-- 用户麦时 -->
+	<bean id="userOnlineSpendWorker" class="com.datacenter.dams.input.redis.worker.UserOnlineSpendWorker"/>
+	
+	<!-- 主播在线麦时 -->
+	<bean id="starOnlineSpendWorker" class="com.datacenter.dams.input.redis.worker.StarOnlineSpendWorker"/>
+	
+	<!-- 月度降级worker -->
+	<bean id="monthDownLevelWorker" class="com.datacenter.dams.input.redis.worker.MonthDownLevelWorker"/>
+	
+	<!-- TB充值 -->
+	<bean id="tcoinRechargeWorker" class="com.datacenter.dams.input.queue.woker.TcoinRechargeWorker"/>
+	
+	<!-- TQ充值 -->
+	<bean id="tquanRechargeWorker" class="com.datacenter.dams.input.queue.woker.TquanRechargeWorker"/>
+	
+	<!-- 佣金兑换 -->
+	<bean id="brokerageRechargeWorker" class="com.datacenter.dams.input.queue.woker.BrokerageRechargeWorker"/>
+	
+	<!-- 佣金提现 -->
+	<bean id="brokerageConsumeQueueSpendWorker" class="com.datacenter.dams.input.queue.woker.BrokerageConsumeQueueSpendWorker"/>
+	
+	<!-- 用户注册 -->
+	<bean id="userLoginRecordWorker" class="com.datacenter.dams.input.queue.woker.UserLoginRecordWorker"/>
+	
+	<!-- 用户登录 -->
+	<bean id="addUserRecordWorker" class="com.datacenter.dams.input.queue.woker.AddUserRecordWorker"/>
+	
+</beans>

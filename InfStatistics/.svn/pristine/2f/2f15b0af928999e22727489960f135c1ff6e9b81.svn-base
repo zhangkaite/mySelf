@@ -1,0 +1,223 @@
+package com.ttmv.datacenter.InfStatistics.util;
+
+import java.io.IOException;
+
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.hbase.Cell;
+import org.apache.hadoop.hbase.CellUtil;
+import org.apache.hadoop.hbase.HBaseConfiguration;
+import org.apache.hadoop.hbase.HColumnDescriptor;
+import org.apache.hadoop.hbase.HTableDescriptor;
+import org.apache.hadoop.hbase.TableName;
+import org.apache.hadoop.hbase.client.Admin;
+import org.apache.hadoop.hbase.client.Connection;
+import org.apache.hadoop.hbase.client.ConnectionFactory;
+import org.apache.hadoop.hbase.client.Get;
+import org.apache.hadoop.hbase.client.Put;
+import org.apache.hadoop.hbase.client.Result;
+import org.apache.hadoop.hbase.client.Table;
+import org.apache.hadoop.hbase.util.Bytes;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
+import com.google.common.base.Strings;
+
+public class HbaseUtil {
+
+	private static Logger logger = LogManager.getLogger(HbaseUtil.class);
+	private static Configuration config = HBaseConfiguration.create();
+	public static Connection connection = null;
+
+	// private static Connection connection = null;
+	private HbaseUtil() {
+
+	}
+
+	public static Connection getConnection() {
+		if (null == connection) {
+			try {
+				connection = ConnectionFactory.createConnection(config);
+				logger.info("hbase 连接创建成功");
+			} catch (IOException e) {
+				logger.error("hbase创建连接失败，失败的原因是:", e);
+			}
+		}
+		return connection;
+	}
+
+	/**
+	 * hbase创建表
+	 */
+
+	public static void createOrOverwrite(Admin admin, HTableDescriptor table) throws IOException {
+		if (admin.tableExists(table.getTableName())) {
+			admin.disableTable(table.getTableName());
+			admin.deleteTable(table.getTableName());
+		}
+		admin.createTable(table);
+		admin.close();
+		logger.info("hbase 创建表:" + table.getTableName() + "成功！");
+	}
+
+	/**
+	 * 创建表
+	 *
+	 * @param config
+	 * @param tableName
+	 * @param columnFamilys
+	 * @throws Exception
+	 */
+	public static void createTable(String tableName, String columnFamily) throws Exception {
+		try {
+			connection = getConnection();
+			Admin admin = connection.getAdmin();
+			HTableDescriptor table;
+			table = new HTableDescriptor(TableName.valueOf(tableName));
+			// 在描述里添加列族
+			table.addFamily(new HColumnDescriptor(columnFamily));
+			logger.info("Creating table: " + tableName + " starting");
+			createOrOverwrite(admin, table);
+			logger.info(" Creating table: " + tableName + "Done.");
+			// connection.close();
+		} catch (Exception e) {
+			logger.error("hbase 创建连接失败，失败的原因是：", e);
+			throw e;
+		}
+	}
+
+	/**
+	 * 添加一条数据
+	 *
+	 * @param tableName
+	 * @param row
+	 * @param columnFamily
+	 * @param column
+	 * @param value
+	 * @param conf
+	 * @throws Exception
+	 */
+
+	public static void addRow(String tableName, String row, String columnFamily, String column, String value) throws Exception {
+		connection = getConnection();
+		Table table = connection.getTable(TableName.valueOf(tableName));
+		try {
+			Put put = new Put(Bytes.toBytes(row));
+			// 参数出分别：列族、列、值
+			put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes(column), Bytes.toBytes(value));
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			table.close();
+			// connection.close();
+		}
+
+	}
+
+	public static void addRow(String tableName, String row, String columnFamily, String column, Long value) throws Exception {
+		connection = getConnection();
+		Table table = connection.getTable(TableName.valueOf(tableName));
+		try {
+			Put put = new Put(Bytes.toBytes(row));
+			// 参数出分别：列族、列、值
+			put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes(column), Bytes.toBytes(value));
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			table.close();
+			// connection.close();
+		}
+	}
+
+	/**
+	 * @param conf
+	 * @param tableName
+	 * @param rowkey
+	 * @param familiy
+	 * @param familiyQualifer
+	 * @return
+	 * @throws Exception
+	 */
+	public static byte[] getStormColumnData(String tableName, String rowkey, String familiy, String familiyQualifer)
+			throws Exception {
+		if (!Strings.isNullOrEmpty(tableName) && !Strings.isNullOrEmpty(rowkey) && config != null) {
+			connection = getConnection();
+			Table table = connection.getTable(TableName.valueOf(tableName));
+			Admin admin = connection.getAdmin();
+			try {
+				if (admin.tableExists(table.getName())) {
+					Get get = new Get(rowkey.getBytes());
+					get.addColumn(familiy.getBytes(), familiyQualifer.getBytes());
+					Result result = table.get(get);
+					if (result != null) {
+						for (Cell cell : result.rawCells()) {
+							byte[] data = CellUtil.cloneValue(cell);
+							if (data != null) {
+								return data;
+							}
+						}
+					}
+				}
+			} catch (Exception e) {
+				throw e;
+			} finally {
+				table.close();
+				admin.close();
+				// connection.close();
+
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * hbase数据原子性操作
+	 *
+	 * @param tableName
+	 * @param rowkey
+	 * @param familiy
+	 * @param familiyQualifer
+	 * @param value
+	 * @throws Exception
+	 */
+	public static void automModifyValue(String tableName, String rowkey, String familiy, String familiyQualifer, String value)
+			throws Exception {
+		connection = getConnection();
+		Table table = connection.getTable(TableName.valueOf(tableName));
+		try {
+			table.incrementColumnValue(Bytes.toBytes(rowkey), Bytes.toBytes(familiy), Bytes.toBytes(familiyQualifer),
+					Long.valueOf(value));
+		} catch (Exception e) {
+			throw e;
+
+		} finally {
+			table.close();
+			// connection.close();
+		}
+	}
+
+	public static boolean isExitHbaseTable(String tableName) throws Exception {
+		connection = getConnection();
+		Admin admin = connection.getAdmin();
+		Table table = connection.getTable(TableName.valueOf(tableName));
+		boolean flag = false;
+		try {
+			flag = admin.tableExists(table.getName());
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			admin.close();
+			table.close();
+			// connection.close();
+		}
+		return flag;
+	}
+
+	/*
+	 * public static void main(String[] args) throws Exception { byte[]
+	 * datas=HbaseUtil.getStormColumnData(Constants.HBASE_INTERF_REQ_SUM,
+	 * "192.168.10.118", Constants.HBASE_FAMILY,
+	 * Constants.HBASE_INTERF_SUM_COLUMN); System.out.println( new
+	 * BigInteger(datas)); }
+	 */
+
+}

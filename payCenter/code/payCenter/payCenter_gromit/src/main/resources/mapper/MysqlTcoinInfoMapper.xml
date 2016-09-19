@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ttmv.datacenter.paycenter.dao.implement.mapper.MysqlTcoinInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.ttmv.datacenter.paycenter.dao.implement.mapper.bean.tcoin.MysqlTcoinInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="balance" property="balance" jdbcType="DECIMAL" />
+    <result column="freeze_balance" property="freezeBalance" jdbcType="DECIMAL" />
+    <result column="account_status" property="accountStatus" jdbcType="INTEGER" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="updated" property="updated" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, balance, freeze_balance, account_status, created, updated
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigInteger" >
+    select 
+    <include refid="Base_Column_List" />
+    from tcoin
+    where user_id = #{userId,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select * from tcoin
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigInteger" >
+    delete from tcoin
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ttmv.datacenter.paycenter.dao.implement.mapper.bean.tcoin.MysqlTcoinInfo" >
+    insert into tcoin (id, user_id, balance, 
+      freeze_balance, account_status, created, 
+      updated)
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{balance,jdbcType=DECIMAL}, 
+      #{freezeBalance,jdbcType=DECIMAL}, #{accountStatus,jdbcType=INTEGER}, #{created,jdbcType=TIMESTAMP}, 
+      #{updated,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ttmv.datacenter.paycenter.dao.implement.mapper.bean.tcoin.MysqlTcoinInfo" >
+    insert into tcoin
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="balance != null" >
+        balance,
+      </if>
+      <if test="freezeBalance != null" >
+        freeze_balance,
+      </if>
+      <if test="accountStatus != null" >
+        account_status,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+      <if test="updated != null" >
+        updated,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="freezeBalance != null" >
+        #{freezeBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="accountStatus != null" >
+        #{accountStatus,jdbcType=INTEGER},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null" >
+        #{updated,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ttmv.datacenter.paycenter.dao.implement.mapper.bean.tcoin.MysqlTcoinInfo" >
+    update tcoin
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="balance != null" >
+        balance = #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="freezeBalance != null" >
+        freeze_balance = #{freezeBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="accountStatus != null" >
+        account_status = #{accountStatus,jdbcType=INTEGER},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null" >
+        updated = #{updated,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ttmv.datacenter.paycenter.dao.implement.mapper.bean.tcoin.MysqlTcoinInfo" >
+    update tcoin
+    set user_id = #{userId,jdbcType=BIGINT},
+      balance = #{balance,jdbcType=DECIMAL},
+      freeze_balance = #{freezeBalance,jdbcType=DECIMAL},
+      account_status = #{accountStatus,jdbcType=INTEGER},
+      created = #{created,jdbcType=TIMESTAMP},
+      updated = #{updated,jdbcType=TIMESTAMP}
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+</mapper>

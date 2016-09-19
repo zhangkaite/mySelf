@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans
+							     	 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+							     	  ">
+
+	<!--财务统计配置开始 -->
+	<bean id="activeMqQueueService" class="com.datacenter.dams.input.redis.worker.handlerservice.ActiveMqQueueService">
+		<property name="jmsTemplate" ref="outputJmsTemplate" />
+	</bean>
+	<bean id="callActiveMQQueueService" class="com.datacenter.dams.input.redis.worker.handlerservice.CallActiveMQQueueService">
+		<property name="activeMqQueueService" ref="activeMqQueueService" />
+	</bean>
+
+	<bean id="statisticResultDataToSdmsWorker" class="com.datacenter.dams.input.redis.worker.paycenterData2Hdfs.StatisticResultDataToSdmsWorker">
+	</bean>
+	<bean id="allDataToHdfsWorker" class="com.datacenter.dams.input.redis.worker.paycenterData2Hdfs.AllDataToHdfsWorker" />
+
+	<bean id="statisticsMapReduceWorker" class="com.datacenter.dams.input.redis.worker.paycenterData2Hdfs.StatisticsMapReduceWorker" />
+	<!--财务统计配置结束 -->
+
+	<!--运营业务统计开始 -->
+
+    <!--首充/首消 -->
+	<bean id="firstRechargeStatistics" class="com.datacenter.dams.input.redis.worker.BusinessStatistics.FirstRechargeStatistics" />
+	<bean id="fisterConsumeStatistics" class="com.datacenter.dams.input.redis.worker.BusinessStatistics.FisterConsumeStatistics" />
+	<bean id="callBusStatisticsService" class="com.datacenter.dams.input.redis.worker.BusinessStatistics.CallBusStatisticsService">
+		<property name="firstRechargeStatistics" ref="firstRechargeStatistics"></property>
+		<property name="firstConsumeStatistics" ref="fisterConsumeStatistics"></property>
+	</bean>
+	<bean id="busStatisticsMapReduceWorker" class="com.datacenter.dams.input.redis.worker.BusinessStatistics.BusStatisticsMapReduceWorker" />
+	<bean id="busStatisticResultDataToSdmsWorker" class="com.datacenter.dams.input.redis.worker.BusinessStatistics.BusStatisticResultDataToSdmsWorker" />
+    <!--用户登录 -->
+    <bean id="userLoginStatistics" class="com.datacenter.dams.input.redis.worker.BusinessStatistics.UserLoginStatistics"></bean>
+    <bean id="userLoginResultDataToSdmsWorker" class="com.datacenter.dams.input.redis.worker.BusinessStatistics.UserLoginResultDataToSdmsWorker"></bean>
+	<!-- 用户注册 -->
+	<bean id="userRegisterResultDataToSdmsWorker" class="com.datacenter.dams.input.redis.worker.BusinessStatistics.UserRegisterResultDataToSdmsWorker"></bean>
+	<!-- TB日/月消费充值人数统计  -->
+	
+	<bean id="rechConsMapReduceWorker" class="com.datacenter.dams.input.hdfs.worker.RechConsMapReduceWorker"></bean>
+	<bean id="rechConsStatisticsWork" class="com.datacenter.dams.input.hdfs.worker.RechConsStatisticsWork"></bean>
+	
+	
+	<!--运营业务统计结束 -->
+
+
+</beans> 

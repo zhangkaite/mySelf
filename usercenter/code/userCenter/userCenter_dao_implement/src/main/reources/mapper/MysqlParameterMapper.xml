@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ttmv.datacenter.usercenter.dao.implement.mapperMysqlParameterMapper" >
+  <resultMap id="BaseResultMap" type="com.ttmv.datacenter.usercenter.dao.implement.mapper.bean.parameter.MysqlParameter" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="parameter_type" property="parameterType" jdbcType="CHAR" />
+    <result column="parameter_key" property="parameterKey" jdbcType="CHAR" />
+    <result column="parameter_value" property="parameterValue" jdbcType="VARCHAR" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="updated" property="updated" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, parameter_type, parameter_key, parameter_value, created, updated
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigInteger" >
+    select 
+    <include refid="Base_Column_List" />
+    from parameter
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigInteger" >
+    delete from parameter
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ttmv.datacenter.usercenter.dao.implement.mapper.bean.parameter.MysqlParameter" >
+    insert into parameter (id, parameter_type, parameter_key, 
+      parameter_value, created, updated
+      )
+    values (#{id,jdbcType=BIGINT}, #{parameterType,jdbcType=CHAR}, #{parameterKey,jdbcType=CHAR}, 
+      #{parameterValue,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ttmv.datacenter.usercenter.dao.implement.mapper.bean.parameter.MysqlParameter" >
+    insert into parameter
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="parameterType != null" >
+        parameter_type,
+      </if>
+      <if test="parameterKey != null" >
+        parameter_key,
+      </if>
+      <if test="parameterValue != null" >
+        parameter_value,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+      <if test="updated != null" >
+        updated,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="parameterType != null" >
+        #{parameterType,jdbcType=CHAR},
+      </if>
+      <if test="parameterKey != null" >
+        #{parameterKey,jdbcType=CHAR},
+      </if>
+      <if test="parameterValue != null" >
+        #{parameterValue,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null" >
+        #{updated,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ttmv.datacenter.usercenter.dao.implement.mapper.bean.parameter.MysqlParameter" >
+    update parameter
+    <set >
+      <if test="parameterType != null" >
+        parameter_type = #{parameterType,jdbcType=CHAR},
+      </if>
+      <if test="parameterKey != null" >
+        parameter_key = #{parameterKey,jdbcType=CHAR},
+      </if>
+      <if test="parameterValue != null" >
+        parameter_value = #{parameterValue,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null" >
+        updated = #{updated,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ttmv.datacenter.usercenter.dao.implement.mapper.bean.parameter.MysqlParameter" >
+    update parameter
+    set parameter_type = #{parameterType,jdbcType=CHAR},
+      parameter_key = #{parameterKey,jdbcType=CHAR},
+      parameter_value = #{parameterValue,jdbcType=VARCHAR},
+      created = #{created,jdbcType=TIMESTAMP},
+      updated = #{updated,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans
+							     	 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+							     	 http://www.springframework.org/schema/context     
+							     	 http://www.springframework.org/schema/context/spring-context-3.0.xsd
+							     	">
+	<!-- 配置jdbc.properties -->
+	<context:property-placeholder location="classpath:config.properties" />
+	<!-- 导入配置文件 -->
+	<import resource="spring-input-worker.xml" />
+	<import resource="spring-queue-input-connect.xml" />
+	<import resource="spring-queue-output-connect.xml" />
+	<import resource="spring-redisqueue-inner-connect.xml" />
+	<import resource="spring-redisqueue-output-connect.xml" />
+	<import resource="spring-dao.xml" />
+	<import resource="spring-service.xml" />
+	<import resource="spring-center.xml" />
+	<import resource="spring-controller.xml	" />
+	<import resource="spring-output-worker.xml" />
+	<import resource="spring-redisqueue-inner-connect.xml" />
+	<import resource="spring-redisqueue-input-connect.xml" />
+	<import resource="spring-redistohbase-worker.xml" />
+	<import resource="spring-hadoop-worker.xml" />
+	<import resource="spring-hdfs-statistic.xml" />
+	<import resource="spring-init-worker.xml" />
+    	<import resource="spring-hbase-work-service.xml"/>
+
+</beans>

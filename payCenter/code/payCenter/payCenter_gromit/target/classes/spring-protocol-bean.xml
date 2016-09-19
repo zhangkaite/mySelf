@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springwork.org/schema/tx"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans
+							     	 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+							     	 http://www.springframework.org/schema/context     
+							     	 http://www.springframework.org/schema/context/spring-context-3.0.xsd
+							     	 http://www.springframework.org/schema/tx
+							     	 http://www.springframework.org/schema/tx/spring-tx-3.0.xsd ">
+
+	<!-- 通用域 -->
+	<bean id="generalProBean"
+		class="com.ttmv.datacenter.paycenter.domain.protocol.GeneralPro" />
+
+	<!-- 01001_T币充值 -->
+	<bean id="tBRechargeBean"
+		class="com.ttmv.datacenter.paycenter.domain.protocol.TBRecharge" />
+
+	<!-- 01002_T卷充值 -->
+	<bean id="tQRechargeBean"
+		class="com.ttmv.datacenter.paycenter.domain.protocol.TQRecharge" />
+
+	<!-- 01003_佣金兑换 -->
+	<bean id="brokerageRechargeBean"
+		class="com.ttmv.datacenter.paycenter.domain.protocol.BrokerageRecharge" />
+
+	<!-- 01004_T币消费 -->
+	<bean id="tBConsumeBean" class="com.ttmv.datacenter.paycenter.domain.protocol.TBConsume" />
+
+	<!-- 01005_T卷消费 -->
+	<bean id="tQConsumeBean" class="com.ttmv.datacenter.paycenter.domain.protocol.TQConsume" />
+
+	<!-- 01006_佣金提现 -->
+	<bean id="brokerageConsumeBean"
+		class="com.ttmv.datacenter.paycenter.domain.protocol.BrokerageConsume" />
+
+	<!-- 01007_T卷orTB消费 -->
+	<bean id="tQorTBConsumeBean" class="com.ttmv.datacenter.paycenter.domain.protocol.TQorTBConsume" />
+
+	
+	<!-- 02001_用户账户余额查询 -->
+	<bean id="userQueryAccountBalanceBean"
+		class="com.ttmv.datacenter.paycenter.domain.protocol.UserQueryAccountBalance" />
+
+	
+
+
+</beans>

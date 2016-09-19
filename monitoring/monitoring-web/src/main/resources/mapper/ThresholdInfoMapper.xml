@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ttmv.monitoring.imp.ThresholdInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.ttmv.monitoring.entity.ThresholdInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="threshold_name" property="thresholdName" jdbcType="VARCHAR" />
+    <result column="threshold_value" property="thresholdValue" jdbcType="VARCHAR" />
+    <result column="threshold_type" property="thresholdType" jdbcType="VARCHAR" />
+    <result column="threshold_alerter_ids" property="thresholdAlerterIds" jdbcType="VARCHAR" />
+    <result column="threshold_set" property="thresholdSet" jdbcType="BIGINT" />
+    <result column="threshold_show_name" property="thresholdShowName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, threshold_name, threshold_value, threshold_type, threshold_alerter_ids, threshold_set,threshold_show_name
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigInteger" >
+    select 
+    <include refid="Base_Column_List" />
+    from threshold_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  
+   <select id="selectByType" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from threshold_info
+    where threshold_type = #{thresholdType,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByTypeAndName" resultMap="BaseResultMap" parameterType="com.ttmv.monitoring.entity.ThresholdInfo">
+    select 
+    <include refid="Base_Column_List" />
+    from threshold_info
+    where threshold_type = #{thresholdType,jdbcType=VARCHAR}
+    and threshold_name = #{thresholdName,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from threshold_info
+  </select>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.ttmv.monitoring.entity.ThresholdInfo" >
+    update threshold_info
+    <set >
+      <if test="thresholdName != null" >
+        threshold_name = #{thresholdName,jdbcType=VARCHAR},
+      </if>
+      <if test="thresholdValue != null" >
+        threshold_value = #{thresholdValue,jdbcType=VARCHAR},
+      </if>
+      <if test="thresholdType != null" >
+        threshold_type = #{thresholdType,jdbcType=VARCHAR},
+      </if>
+      <if test="thresholdAlerterIds != null" >
+        threshold_alerter_ids = #{thresholdAlerterIds,jdbcType=VARCHAR},
+      </if>
+      <if test="thresholdSet != null" >
+        threshold_set = #{thresholdSet,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

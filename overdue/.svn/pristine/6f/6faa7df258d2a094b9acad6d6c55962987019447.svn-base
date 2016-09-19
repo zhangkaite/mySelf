@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ttmv.dao.inter.LuxuryExpireMapper" >
+  <resultMap id="BaseResultMap" type="com.ttmv.dao.bean.LuxuryExpire" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="car_id" property="carId" jdbcType="BIGINT" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+ 	<result column="remind_time" property="remindTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, car_id,end_time,remind_time
+  </sql>
+  <select id="selectByUserIdAndCarId" resultMap="BaseResultMap" parameterType="java.math.BigInteger" >
+    select 
+    <include refid="Base_Column_List" />
+    from luxury_expire
+    where user_id = #{userId,jdbcType=BIGINT} and car_id = #{tempId,jdbcType=BIGINT}
+  </select>
+  <select id="selectListByEndTime" resultMap="BaseResultMap" parameterType="com.ttmv.dao.bean.query.QueryBean" >
+    select 
+    <include refid="Base_Column_List" />
+    from luxury_expire
+    where end_time between #{startTime,jdbcType=VARCHAR} and #{endTime,jdbcType=VARCHAR} 
+  </select>
+  <select id="selectListRemindTime" resultMap="BaseResultMap" parameterType="com.ttmv.dao.bean.query.QueryBean" >
+   select 
+   <include refid="Base_Column_List" />
+   from luxury_expire
+   where remind_time &lt;= #{remindTime,jdbcType=VARCHAR} and end_time >= #{remindTime,jdbcType=VARCHAR} 
+ </select>
+ 
+  <select id="queryListDelayNotify" resultMap="BaseResultMap" parameterType="com.ttmv.dao.bean.query.QueryBean" >
+   select 
+   <include refid="Base_Column_List" />
+   from luxury_expire
+   where end_time &lt;= #{endTime,jdbcType=VARCHAR} and end_time > #{startTime,jdbcType=VARCHAR}
+ </select>
+ 
+ 
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigInteger" >
+    delete from luxury_expire
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insertSelective" parameterType="com.ttmv.dao.bean.LuxuryExpire" >
+    insert into luxury_expire
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+       <if test="carId != null" >
+        car_id,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+       <if test="remindTime != null" >
+        remind_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="carId != null" >
+        #{carId,jdbcType=BIGINT},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remindTime != null" >
+        #{remindTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ttmv.dao.bean.LuxuryExpire" >
+    update luxury_expire
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+       <if test="carId != null" >
+        car_id = #{carId,jdbcType=BIGINT},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remindTime != null" >
+       remind_time = #{remindTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

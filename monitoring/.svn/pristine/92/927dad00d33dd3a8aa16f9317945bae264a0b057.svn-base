@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ttmv.monitoring.imp.DataDictionaryMapper" >
+  <resultMap id="BaseResultMap" type="com.ttmv.monitoring.entity.DataDictionary" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="data_key" property="dataKey" jdbcType="VARCHAR" />
+    <result column="data_value" property="dataValue" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="extend_field2" property="extendField2" jdbcType="VARCHAR" />
+    <result column="extend_field3" property="extendField3" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, data_key, data_value, type, extend_field2, extend_field3
+  </sql>
+  
+  <!-- 根据Id查询字典 -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigInteger" >
+    select 
+    <include refid="Base_Column_List" />
+    from data_dictionary
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <!-- 根据key查询字典 -->
+  <select id="selectByDataKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from data_dictionary
+    where data_key = #{dataKey,jdbcType=BIGINT}
+  </select>
+  
+<!-- 精确条件查询  -->
+   <select id="selectByConditions" resultMap="BaseResultMap" parameterType="com.ttmv.monitoring.entity.querybean.DataDictionaryQuery" >
+    select 
+    <include refid="Base_Column_List" />
+    from data_dictionary
+    where 1=1
+     <if test="id != null" >
+      and id = #{id,jdbcType=BIGINT}
+     </if>
+     <if test="dataKey != null and ''!= dataKey" >
+      and data_key = #{dataKey,jdbcType=VARCHAR}
+     </if>
+     <if test="type != null and ''!= type" >
+      and type = #{type,jdbcType=VARCHAR}
+     </if>
+   </select>
+  
+   <!-- 模糊条件查询  -->
+   <select id="selectByFuzzyConditions" resultMap="BaseResultMap" parameterType="com.ttmv.monitoring.entity.querybean.DataDictionaryQuery" >
+    select 
+    <include refid="Base_Column_List" />
+    from data_dictionary
+    where 1=1
+      <if test="id != null" >
+      and id = #{id,jdbcType=BIGINT}
+     </if>
+     <if test="dataKey != null and ''!= dataKey" >
+      and data_key = #{dataKey,jdbcType=VARCHAR}
+     </if>
+     <if test="type != null and ''!= type" >
+      and type = #{type,jdbcType=VARCHAR}
+     </if>
+       limit #{start},#{pageSize}
+  </select>
+  
+  <!-- 模糊条件查询 , 查询全部  -->
+   <select id="selectByFuzzyConditionsAll" resultType="java.lang.Integer" parameterType="com.ttmv.monitoring.entity.querybean.DataDictionaryQuery" >
+    select 
+    count(*)
+    from data_dictionary
+    where 1=1
+      <if test="id != null" >
+      and id = #{id,jdbcType=BIGINT}
+     </if>
+     <if test="dataKey != null and ''!= dataKey" >
+      and data_key = #{dataKey,jdbcType=VARCHAR}
+     </if>
+     <if test="type != null and ''!= type" >
+      and type = #{type,jdbcType=VARCHAR}
+     </if>
+  </select>
+  
+  <!-- 根据条件删除 -->
+  <delete id="deleteSelective" parameterType="com.ttmv.monitoring.entity.querybean.DataDictionaryQuery" >
+    delete from data_dictionary
+    where 1=1
+     <if test="id != null" >
+      and id = #{id,jdbcType=BIGINT}
+     </if>
+     <if test="dataKey != null and ''!= dataKey" >
+      and data_key = #{dataKey,jdbcType=BIGINT}
+     </if>
+     <if test="type != null and ''!= type" >
+      and type = #{type,jdbcType=BIGINT}
+     </if>
+  </delete>
+  
+  <insert id="insertSelective" parameterType="com.ttmv.monitoring.entity.DataDictionary" >
+    insert into data_dictionary
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="dataKey != null" >
+        data_key,
+      </if>
+      <if test="dataValue != null" >
+        data_value,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="extendField2 != null" >
+        extend_field2,
+      </if>
+      <if test="extendField3 != null" >
+        extend_field3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="dataKey != null" >
+        #{dataKey,jdbcType=VARCHAR},
+      </if>
+      <if test="dataValue != null" >
+        #{dataValue,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="extendField2 != null" >
+        #{extendField2,jdbcType=VARCHAR},
+      </if>
+      <if test="extendField3 != null" >
+        #{extendField3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ttmv.monitoring.entity.DataDictionary" >
+    update data_dictionary
+    <set >
+      <if test="dataKey != null" >
+        data_key = #{dataKey,jdbcType=VARCHAR},
+      </if>
+      <if test="dataValue != null" >
+        data_value = #{dataValue,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="extendField2 != null" >
+        extend_field2 = #{extendField2,jdbcType=VARCHAR},
+      </if>
+      <if test="extendField3 != null" >
+        extend_field3 = #{extendField3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

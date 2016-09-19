@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- 加载映射文件 -->
+	<mappers>
+	<mapper resource="mapper/MediaForwardDataMapper.xml"/>
+		<mapper resource="mapper/MediaControlDataMapper.xml"/>
+		<mapper resource="mapper/UserInfoMapper.xml"/>
+		<mapper resource="mapper/DataDictionaryMapper.xml"/>
+		<mapper resource="mapper/PHPServerDataMapper.xml"/>
+		<mapper resource="mapper/TranscodingDataMapper.xml"/>
+		<mapper resource="mapper/ScreenShotDataMapper.xml"/>
+		<mapper resource="mapper/LiveRoomInfoMapper.xml"/>
+		<mapper resource="mapper/AlerterInfoMapper.xml"/>
+		<mapper resource="mapper/ThresholdInfoMapper.xml"/>
+		<mapper resource="mapper/ServerSubSysinfoMapper.xml"/>
+		<mapper resource="mapper/WhiteListMapper.xml"/>
+		<mapper resource="mapper/AlertRecordInfoMapper.xml"/>
+		<mapper resource="mapper/PhpVideoServerDataMapper.xml"/>
+		<mapper resource="mapper/PhpManagerServerDataMapper.xml"/>
+		<mapper resource="mapper/HpServerDataMapper.xml"/>
+		<mapper resource="mapper/LbsServerDataMapper.xml"/>
+		<mapper resource="mapper/MdsServerDataMapper.xml"/>
+		<mapper resource="mapper/MssServerDataMapper.xml"/>
+		<mapper resource="mapper/MtsServerDataMapper.xml"/>
+		<mapper resource="mapper/PrsServerDataMapper.xml"/>
+		<mapper resource="mapper/RmsServerDataMapper.xml"/>
+		<mapper resource="mapper/TasServerDataMapper.xml"/>
+		<mapper resource="mapper/UmsServerDataMapper.xml"/>
+		<mapper resource="mapper/ImDataListMapper.xml"/>
+		<mapper resource="mapper/CpuInfoMapper.xml"/>
+	</mappers>
+</configuration>

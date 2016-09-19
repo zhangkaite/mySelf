@@ -1,0 +1,789 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springwork.org/schema/tx"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans
+							     	 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+							     	 http://www.springframework.org/schema/context     
+							     	 http://www.springframework.org/schema/context/spring-context-3.0.xsd
+							     	 http://www.springframework.org/schema/tx
+							     	 http://www.springframework.org/schema/tx/spring-tx-3.0.xsd ">
+
+    <context:annotation-config></context:annotation-config>
+    <context:component-scan base-package="com.ttmv.monitoring"></context:component-scan>
+
+	<import resource="/spring-dao.xml" />
+	<import resource="/spring-service-work.xml" />
+	<import resource="/spring-messageServer.xml" />
+	<!-- IP白名单相类 -->
+	<bean id="dataSourceIPFilter" class="com.ttmv.monitoring.filter.impl.DataSourceIPFilter"
+		init-method="inifWhiteList"></bean>
+
+	<!-- 阀值校验类 -->
+	<bean id="hpServerAlerter" class="com.ttmv.monitoring.alerterService.impl.HpServerAlerter"
+		scope="prototype"></bean>
+	<bean id="lbsServerAlerter"
+		class="com.ttmv.monitoring.alerterService.impl.LbsServerAlerter"
+		scope="prototype"></bean>
+	<bean id="mdsServerAlerter"
+		class="com.ttmv.monitoring.alerterService.impl.MdsServerAlerter"
+		scope="prototype"></bean>
+	<bean id="mssServerAlerter"
+		class="com.ttmv.monitoring.alerterService.impl.MssServerAlerter"
+		scope="prototype"></bean>
+	<bean id="mtsServerAlerter"
+		class="com.ttmv.monitoring.alerterService.impl.MtsServerAlerter"
+		scope="prototype"></bean>
+	<bean id="phpManagerServerAlerter"
+		class="com.ttmv.monitoring.alerterService.impl.PhpManagerServerAlerter"
+		scope="prototype"></bean>
+	<bean id="phpVideoServerAlerter"
+		class="com.ttmv.monitoring.alerterService.impl.PhpVideoServerAlerter"
+		scope="prototype"></bean>
+	<bean id="prsServerAlerter"
+		class="com.ttmv.monitoring.alerterService.impl.PrsServerAlerter"
+		scope="prototype"></bean>
+	<bean id="rmsServerAlerter"
+		class="com.ttmv.monitoring.alerterService.impl.RmsServerAlerter"
+		scope="prototype"></bean>
+	<bean id="tasServerAlerter"
+		class="com.ttmv.monitoring.alerterService.impl.TasServerAlerter"
+		scope="prototype"></bean>
+	<bean id="umsServerAlerter"
+		class="com.ttmv.monitoring.alerterService.impl.UmsServerAlerter"
+		scope="prototype"></bean>
+	<bean id="mediaForwardAlerter"
+		class="com.ttmv.monitoring.alerterService.impl.MediaForwardAlerter"
+		scope="prototype"></bean>
+	<bean id="phpServerAlerter"
+		class="com.ttmv.monitoring.alerterService.impl.PHPServerAlerter"
+		scope="prototype"></bean>
+	<bean id="mediaControlAlerter"
+		class="com.ttmv.monitoring.alerterService.impl.MediaControlAlerter"
+		scope="prototype"></bean>
+	<bean id="transcodingAlerter"
+		class="com.ttmv.monitoring.alerterService.impl.TranscodingAlerter"
+		scope="prototype"></bean>
+	<bean id="screenShotAlerter"
+		class="com.ttmv.monitoring.alerterService.impl.ScreenShotAlerter"
+		scope="prototype"></bean>
+	<!-- end -->
+
+	<!-- W001_添加用户 -->
+	<bean id="addUserServiceImpl"
+		class="com.ttmv.monitoring.webService.impl.user.AddUserServiceImpl">
+		<property name="iUserInfoInter" ref="iUserInfoInterImpl" />
+	</bean>
+
+	<!-- W002_修改用户 -->
+	<bean id="modifyUserInfoServiceImpl"
+		class="com.ttmv.monitoring.webService.impl.user.ModifyUserInfoServiceImpl">
+		<property name="iUserInfoInter" ref="iUserInfoInterImpl" />
+	</bean>
+
+	<!-- W003_修改密码 -->
+	<bean id="resetPasswordServiceImpl"
+		class="com.ttmv.monitoring.webService.impl.user.ResetPasswordServiceImpl">
+		<property name="iUserInfoInter" ref="iUserInfoInterImpl" />
+	</bean>
+
+	<!-- W004_用户信息查询 -->
+	<bean id="queryUserByIdServiceImpl"
+		class="com.ttmv.monitoring.webService.impl.user.QueryUserByIdServiceImpl">
+		<property name="iUserInfoInter" ref="iUserInfoInterImpl" />
+	</bean>
+
+	<!-- W005_用户列表信息查询 -->
+	<bean id="queryUsersServiceImpl"
+		class="com.ttmv.monitoring.webService.impl.user.QueryUsersServiceImpl">
+		<property name="iUserInfoInter" ref="iUserInfoInterImpl" />
+	</bean>
+
+	<!-- W006_用户登录 -->
+	<bean id="loginServiceImpl"
+		class="com.ttmv.monitoring.webService.impl.user.LoginServiceImpl">
+		<property name="iUserInfoInter" ref="iUserInfoInterImpl" />
+	</bean>
+
+	<!-- W007_用户唯一性校验 -->
+	<bean id="checkUserKeyServiceImpl"
+		class="com.ttmv.monitoring.webService.impl.user.CheckUserKeyServiceImpl">
+		<property name="iUserInfoInter" ref="iUserInfoInterImpl" />
+	</bean>
+
+	<!-- W008_新增报警器 -->
+	<bean id="addAlerterServiceImpl"
+		class="com.ttmv.monitoring.webService.impl.configuration.alerter.AddAlerterServiceImpl">
+		<property name="iAlerterInfoInter" ref="iAlerterInfoInterImpl" />
+	</bean>
+
+	<!-- W009_修改报警器 -->
+	<bean id="modifyAlerterInfoServiceImpl"
+		class="com.ttmv.monitoring.webService.impl.configuration.alerter.ModifyAlerterInfoServiceImpl">
+		<property name="iAlerterInfoInter" ref="iAlerterInfoInterImpl" />
+	</bean>
+
+	<!-- W010_报警器详细信息查询 -->
+	<bean id="queryAlerterInfoByIdServiceImpl"
+		class="com.ttmv.monitoring.webService.impl.configuration.alerter.QueryAlerterInfoByIdServiceImpl">
+		<property name="iAlerterInfoInter" ref="iAlerterInfoInterImpl" />
+	</bean>
+
+	<!-- W011_报警器列表查询 -->
+	<bean id="queryAlertersServiceImpl"
+		class="com.ttmv.monitoring.webService.impl.configuration.alerter.QueryAlertersServiceImpl">
+		<property name="iAlerterInfoInter" ref="iAlerterInfoInterImpl" />
+	</bean>
+
+	<!-- W012_删除报警器 -->
+	<bean id="deleteAlerterServiceImpl"
+		class="com.ttmv.monitoring.webService.impl.configuration.alerter.DeleteAlerterServiceImpl">
+		<property name="iAlerterInfoInter" ref="iAlerterInfoInterImpl" />
+	</bean>
+
+	<!-- W013_系统阀值查询 -->
+	<bean id="queryThresholdByTypeServiceImpl"
+		class="com.ttmv.monitoring.webService.impl.configuration.threshold.QueryThresholdByTypeServiceImpl">
+		<property name="iThresholdInfoInter" ref="iThresholdInfoInterImpl" />
+	</bean>
+
+	<!-- 系统阀值查询全部 -->
+	<bean id="queryAllThresholdServiceImpl"
+		class="com.ttmv.monitoring.webService.impl.configuration.threshold.QueryAllThresholdServiceImpl">
+		<property name="iThresholdInfoInter" ref="iThresholdInfoInterImpl" />
+	</bean>
+
+	<!-- W014_系统阀值修改 -->
+	<bean id="modifyThresholdServiceImpl"
+		class="com.ttmv.monitoring.webService.impl.configuration.threshold.ModifyThresholdServiceImpl">
+		<property name="iThresholdInfoInter" ref="iThresholdInfoInterImpl" />
+			<property name="monitoringInitBean" ref="monitoringInitBean" />
+	</bean>
+
+	<!-- W015_添加白名单 -->
+	<bean id="addWhitelistServiceImpl"
+		class="com.ttmv.monitoring.webService.impl.configuration.ipWhitelist.AddWhitelistServiceImpl">
+		<property name="iWhiteListInter" ref="iWhiteListInterImpl" />
+		<property name="dataSourceIPFilter" ref="dataSourceIPFilter" />
+	</bean>
+
+	<!-- W016_删除白名单 -->
+	<bean id="deleteWhitelistServiceImpl"
+		class="com.ttmv.monitoring.webService.impl.configuration.ipWhitelist.DeleteWhitelistServiceImpl">
+		<property name="iWhiteListInter" ref="iWhiteListInterImpl" />
+		<property name="dataSourceIPFilter" ref="dataSourceIPFilter" />
+	</bean>
+
+	<!-- W017_IP白名单列表查询 -->
+	<bean id="queryWhitelistServiceImpl"
+		class="com.ttmv.monitoring.webService.impl.configuration.ipWhitelist.QueryWhitelistServiceImpl">
+		<property name="iWhiteListInter" ref="iWhiteListInterImpl" />
+	</bean>
+
+	<!-- W018_白名单修改 -->
+	<bean id="modifyWhitelistServiceImpl"
+		class="com.ttmv.monitoring.webService.impl.configuration.ipWhitelist.ModifyWhitelistServiceImpl">
+		<property name="iWhiteListInter" ref="iWhiteListInterImpl" />
+		<property name="dataSourceIPFilter" ref="dataSourceIPFilter" />
+	</bean>
+
+	<!-- W019_查询白名单详情 -->
+	<bean id="queryWhitelistByIdServiceImpl"
+		class="com.ttmv.monitoring.webService.impl.configuration.ipWhitelist.QueryWhitelistByIdServiceImpl">
+		<property name="iWhiteListInter" ref="iWhiteListInterImpl" />
+	</bean>
+
+	<!-- W020_查询报警记录 -->
+	<bean id="queryAlertRecordServiceImpl"
+		class="com.ttmv.monitoring.webService.impl.record.QueryAlertRecordServiceImpl">
+		<property name="iAlertRecordInfoInter" ref="iAlertRecordInfoInterImpl" />
+	</bean>
+
+	<!-- 初始化加载阀值设置 -->
+	<bean id="monitoringInitBean"
+		class="com.ttmv.monitoring.webService.entity.MonitoringInitBean"
+		init-method="initMonitoringInitBean">
+		<property name="iThresholdInfoInter" ref="iThresholdInfoInterImpl" />
+	</bean>
+
+	<!-- 09001_流媒体控制服务器数据上报 -->
+	<bean id="avServerControlServiceDataReportImpl"
+		class="com.ttmv.monitoring.interfaceService.impl.info.AvServerControlServiceDataReportImpl">
+		<property name="monitoringInitBean" ref="monitoringInitBean" />
+		<property name="iMediaControlDataInter" ref="iMediaControlDataInterImpl" />
+	</bean>
+	<!-- 09002_流媒体转发服务器数据上报 -->
+	<bean id="avServerTransmitServiceDataReportImpl"
+		class="com.ttmv.monitoring.interfaceService.impl.info.AvServerTransmitServiceDataReportImpl">
+		<property name="monitoringInitBean" ref="monitoringInitBean" />
+		<property name="iMediaForwardDataInter" ref="iMediaForwardDataInterImpl" />
+	</bean>
+	<!--09003_截图服务器监控数据上报 -->
+	<bean id="screenshotServiceDataReportImpl"
+		class="com.ttmv.monitoring.interfaceService.impl.info.ScreenshotServiceDataReportImpl">
+		<property name="monitoringInitBean" ref="monitoringInitBean" />
+		<property name="iScreenShotDataInter" ref="iScreenShotDataInterImpl" />
+	</bean>
+
+	<!--09004_转码服务器监控数据上报 -->
+	<bean id="transcodingServiceDataReportImpl"
+		class="com.ttmv.monitoring.interfaceService.impl.info.TranscodingServiceDataReportImpl">
+		<property name="monitoringInitBean" ref="monitoringInitBean" />
+		<property name="iTranscodingDataInter" ref="iTranscodingDataInterImpl" />
+	</bean>
+
+	<!--09005_PHP直播服务器监控数据上报 -->
+	<bean id="phpLiveServiceDataReportImpl"
+		class="com.ttmv.monitoring.interfaceService.impl.info.PhpLiveServiceDataReportImpl">
+		<property name="monitoringInitBean" ref="monitoringInitBean" />
+		<property name="iphpServerDataInter" ref="iPHPServerDataInterImpl" />
+	</bean>
+
+	<!--09006_PHP点播服务器监控数据上报 -->
+	<bean id="phpVideoServiceDataReportImpl"
+		class="com.ttmv.monitoring.interfaceService.impl.info.PhpVideoServiceDataReportImpl">
+		<property name="monitoringInitBean" ref="monitoringInitBean" />
+		<property name="iphpVideoServerDataInter" ref="iPHPVideoServerDataInterImpl" />
+	</bean>
+
+	<!--09007_PHP管控中心服务器监控数据上报 -->
+	<bean id="phpManageServiceDataReportImpl"
+		class="com.ttmv.monitoring.interfaceService.impl.info.PhpManageServiceDataReportImpl">
+		<property name="monitoringInitBean" ref="monitoringInitBean" />
+		<property name="iphpManagerServerDataInter" ref="iPHPManagerServerDataInterImpl" />
+	</bean>
+
+	<!--09008_IM秀场LBS数据上报 -->
+	<bean id="imShowLbsServiceDataReportImpl"
+		class="com.ttmv.monitoring.interfaceService.impl.info.ImShowLbsServiceDataReportImpl">
+		<property name="monitoringInitBean" ref="monitoringInitBean" />
+		<property name="iLbsServerDataInter" ref="iLbsServerDataInterImpl" />
+	</bean>
+
+	<!--09009_IM秀场MDS数据上报 -->
+	<bean id="imShowMdsServiceDataReportImpl"
+		class="com.ttmv.monitoring.interfaceService.impl.info.ImShowMdsServiceDataReportImpl">
+		<property name="monitoringInitBean" ref="monitoringInitBean" />
+		<property name="iMdsServerDataInter" ref="iMdsServerDataInterImpl" />
+	</bean>
+
+	<!--09010_IM秀场MTS数据上报 -->
+	<bean id="imShowMtsServiceDataReportImpl"
+		class="com.ttmv.monitoring.interfaceService.impl.info.ImShowMtsServiceDataReportImpl">
+		<property name="monitoringInitBean" ref="monitoringInitBean" />
+		<property name="iMtsServerDataInter" ref="iMtsServerDataInterImpl" />
+	</bean>
+
+	<!--09011_IM秀场TAS数据上报 -->
+	<bean id="imShowTasServiceDataReportImpl"
+		class="com.ttmv.monitoring.interfaceService.impl.info.ImShowTasServiceDataReportImpl">
+		<property name="monitoringInitBean" ref="monitoringInitBean" />
+		<property name="iTasServerDataInter" ref="iTasServerDataInterImpl" />
+	</bean>
+
+	<!--09012_IM秀场UMS数据上报 -->
+	<bean id="imShowUmsServiceDataReportImpl"
+		class="com.ttmv.monitoring.interfaceService.impl.info.ImShowUmsServiceDataReportImpl">
+		<property name="monitoringInitBean" ref="monitoringInitBean" />
+		<property name="iUmsServerDataInter" ref="iUmsServerDataInterImpl" />
+	</bean>
+
+	<!--09013_IM秀场PRS数据上报 -->
+	<bean id="imShowPrsServiceDataReportImpl"
+		class="com.ttmv.monitoring.interfaceService.impl.info.ImShowPrsServiceDataReportImpl">
+		<property name="monitoringInitBean" ref="monitoringInitBean" />
+		<property name="iPrsServerDataInter" ref="iPrsServerDataInterImpl" />
+	</bean>
+
+	<!--09014_IM秀场RMS数据上报 -->
+	<bean id="imShowRmsServiceDataReportImpl"
+		class="com.ttmv.monitoring.interfaceService.impl.info.ImShowRmsServiceDataReportImpl">
+		<property name="monitoringInitBean" ref="monitoringInitBean" />
+		<property name="iRmsServerDataInter" ref="iRmsServerDataInterImpl" />
+	</bean>
+
+	<!--09015_IM秀场MSS数据上报 -->
+	<bean id="imShowMssServiceDataReportImpl"
+		class="com.ttmv.monitoring.interfaceService.impl.info.ImShowMssServiceDataReportImpl">
+		<property name="monitoringInitBean" ref="monitoringInitBean" />
+		<property name="iMssServerDataInter" ref="iMssServerDataInterImpl" />
+	</bean>
+	<!--09016_IM秀场HTTPPROXY数据上报 -->
+	<bean id="imShowHttpProxyServiceDataReportImpl"
+		class="com.ttmv.monitoring.interfaceService.impl.info.ImShowHttpProxyServiceDataReportImpl">
+		<property name="monitoringInitBean" ref="monitoringInitBean" />
+		<property name="iHpServerDataInter" ref="iHpServerDataInterImpl" />
+	</bean>
+
+	<!-- -->
+	<bean id="warningServiceImpl"
+		class="com.ttmv.monitoring.interfaceService.impl.alert.WarningServiceImpl">
+		<property name="iAlertRecordInfoInter" ref="iAlertRecordInfoInterImpl" />
+		<property name="messageServiceInf" ref="messageServiceImpl" />
+	</bean>
+
+
+
+
+	<!-- 媒体转发服务：媒体转发实体查询 -->
+	<bean id="queryMediaForwardDataServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.mf.QueryMediaForwardDataServiceImpl">
+		<property name="iMediaForwardDataInter" ref="iMediaForwardDataInterImpl" />
+	</bean>
+	<!-- 媒体转发服务：根据ID查询媒体转发实体 -->
+	<bean id="queryMediaForwardDataByIdServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.mf.QueryMediaForwardDataByIdServiceImpl">
+		<property name="iMediaForwardDataInter" ref="iMediaForwardDataInterImpl" />
+	</bean>
+	<!-- 媒体转发服务：IP列表查询 -->
+	<bean id="querySelectedIpServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.mf.QuerySelectedIpServiceImpl">
+		<property name="iMediaForwardDataInter" ref="iMediaForwardDataInterImpl" />
+	</bean>
+	<!-- 媒体转发服务：PORT列表查询 -->
+	<bean id="querySelectedPortServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.mf.QuerySelectedPortServiceImpl">
+		<property name="iMediaForwardDataInter" ref="iMediaForwardDataInterImpl" />
+	</bean>
+	<!-- 媒体转发服务：预置列表查询 -->
+	<bean id="queryListMediaForwardDataServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.mf.QueryListMediaForwardDataServiceImpl">
+		<property name="iMediaForwardDataInter" ref="iMediaForwardDataInterImpl" />
+	</bean>
+	<!-- 媒体转发服务：预置列表查询通过时间 -->
+	<bean id="queryListByDateMediaForwardDataServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.mf.QueryListByDateMediaForwardDataServiceImpl">
+		<property name="iMediaForwardDataInter" ref="iMediaForwardDataInterImpl" />
+	</bean>
+
+
+	<!--媒体控制服务：MN实体查询 -->
+	<bean id="queryMediaControlDataServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.mn.QueryMediaControlDataServiceImpl">
+		<property name="iMediaControlDataInter" ref="iMediaControlDataInterImpl" />
+	</bean>
+	<!-- 媒体转发服务：根据ID查询MN实体 -->
+	<bean id="queryMediaControlDataByIdServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.mn.QueryMediaControlDataByIdServiceImpl">
+		<property name="iMediaControlDataInter" ref="iMediaControlDataInterImpl" />
+	</bean>
+	<!-- 媒体控制服务：IP列表查询 -->
+	<bean id="queryMNSelectedIpServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.mn.QueryMNSelectedIpServiceImpl">
+		<property name="iMediaControlDataInter" ref="iMediaControlDataInterImpl" />
+	</bean>
+	<!-- 媒体控制服务：PORT列表查询 -->
+	<bean id="queryMNSelectedPortServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.mn.QueryMNSelectedPortServiceImpl">
+		<property name="iMediaControlDataInter" ref="iMediaControlDataInterImpl" />
+	</bean>
+	<!-- 媒体控制服务：预置列表查询 -->
+	<bean id="queryListMNServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.mn.QueryListMNServiceImpl">
+		<property name="iMediaControlDataInter" ref="iMediaControlDataInterImpl" />
+	</bean>
+	<!-- 媒体控制服务：预置列表查询通过时间 -->
+	<bean id="queryListByDateMNServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.mn.QueryListByDateMNServiceImpl">
+		<property name="iMediaControlDataInter" ref="iMediaControlDataInterImpl" />
+	</bean>
+
+
+	<!--PHP服务：PHP实体查询 -->
+	<bean id="queryPhpServerDataServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.php.QueryPhpServerDataServiceImpl">
+		<property name="iPHPServerDataInter" ref="iPHPServerDataInterImpl" />
+	</bean>
+	<!--PHP服务：跟据ID查询PHP实体 -->
+	<bean id="queryPHPByIdServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.php.QueryPHPByIdServiceImpl">
+		<property name="iPHPServerDataInter" ref="iPHPServerDataInterImpl" />
+	</bean>
+	<!-- PHP服务：IP列表查询 -->
+	<bean id="queryPHPSelectedIpServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.php.QueryPHPSelectedIpServiceImpl">
+		<property name="iPHPServerDataInter" ref="iPHPServerDataInterImpl" />
+	</bean>
+	<!-- PHP服务：PORT列表查询 -->
+	<bean id="queryPHPSelectedPortServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.php.QueryPHPSelectedPortServiceImpl">
+		<property name="iPHPServerDataInter" ref="iPHPServerDataInterImpl" />
+	</bean>
+	<!-- PHP服务：预置列表查询 -->
+	<bean id="queryListPHPServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.php.QueryListPHPServiceImpl">
+		<property name="iPHPServerDataInter" ref="iPHPServerDataInterImpl" />
+	</bean>
+	<!-- PHP服务：预置列表查询通过时间 -->
+	<bean id="queryListByDatePHPServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.php.QueryListByDatePHPServiceImpl">
+		<property name="iPHPServerDataInter" ref="iPHPServerDataInterImpl" />
+	</bean>
+
+
+	<!--Video服务：Video实体查询 -->
+	<bean id="queryVideoServerDataServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.php.QueryVideoServerDataServiceImpl">
+		<property name="iPHPVideoServerDataInter" ref="iPHPVideoServerDataInterImpl" />
+	</bean>
+	<!--Video服务：根据ID查询Video实体 -->
+	<bean id="queryVideoByIdServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.php.QueryVideoByIdServiceImpl">
+		<property name="iPHPVideoServerDataInter" ref="iPHPVideoServerDataInterImpl" />
+	</bean>
+	<!-- Video服务：IP列表查询 -->
+	<bean id="queryVideoSelectedIpServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.php.QueryVideoSelectedIpServiceImpl">
+		<property name="iPHPVideoServerDataInter" ref="iPHPVideoServerDataInterImpl" />
+	</bean>
+	<!-- Video服务：PORT列表查询 -->
+	<bean id="queryVideoSelectedPortServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.php.QueryVideoSelectedPortServiceImpl">
+		<property name="iPHPVideoServerDataInter" ref="iPHPVideoServerDataInterImpl" />
+	</bean>
+	<!-- Video服务：预置列表查询通过时间 -->
+	<bean id="queryListByDateVideoServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.php.QueryListByDateVideoServiceImpl">
+		<property name="iPHPVideoServerDataInter" ref="iPHPVideoServerDataInterImpl" />
+	</bean>
+
+
+	<!--PhpManager服务：PhpManager实体查询 -->
+	<bean id="queryPhpManagerServerDataServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.php.QueryPhpManagerServerDataServiceImpl">
+		<property name="iPHPManagerServerDataInter" ref="iPHPManagerServerDataInterImpl" />
+	</bean>
+	<!--PhpManager服务：根据ID查询PhpManager实体查询 -->
+	<bean id="queryPhpManagerByIdServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.php.QueryPhpManagerByIdServiceImpl">
+		<property name="iPHPManagerServerDataInter" ref="iPHPManagerServerDataInterImpl" />
+	</bean>
+	<!-- PhpManager服务：IP列表查询 -->
+	<bean id="queryPhpManagerSelectedIpServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.php.QueryPhpManagerSelectedIpServiceImpl">
+		<property name="iPHPManagerServerDataInter" ref="iPHPManagerServerDataInterImpl" />
+	</bean>
+	<!-- PhpManager服务：PORT列表查询 -->
+	<bean id="queryPhpManagerSelectedPortServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.php.QueryPhpManagerSelectedPortServiceImpl">
+		<property name="iPHPManagerServerDataInter" ref="iPHPManagerServerDataInterImpl" />
+	</bean>
+	<!-- PhpManager服务：预置列表查询通过时间 -->
+	<bean id="queryListByDatePhpManagerServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.php.QueryListByDatePhpManagerServiceImpl">
+		<property name="iPHPManagerServerDataInter" ref="iPHPManagerServerDataInterImpl" />
+	</bean>
+
+	<!-- 子系统信息查询：根据sysType查询 -->
+	<bean id="queryServerSubSysinfoServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.QueryServerSubSysinfoServiceImpl">
+		<property name="iServerSubSysinfoInter" ref="iServerSubSysinfoInterImpl" />
+	</bean>
+
+	<!--转码服务：TD实体查询 -->
+	<bean id="queryTDServerDataServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.ot.QueryTDServerDataServiceImpl">
+		<property name="iTranscodingDataInter" ref="iTranscodingDataInterImpl" />
+	</bean>
+	<!--转码服务：根据ID查询TD实体 -->
+	<bean id="queryTDByIdServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.ot.QueryTDByIdServiceImpl">
+		<property name="iTranscodingDataInter" ref="iTranscodingDataInterImpl" />
+	</bean>
+	<!-- 转码服务：IP列表查询 -->
+	<bean id="queryTDSelectedIpServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.ot.QueryTDSelectedIpServiceImpl">
+		<property name="iTranscodingDataInter" ref="iTranscodingDataInterImpl" />
+	</bean>
+	<!-- 转码服务：PORT列表查询 -->
+	<bean id="queryTDSelectedPortServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.ot.QueryTDSelectedPortServiceImpl">
+		<property name="iTranscodingDataInter" ref="iTranscodingDataInterImpl" />
+	</bean>
+	<!-- 转码服务：预置列表查询 -->
+	<bean id="queryListTDServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.ot.QueryListTDServiceImpl">
+		<property name="iTranscodingDataInter" ref="iTranscodingDataInterImpl" />
+	</bean>
+	<!-- 转码服务：预置列表查询通过时间 -->
+	<bean id="queryListByDateTDServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.ot.QueryListByDateTDServiceImpl">
+		<property name="iTranscodingDataInter" ref="iTranscodingDataInterImpl" />
+	</bean>
+
+
+	<!--截图服务：SSD实体查询 -->
+	<bean id="querySSDServerDataServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.ot.QuerySSDServerDataServiceImpl">
+		<property name="iScreenShotDataInter" ref="iScreenShotDataInterImpl" />
+	</bean>
+	<!--截图服务：根据ID查询SSD实体 -->
+	<bean id="querySSDByIdServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.ot.QuerySSDByIdServiceImpl">
+		<property name="iScreenShotDataInter" ref="iScreenShotDataInterImpl" />
+	</bean>
+	<!-- 截图服务：IP列表查询 -->
+	<bean id="querySSDSelectedIpServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.ot.QuerySSDSelectedIpServiceImpl">
+		<property name="iScreenShotDataInter" ref="iScreenShotDataInterImpl" />
+	</bean>
+	<!-- 截图服务：PORT列表查询 -->
+	<bean id="querySSDSelectedPortServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.ot.QuerySSDSelectedPortServiceImpl">
+		<property name="iScreenShotDataInter" ref="iScreenShotDataInterImpl" />
+	</bean>
+	<!-- 截图服务：预置列表查询 -->
+	<bean id="queryListSSDServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.ot.QueryListSSDServiceImpl">
+		<property name="iScreenShotDataInter" ref="iScreenShotDataInterImpl" />
+	</bean>
+	<!-- 截图服务：预置列表查询通过时间 -->
+	<bean id="queryListByDateSSDServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.ot.QueryListByDateSSDServiceImpl">
+		<property name="iScreenShotDataInter" ref="iScreenShotDataInterImpl" />
+	</bean>
+
+
+	<!--Hp服务：Hp实体查询 -->
+	<bean id="queryHpServerDataServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.hp.QueryHpServerDataServiceImpl">
+		<property name="iHpServerDataInter" ref="iHpServerDataInterImpl" />
+	</bean>
+	<!--Hp服务：根据ID查询Hp实体 -->
+	<bean id="queryHpByIdServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.hp.QueryHpByIdServiceImpl">
+		<property name="iHpServerDataInter" ref="iHpServerDataInterImpl" />
+	</bean>
+	<!-- Hp服务：IP列表查询 -->
+	<bean id="queryHpSelectedIpServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.hp.QueryHpSelectedIpServiceImpl">
+		<property name="iHpServerDataInter" ref="iHpServerDataInterImpl" />
+	</bean>
+	<!-- Hp服务：PORT列表查询 -->
+	<bean id="queryHpSelectedPortServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.hp.QueryHpSelectedPortServiceImpl">
+		<property name="iHpServerDataInter" ref="iHpServerDataInterImpl" />
+	</bean>
+	<!-- Hp服务：预置列表查询通过时间 -->
+	<bean id="queryListByDateHpServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.hp.QueryListByDateHpServiceImpl">
+		<property name="iHpServerDataInter" ref="iHpServerDataInterImpl" />
+	</bean>
+
+
+	<!--Lbs服务：Lbs实体查询 -->
+	<bean id="queryLbsServerDataServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.lbs.QueryLbsServerDataServiceImpl">
+		<property name="iLbsServerDataInter" ref="iLbsServerDataInterImpl" />
+	</bean>
+	<!--Lbs服务：根据ID查询Lbs实体 -->
+	<bean id="queryLbsByIdServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.lbs.QueryLbsByIdServiceImpl">
+		<property name="iLbsServerDataInter" ref="iLbsServerDataInterImpl" />
+	</bean>
+	<!-- Lbs服务：IP列表查询 -->
+	<bean id="queryLbsSelectedIpServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.lbs.QueryLbsSelectedIpServiceImpl">
+		<property name="iLbsServerDataInter" ref="iLbsServerDataInterImpl" />
+	</bean>
+	<!-- Lbs服务：PORT列表查询 -->
+	<bean id="queryLbsSelectedPortServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.lbs.QueryLbsSelectedPortServiceImpl">
+		<property name="iLbsServerDataInter" ref="iLbsServerDataInterImpl" />
+	</bean>
+	<!-- Lbs服务：预置列表查询通过时间 -->
+	<bean id="queryListByDateLbsServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.lbs.QueryListByDateLbsServiceImpl">
+		<property name="iLbsServerDataInter" ref="iLbsServerDataInterImpl" />
+	</bean>
+
+
+	<!--Mds服务：Mds实体查询 -->
+	<bean id="queryMdsServerDataServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.mds.QueryMdsServerDataServiceImpl">
+		<property name="iMdsServerDataInter" ref="iMdsServerDataInterImpl" />
+	</bean>
+	<!--Mds服务：根据ID查询Mds实体 -->
+	<bean id="queryMdsByIdServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.mds.QueryMdsByIdServiceImpl">
+		<property name="iMdsServerDataInter" ref="iMdsServerDataInterImpl" />
+	</bean>
+	<!-- Mds服务：IP列表查询 -->
+	<bean id="queryMdsSelectedIpServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.mds.QueryMdsSelectedIpServiceImpl">
+		<property name="iMdsServerDataInter" ref="iMdsServerDataInterImpl" />
+	</bean>
+	<!-- Mds服务：PORT列表查询 -->
+	<bean id="queryMdsSelectedPortServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.mds.QueryMdsSelectedPortServiceImpl">
+		<property name="iMdsServerDataInter" ref="iMdsServerDataInterImpl" />
+	</bean>
+	<!-- Mds服务：预置列表查询通过时间 -->
+	<bean id="queryListByDateMdsServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.mds.QueryListByDateMdsServiceImpl">
+		<property name="iMdsServerDataInter" ref="iMdsServerDataInterImpl" />
+	</bean>
+
+
+	<!--Mss服务：Mss实体查询 -->
+	<bean id="queryMssServerDataServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.mss.QueryMssServerDataServiceImpl">
+		<property name="iMssServerDataInter" ref="iMssServerDataInterImpl" />
+	</bean>
+	<!--Mss服务：根据ID查询Mss实体 -->
+	<bean id="queryMssByIdServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.mss.QueryMssByIdServiceImpl">
+		<property name="iMssServerDataInter" ref="iMssServerDataInterImpl" />
+	</bean>
+	<!-- Mss服务：IP列表查询 -->
+	<bean id="queryMssSelectedIpServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.mss.QueryMssSelectedIpServiceImpl">
+		<property name="iMssServerDataInter" ref="iMssServerDataInterImpl" />
+	</bean>
+	<!-- Mss服务：PORT列表查询 -->
+	<bean id="queryMssSelectedPortServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.mss.QueryMssSelectedPortServiceImpl">
+		<property name="iMssServerDataInter" ref="iMssServerDataInterImpl" />
+	</bean>
+	<!-- Mss服务：预置列表查询通过时间 -->
+	<bean id="queryListByDateMssServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.mss.QueryListByDateMssServiceImpl">
+		<property name="iMssServerDataInter" ref="iMssServerDataInterImpl" />
+	</bean>
+
+
+	<!--Mts服务：Mts实体查询 -->
+	<bean id="queryMtsServerDataServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.mts.QueryMtsServerDataServiceImpl">
+		<property name="iMtsServerDataInter" ref="iMtsServerDataInterImpl" />
+	</bean>
+	<!--Mts服务：根据ID查询Mts实体 -->
+	<bean id="queryMtsByIdServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.mts.QueryMtsByIdServiceImpl">
+		<property name="iMtsServerDataInter" ref="iMtsServerDataInterImpl" />
+	</bean>
+	<!-- Mts服务：IP列表查询 -->
+	<bean id="queryMtsSelectedIpServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.mts.QueryMtsSelectedIpServiceImpl">
+		<property name="iMtsServerDataInter" ref="iMtsServerDataInterImpl" />
+	</bean>
+	<!-- Mts服务：PORT列表查询 -->
+	<bean id="queryMtsSelectedPortServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.mts.QueryMtsSelectedPortServiceImpl">
+		<property name="iMtsServerDataInter" ref="iMtsServerDataInterImpl" />
+	</bean>
+	<!-- Mts服务：预置列表查询通过时间 -->
+	<bean id="queryListByDateMtsServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.mts.QueryListByDateMtsServiceImpl">
+		<property name="iMtsServerDataInter" ref="iMtsServerDataInterImpl" />
+	</bean>
+
+
+	<!--Prs服务：Prs实体查询 -->
+	<bean id="queryPrsServerDataServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.prs.QueryPrsServerDataServiceImpl">
+		<property name="iPrsServerDataInter" ref="iPrsServerDataInterImpl" />
+	</bean>
+	<!--Prs服务：根据ID查询Prs实体 -->
+	<bean id="queryPrsByIdServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.prs.QueryPrsByIdServiceImpl">
+		<property name="iPrsServerDataInter" ref="iPrsServerDataInterImpl" />
+	</bean>
+	<!-- Prs服务：IP列表查询 -->
+	<bean id="queryPrsSelectedIpServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.prs.QueryPrsSelectedIpServiceImpl">
+		<property name="iPrsServerDataInter" ref="iPrsServerDataInterImpl" />
+	</bean>
+	<!-- Prs服务：PORT列表查询 -->
+	<bean id="queryPrsSelectedPortServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.prs.QueryPrsSelectedPortServiceImpl">
+		<property name="iPrsServerDataInter" ref="iPrsServerDataInterImpl" />
+	</bean>
+	<!-- Prs服务：预置列表查询通过时间 -->
+	<bean id="queryListByDatePrsServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.prs.QueryListByDatePrsServiceImpl">
+		<property name="iPrsServerDataInter" ref="iPrsServerDataInterImpl" />
+	</bean>
+
+
+	<!--Rms服务：Rms实体查询 -->
+	<bean id="queryRmsServerDataServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.rms.QueryRmsServerDataServiceImpl">
+		<property name="iRmsServerDataInter" ref="iRmsServerDataInterImpl" />
+	</bean>
+	<!--Rms服务：根据ID查询Rms实体 -->
+	<bean id="queryRmsByIdServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.rms.QueryRmsByIdServiceImpl">
+		<property name="iRmsServerDataInter" ref="iRmsServerDataInterImpl" />
+	</bean>
+	<!-- Rms服务：IP列表查询 -->
+	<bean id="queryRmsSelectedIpServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.rms.QueryRmsSelectedIpServiceImpl">
+		<property name="iRmsServerDataInter" ref="iRmsServerDataInterImpl" />
+	</bean>
+	<!-- Rms服务：PORT列表查询 -->
+	<bean id="queryRmsSelectedPortServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.rms.QueryRmsSelectedPortServiceImpl">
+		<property name="iRmsServerDataInter" ref="iRmsServerDataInterImpl" />
+	</bean>
+	<!-- Rms服务：预置列表查询通过时间 -->
+	<bean id="queryListByDateRmsServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.rms.QueryListByDateRmsServiceImpl">
+		<property name="iRmsServerDataInter" ref="iRmsServerDataInterImpl" />
+	</bean>
+
+
+	<!--Tas服务：Tas实体查询 -->
+	<bean id="queryTasServerDataServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.tas.QueryTasServerDataServiceImpl">
+		<property name="iTasServerDataInter" ref="iTasServerDataInterImpl" />
+	</bean>
+	<!--Tas服务：根据ID查询Tas实体 -->
+	<bean id="queryTasByIdServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.tas.QueryTasByIdServiceImpl">
+		<property name="iTasServerDataInter" ref="iTasServerDataInterImpl" />
+	</bean>
+	<!-- Tas服务：IP列表查询 -->
+	<bean id="queryTasSelectedIpServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.tas.QueryTasSelectedIpServiceImpl">
+		<property name="iTasServerDataInter" ref="iTasServerDataInterImpl" />
+	</bean>
+	<!-- Tas服务：PORT列表查询 -->
+	<bean id="queryTasSelectedPortServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.tas.QueryTasSelectedPortServiceImpl">
+		<property name="iTasServerDataInter" ref="iTasServerDataInterImpl" />
+	</bean>
+	<!-- Tas服务：预置列表查询通过时间 -->
+	<bean id="queryListByDateTasServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.tas.QueryListByDateTasServiceImpl">
+		<property name="iTasServerDataInter" ref="iTasServerDataInterImpl" />
+	</bean>
+
+
+	<!--Ums服务：Ums实体查询 -->
+	<bean id="queryUmsServerDataServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.ums.QueryUmsServerDataServiceImpl">
+		<property name="iUmsServerDataInter" ref="iUmsServerDataInterImpl" />
+	</bean>
+	<!--Ums服务：根据ID查询Ums实体 -->
+	<bean id="queryUmsByIdServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.ums.QueryUmsByIdServiceImpl">
+		<property name="iUmsServerDataInter" ref="iUmsServerDataInterImpl" />
+	</bean>
+	<!-- Ums服务：IP列表查询 -->
+	<bean id="queryUmsSelectedIpServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.ums.QueryUmsSelectedIpServiceImpl">
+		<property name="iUmsServerDataInter" ref="iUmsServerDataInterImpl" />
+	</bean>
+	<!-- Ums服务：PORT列表查询 -->
+	<bean id="queryUmsSelectedPortServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.ums.QueryUmsSelectedPortServiceImpl">
+		<property name="iUmsServerDataInter" ref="iUmsServerDataInterImpl" />
+	</bean>
+	<!-- Ums服务：预置列表查询通过时间 -->
+	<bean id="queryListByDateUmsServiceImpl"
+		class="com.ttmv.monitoring.chartService.impl.im.ums.QueryListByDateUmsServiceImpl">
+		<property name="iUmsServerDataInter" ref="iUmsServerDataInterImpl" />
+	</bean>
+
+</beans>

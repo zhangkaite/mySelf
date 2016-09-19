@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="OFF">
+	<appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%-5level %d{yyyy-MM-dd HH:mm:ss }[%class{36}]  %msg%n" />
+		</Console>
+		
+		<RollingFile name="RollingFile" fileName="dams_logs/damsAll.log"
+			filePattern="log/$${date:yyyy-MM}/damsAll-%d{MM-dd-yyyy}-%i.log.gz">
+			<PatternLayout
+				pattern="%d{yyyy-MM-dd 'at' HH:mm:ss z} %-5level %class{36} %L %M - %msg%xEx%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="250 MB" />
+			</Policies>
+		</RollingFile>
+
+		<RollingFile name="redisLogFile" fileName="dams_logs/redis.log"
+			filePattern="damss/$${date:yyyy-MM}/dams_redis%d{MM-dd-yyyy}-%i.log.gz">
+			<PatternLayout>
+				<Pattern>%-5level %d{yyyy-MM-dd HH:mm:ss }[%class{36}] %msg%n
+				</Pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="250 MB" />
+			</Policies>
+		</RollingFile>
+		
+		<RollingFile name="hdfsLogFile" fileName="dams_logs/hdfs.log"
+			filePattern="damss/$${date:yyyy-MM}/dams_hdfs%d{MM-dd-yyyy}-%i.log.gz">
+			<PatternLayout>
+				<Pattern>%-5level %d{yyyy-MM-dd HH:mm:ss }[%class{36}] %msg%n
+				</Pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="250 MB" />
+			</Policies>
+		</RollingFile>
+		
+		<RollingFile name="hbaseLogFile" fileName="dams_logs/hbase.log"
+			filePattern="damss/$${date:yyyy-MM}/dams_hbase%d{MM-dd-yyyy}-%i.log.gz">
+			<PatternLayout>
+				<Pattern>%-5level %d{yyyy-MM-dd HH:mm:ss }[%class{36}] %msg%n
+				</Pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="250 MB" />
+			</Policies>
+		</RollingFile>
+		
+		<RollingFile name="controllerLogFile" fileName="dams_logs/controllerLogFile.log"
+			filePattern="damss/$${date:yyyy-MM}/dams_controllerLogFile%d{MM-dd-yyyy}-%i.log.gz">
+			<PatternLayout>
+				<Pattern>%-5level %d{yyyy-MM-dd HH:mm:ss }[%class{36}] %msg%n
+				</Pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="250 MB" />
+			</Policies>
+		</RollingFile>
+
+	</appenders>
+
+	<loggers>
+		<logger name="com.datacenter.dams.controller" level="info"
+			additivity="true">
+			<appender-ref ref="controllerLogFile" />
+		</logger>
+	
+		<logger name="com.datacenter.dams.input.redis" level="info"
+			additivity="true">
+			<appender-ref ref="redisLogFile" />
+		</logger>
+		<logger name="com.datacenter.dams.input.hdfs" level="info"
+			additivity="true">
+			<appender-ref ref="hdfsLogFile" />
+		</logger>
+		<logger name="com.datacenter.dams.input.hbase" level="info"
+			additivity="true">
+			<appender-ref ref="hbaseLogFile" />
+		</logger>
+		<logger name="com.datacenter.dams" level="info" additivity="true">
+			<appender-ref ref="RollingFile" />
+		</logger>
+
+		<root level="info">
+			<appender-ref ref="Console" />
+		</root>
+	</loggers>
+</configuration>

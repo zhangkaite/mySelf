@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ttmv.monitoring.imDataList.ShowImDataListDaoMapper">
+	<select id="selectMts" resultType="com.ttmv.monitoring.imDataList.ImServiceDataEntity">
+		select * from mts_server_data where id in(select max(id) from mts_server_data group by ip)
+
+	</select>
+
+	<select id="selectMds" resultType="com.ttmv.monitoring.imDataList.ImServiceDataEntity">
+		select * from mds_server_data where id in(select max(id) from mds_server_data group by ip)
+
+	</select>
+	<select id="selectMss" resultType="com.ttmv.monitoring.imDataList.ImServiceDataEntity">
+		select * from mss_server_data where id in(select max(id) from mss_server_data group by ip)
+
+	</select>
+	<select id="selectRms" resultType="com.ttmv.monitoring.imDataList.ImServiceDataEntity">
+		select * from rms_server_data where id in(select max(id) from rms_server_data group by ip)
+
+	</select>
+	<select id="selectPrs" resultType="com.ttmv.monitoring.imDataList.ImServiceDataEntity">
+		select * from prs_server_data where id in(select max(id) from prs_server_data group by ip)
+
+	</select>
+	<select id="selectLbs" resultType="com.ttmv.monitoring.imDataList.ImServiceDataEntity">
+		select * from lbs_server_data where id in(select max(id) from lbs_server_data group by ip)
+	</select>
+	<select id="selectUms" resultType="com.ttmv.monitoring.imDataList.ImServiceDataEntity">
+		select * from ums_server_data where id in(select max(id) from ums_server_data group by ip)
+	</select>
+	<select id="selectTas" resultType="com.ttmv.monitoring.imDataList.ImServiceDataEntity">
+		select * from tas_server_data where id in(select max(id) from tas_server_data group by ip)
+	</select>
+
+
+
+</mapper>

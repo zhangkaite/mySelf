@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springwork.org/schema/tx"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans
+							     	 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+							     	 http://www.springframework.org/schema/context     
+							     	 http://www.springframework.org/schema/context/spring-context-3.0.xsd
+							     	 http://www.springframework.org/schema/tx
+							     	 http://www.springframework.org/schema/tx/spring-tx-3.0.xsd ">
+
+	<context:property-placeholder location="classpath:payCenter.all.properties" />	
+	<!-- spring管理connectionFactory -->
+	<bean id="connectionFactory"
+		class="org.springframework.jms.connection.SingleConnectionFactory">
+		<property name="targetConnectionFactory" ref="poolConnectionFactory" />
+	</bean>
+	<!-- 产生Connection的ConnectionFactory，由对应的 JMS服务厂商提供 -->
+	<bean id="targetConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+		<property name="brokerURL" value="${activeMQ.brokerURL}" />
+		<property name="useAsyncSend" value="true"></property><!--消息异步发送  -->
+	</bean>
+	<!-- 将connection ，session，MessageProducer -->
+	<bean id="poolConnectionFactory" class="org.apache.activemq.pool.PooledConnectionFactory">
+		<property name="connectionFactory" ref="targetConnectionFactory" />
+		<property name="maxConnections" value="100" />
+	</bean>
+	<!-- 消息发送到服务器 -->
+	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="connectionFactory" />
+	</bean>
+	<!--brokerage队列目的地 -->
+	<bean id="destination_brokerage" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="PC_worker_YJ_Bill_Queue" />
+	</bean>
+	<!--Tcoin队列目的地 -->
+	<bean id="destination_tcoin" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="PC_worker_TB_Bill_Queue" />
+	</bean>
+	<!--Tquan队列目的地 -->
+	<bean id="destination_tquan" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="PC_worker_TQ_Bill_Queue" />
+	</bean>
+	<!--错误队列目的地 -->
+	<bean id="error_pc" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="PC_ERROR_Queue" />
+	</bean>
+	
+	
+	
+	<!-- =======================分析系统队列======================= -->
+	<!-- MQ统计分析系统连接池2 -->
+	<bean id="connectionFactory_2" class="org.apache.activemq.pool.PooledConnectionFactory"
+		destroy-method="stop">
+		<property name="connectionFactory" ref="innerConnectionFactory_2" />
+		<property name="maxConnections" value="200" />
+	</bean>
+	<!-- MQ地址配置2 -->
+	<bean id="innerConnectionFactory_2" class="org.apache.activemq.ActiveMQConnectionFactory">
+		<property name="brokerURL" value="${activeMQ.brokerURL.innerConnectionFactory_2}" />
+		<property name="useAsyncSend" value="true"></property><!--消息异步发送  -->
+	</bean>
+	
+	<!-- =================个性配置=============== -->
+	<!-- DAMS TB消费队列配置 -->
+	<bean id="damsPcTBConsumejmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="connectionFactory_2"></property>
+		<property name="defaultDestination" ref="damsPcTBConsumedestination"></property>
+		<property name="receiveTimeout" value="600"></property>
+	</bean>
+	<!-- DAMS TB消费消息生产者 -->
+	<bean id="damsPcTBConsumeTool"
+		class="com.ttmv.datacenter.paycenter.service.facade.tools.jmstool.DamsPcTBConsumeTool">
+		<property name="damsPcTBConsumejmsTemplate" ref="damsPcTBConsumejmsTemplate"></property>
+	</bean>
+	
+	<!-- DAMS TQ消费队列配置 -->
+	<bean id="damsPcTQConsumejmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="connectionFactory_2"></property>
+		<property name="defaultDestination" ref="damsPcTQConsumedestination"></property>
+		<property name="receiveTimeout" value="600"></property>
+	</bean>
+	<!-- DAMS TQ消费消息生产者 -->
+	<bean id="damsPcTQConsumeTool"
+		class="com.ttmv.datacenter.paycenter.service.facade.tools.jmstool.DamsPcTQConsumeTool">
+		<property name="damsPcTQConsumejmsTemplate" ref="damsPcTQConsumejmsTemplate"></property>
+	</bean>
+	
+	<!-- DAMS YJ消费队列配置 -->
+	<bean id="damsPcYJConsumejmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="connectionFactory_2"></property>
+		<property name="defaultDestination" ref="damsPcYJConsumedestination"></property>
+		<property name="receiveTimeout" value="600"></property>
+	</bean>
+	<!-- DAMS YJ消费消息生产者 -->
+	<bean id="damsPcYJConsumeTool"
+		class="com.ttmv.datacenter.paycenter.service.facade.tools.jmstool.DamsPcYJConsumeTool">
+		<property name="damsPcYJConsumejmsTemplate" ref="damsPcYJConsumejmsTemplate"></property>
+	</bean>	
+	
+	<!-- DAMS TB充值队列配置 -->
+	<bean id="damsPcTBRechargejmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="connectionFactory_2"></property>
+		<property name="defaultDestination" ref="damsPcTBRechargedestination"></property>
+		<property name="receiveTimeout" value="600"></property>
+	</bean>
+	<!-- DAMS TB充值消息生产者 -->
+	<bean id="damsPcTBRechargeTool"
+		class="com.ttmv.datacenter.paycenter.service.facade.tools.jmstool.DamsPcTBRechargeTool">
+		<property name="damsPcTBRechargejmsTemplate" ref="damsPcTBRechargejmsTemplate"></property>
+	</bean>		
+
+	<!-- DAMS TQ充值队列配置 -->
+	<bean id="damsPcTQRechargejmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="connectionFactory_2"></property>
+		<property name="defaultDestination" ref="damsPcTQRechargedestination"></property>
+		<property name="receiveTimeout" value="600"></property>
+	</bean>
+	<!-- DAMS TQ充值消息生产者 -->
+	<bean id="damsPcTQRechargeTool"
+		class="com.ttmv.datacenter.paycenter.service.facade.tools.jmstool.DamsPcTQRechargeTool">
+		<property name="damsPcTQRechargejmsTemplate" ref="damsPcTQRechargejmsTemplate"></property>
+	</bean>		
+
+	<!-- DAMS YJ充值队列配置 -->
+	<bean id="damsPcYJRechargejmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="connectionFactory_2"></property>
+		<property name="defaultDestination" ref="damsPcYJRechargedestination"></property>
+		<property name="receiveTimeout" value="600"></property>
+	</bean>
+	<!-- DAMS YJ充值消息生产者 -->
+	<bean id="damsPcYJRechargeTool"
+		class="com.ttmv.datacenter.paycenter.service.facade.tools.jmstool.DamsPcYJRechargeTool">
+		<property name="damsPcYJRechargejmsTemplate" ref="damsPcYJRechargejmsTemplate"></property>
+	</bean>		
+	<!-- ==============统计分析系统队列名================= -->
+	<!-- DAMS TB消费 统计分析 队列名 -->
+	<bean id="damsPcTBConsumedestination" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg index="0"
+			value="DAMS_PC_TBConsume_Queue"></constructor-arg>
+	</bean>	
+	<!-- DAMS TB充值 统计分析 队列名 -->
+	<bean id="damsPcTBRechargedestination" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg index="0"
+			value="DAMS_PC_TBRecharge_Queue"></constructor-arg>
+	</bean>	
+	
+	<!-- DAMS TQ消费 统计分析 队列名 -->
+	<bean id="damsPcTQConsumedestination" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg index="0"
+			value="DAMS_PC_TQConsume_Queue"></constructor-arg>
+	</bean>	
+	<!-- DAMS TQ充值 统计分析 队列名 -->
+	<bean id="damsPcTQRechargedestination" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg index="0"
+			value="DAMS_PC_TQRecharge_Queue"></constructor-arg>
+	</bean>		
+	
+	<!-- DAMS YJ消费 统计分析 队列名 -->
+	<bean id="damsPcYJConsumedestination" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg index="0"
+			value="DAMS_PC_YJConsume_Queue"></constructor-arg>
+	</bean>	
+	<!-- DAMS YJ充值 统计分析 队列名 -->
+	<bean id="damsPcYJRechargedestination" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg index="0"
+			value="DAMS_PC_YJRecharge_Queue"></constructor-arg>
+	</bean>		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</beans>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans
+							     	 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+							     	">
+	<!-- TB消费业务分拣 -->
+	<bean id="tcoinConsumeRankListService"
+		class="com.datacenter.dams.business.service.rank.TcoinConsumeRankListService">
+		<property name="tcoinConsumeRedisQueueInputDao" ref="tcoinConsumeRedisQueueInputDao" />
+	</bean>
+	<!-- TQ消费业务分拣 -->
+	<bean id="tquanConsumeRankListService"
+		class="com.datacenter.dams.business.service.rank.TquanConsumeRankListService">
+		<property name="tquanConsumeRedisQueueInputDao" ref="tquanConsumeRedisQueueInputDao" />
+	</bean>
+	<!-- TB消费获取,redis队列数据判断 -->
+	<bean id="tcoinConsumeQueueService"
+		class="com.datacenter.dams.input.queue.TcoinConsumeQueueService">
+		<property name="jmsTemplate" ref="inputJmsTemplate" />
+		<property name="redisQueueInter" ref="tcoinConsumeRedisQueueInputDao" />
+	</bean>
+	<!-- TQ消费获取,redis队列数据判断 -->
+	<bean id="tquanConsumeQueueService"
+		class="com.datacenter.dams.input.queue.TquanConsumeQueueService">
+		<property name="jmsTemplate" ref="inputJmsTemplate" />
+		<property name="redisQueueInter" ref="tquanConsumeRedisQueueInputDao" />
+	</bean>
+	
+	<!-- 主播吊牌活动信息查询服务 -->
+	<bean id="starInfoActivityService" class="com.datacenter.dams.business.service.activity.StarInfoActivityService"/>
+ 
+ 	<!-- TB消费,活动业务分拣 -->
+	<bean id="tcoinConsumeActivityService" class=" com.datacenter.dams.business.service.activity.TcoinConsumeActivityService">
+   		 <property name="activityRedisQueueInputDao" ref="activityRedisQueueInputDao"/>
+    </bean>
+    
+    <!-- TQ消费,活动业务分拣 -->
+	<bean id="tquanConsumeActivityService" class=" com.datacenter.dams.business.service.activity.TquanConsumeActivityService">
+   		 <property name="activityRedisQueueInputDao" ref="activityRedisQueueInputDao"/>
+    </bean>
+     
+	<bean id="hadoopOffLineTquanSpendService" class="com.datacenter.dams.business.service.offline.HadoopOffLineTquanSpendService">
+		<property name="offLineRedisQueueInputDao" ref="offLineRedisQueueInputDao"/>
+	</bean>
+	
+	<bean id="hadoopOffLineTcoinSpendService" class="com.datacenter.dams.business.service.offline.HadoopOffLineTcoinSpendService">
+		<property name="offLineRedisQueueInputDao" ref="offLineRedisQueueInputDao"/>
+	</bean>
+	<bean id="tbRedisService" class="com.datacenter.dams.input.redis.worker.handlerservice.TbRedisService">
+		<property name="redisQueueImpi" ref="innerRedisQueueImpi"/>
+	</bean>
+	
+	<!-- tb消费影响等级的服务 -->
+ 	<bean id="tcoinConsumeLevelService" class="com.datacenter.dams.business.service.level.TcoinConsumeLevelService"/>
+ 	
+ 	<!-- tq消费影响等级的服务 -->
+ 	<bean id="tquanConsumeLevelService" class="com.datacenter.dams.business.service.level.TquanConsumeLevelService"/>
+ 	
+ 	<!-- 用户经验清零service -->
+ 	<bean id="userExpResetQueueService" class="com.datacenter.dams.input.queue.UserExpResetQueueService">
+ 		<property name="jmsTemplate" ref="inputJmsTemplate"/>
+ 		<property name="userExpResetDestination" value="${inner.user.exp.reset.queue.name}"/>
+ 	</bean>
+ 	<!--报表Tb消费 -->
+ 	<bean id="tcoinConsumeFormService" class="com.datacenter.dams.business.service.form.TcoinConsumeFormService">
+ 		<property name="redisQueueInputDao" ref="redisQueueInputDao"/>
+ 	</bean>
+ 	<!--报表Tq消费 -->
+ 	<bean id="tquanConsumeFormService" class="com.datacenter.dams.business.service.form.TquanConsumeFormService">
+ 		<property name="redisQueueInputDao" ref="redisQueueInputDao"/>
+ 	</bean>
+ 	<!--报表Tb充值 -->
+ 	<bean id="tcoinRechargeFormService" class="com.datacenter.dams.business.service.form.TcoinRechargeFormService">
+ 		<property name="redisQueueInputDao" ref="redisQueueInputDao"/>
+ 	</bean>
+ 	<!--报表Tq充值 -->
+ 	<bean id="tquanRechargeFormService" class="com.datacenter.dams.business.service.form.TquanRechargeFormService">
+ 		<property name="redisQueueInputDao" ref="redisQueueInputDao"/>
+ 	</bean>
+ 	<!--报表TB充值读取PC队列 -->
+ 	<bean id="tcoinRechargeQueueService" class="com.datacenter.dams.input.queue.TcoinRechargeQueueService">
+ 		<property name="jmsTemplate" ref="inputJmsTemplate"/>
+ 	</bean>
+ 	<!--报表TQ充值读取PC队列 -->
+ 	<bean id="tquanRechargeQueueService" class="com.datacenter.dams.input.queue.TquanRechargeQueueService">
+ 		<property name="jmsTemplate" ref="inputJmsTemplate"/>
+ 	</bean>
+ 	<!-- 佣金提现业务处理 -->
+ 	<bean id="brokerageConsumeFormService" class="com.datacenter.dams.business.service.form.BrokerageConsumeFormService">
+ 		<property name="redisQueueInputDao" ref="redisQueueInputDao"/>
+ 	</bean>
+ 	<!-- 佣金兑换务处理 -->
+ 	<bean id="brokerageRechargeFormService" class="com.datacenter.dams.business.service.form.BrokerageRechargeFormService">
+ 		<property name="redisQueueInputDao" ref="redisQueueInputDao"/>
+ 	</bean>
+ 	<!--佣金提现 -->
+ 	<bean id="brokerageConsumeQueueService" class="com.datacenter.dams.input.queue.BrokerageConsumeQueueService">
+ 		<property name="jmsTemplate" ref="inputJmsTemplate"/>
+ 	</bean>
+ 	<!--佣金兑换 -->
+ 	<bean id="brokerageRechargeQueueService" class="com.datacenter.dams.input.queue.BrokerageRechargeQueueService">
+ 		<property name="jmsTemplate" ref="inputJmsTemplate"/>
+ 	</bean>
+ 	<!--用户登录记录ActiveMQ队列读取服务 -->
+ 	<bean id="userLoginQueueService" class="com.datacenter.dams.input.queue.UserLoginQueueService">
+ 		<property name="jmsTemplate" ref="inputJmsTemplate"/>
+ 	</bean>
+ 	<!--用户注册记录ActiveMQ队列读取服务 -->
+ 	<bean id="addUserQueueService" class="com.datacenter.dams.input.queue.AddUserQueueService">
+ 		<property name="jmsTemplate" ref="inputJmsTemplate"/>
+ 	</bean>
+ 	<!--用户注册记录写入hdfs文件 -->
+ 	<bean id="addUserFormService" class="com.datacenter.dams.business.service.form.AddUserFormService"/>
+ 	<!--用户登录记录写入hdfs文件 -->
+ 	<bean id="userLoginFormService" class="com.datacenter.dams.business.service.form.UserLoginFormService"/>
+ 	<!-- TB消费账单 -->
+ 	<bean id="tcoinBillService" class="com.datacenter.dams.business.service.bill.TcoinBillService"/>
+ 	<!-- TQ消费账单 -->
+ 	<bean id="tquanBillService" class="com.datacenter.dams.business.service.bill.TquanBillService"/>
+ 	<!-- YJ消费账单 -->
+ 	<bean id="brokerageBillService" class="com.datacenter.dams.business.service.bill.BrokerageBillService"/>
+</beans>

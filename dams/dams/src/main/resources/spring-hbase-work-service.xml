@@ -1,0 +1,55 @@
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans
+							     	 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+							     	 http://www.springframework.org/schema/task
+							     	 http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+
+	<!--每天调度执行，统计hbase消费信息 -->
+	<bean id="scheduleRankStatic" class="com.datacenter.dams.input.hbase.work.ScheduleRankStatic"  />
+	<!-- 查询每天调度结果 29天的数据 -->
+	<bean id="liveDynamicMonthStatistics" class="com.datacenter.dams.input.hbase.work.MonthScheldRankingStatic" >
+		<property name="queryDays" value="29"></property>
+		<property name="dataStoreHbaseName" value="LiveMonthHbaseRanking"></property>
+		<property name="queryHbaseName" value="LiveHbaseRankingInfo"></property>
+	</bean>
+
+	<bean id="otherDynamicMonthStatistics" class="com.datacenter.dams.input.hbase.work.MonthScheldRankingStatic" >
+		<property name="queryDays" value="29"></property>
+		<property name="dataStoreHbaseName" value="otherMonthHbaseRanking"></property>
+		<property name="queryHbaseName" value="NewHbaseRankingInfo"></property>
+	</bean>
+
+	<!--计算七天频道消费排行 -->
+	<bean id="thityDynamicRanking" class="com.datacenter.dams.input.hbase.work.DynamicRanking" >
+		<property name="queryDays" value="1"></property>
+		<property name="type" value="month"></property>
+		<property name="HbaseTableName" value="otherMonthHbaseRanking"></property>
+		<property name="busType" value="UnMobileLive"></property>
+		<property name="dynamicQueue" value="SDMS_UserContribution_Queue"></property>
+	</bean>
+
+	<!-- 计算手机直播七天的排行榜数据 -->
+	<bean id="liveDynamicRanking" class="com.datacenter.dams.input.hbase.work.DynamicRanking" >
+		<property name="queryDays" value="1"></property>
+		<property name="type" value="MobileLive"></property>
+		<property name="HbaseTableName" value="LiveMonthHbaseRanking"></property>
+		<property name="busType" value="MobileLive"></property>
+		<property name="dynamicQueue" value="SDMS_UserContribution_Queue"></property>
+	</bean>
+
+	<!-- hbase统计计算周、月榜 -->
+	<task:scheduled-tasks>
+		<task:scheduled ref="scheduleRankStatic" method="excute" cron=" 0 02 00 * * ?" />
+		<!-- <task:scheduled ref="liveDynamicMonthStatistics" method="excute" cron="0 05 00 * * ?" /> -->
+		<task:scheduled ref="otherDynamicMonthStatistics" method="excute" cron="0 05 00 * * ?" />
+		<task:scheduled ref="thityDynamicRanking" method="excute" cron="0 0/5 * * * ?" />
+		<!-- <task:scheduled ref="liveDynamicRanking" method="excute" cron="0 0/5 * * * ?" />  -->
+	</task:scheduled-tasks>
+
+
+
+
+
+
+</beans>

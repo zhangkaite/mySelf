@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springwork.org/schema/tx"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans
+							     	 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+							     	 http://www.springframework.org/schema/context     
+							     	 http://www.springframework.org/schema/context/spring-context-3.0.xsd
+							     	 http://www.springframework.org/schema/tx
+							     	 http://www.springframework.org/schema/tx/spring-tx-3.0.xsd ">
+	
+
+	<bean id="solrUserInfoCloudSolrServer" class="com.ttmv.datacenter.usercenter.dao.implement.mapper.BaseSolrCloud">
+			<constructor-arg value="${solr.zk.CloudSolrServer}" />
+			<constructor-arg value="userinfo" />
+	</bean>
+	
+	<bean id="solrGroupCloudSolrServer" class="com.ttmv.datacenter.usercenter.dao.implement.mapper.BaseSolrCloud">
+			<constructor-arg value="${solr.zk.CloudSolrServer}" />
+			<constructor-arg value="group" />
+	</bean>
+	
+	<bean id="solrUserCrossRelationCloudSolrServer" class="com.ttmv.datacenter.usercenter.dao.implement.mapper.BaseSolrCloud">
+			<constructor-arg value="${solr.zk.CloudSolrServer}" />
+			<constructor-arg value="crossrelation" />
+	</bean>
+			     	 
+	<bean id="solrUserInfoMapper"  class="com.ttmv.datacenter.usercenter.dao.implement.mapper.userinfo.SolrUserInfoMapper">
+		<property name="solrServer"  ref="solrUserInfoCloudSolrServer"/>
+		<property name="quickSentry" ref="quickSentry"/>
+	</bean>
+	
+	<bean id="solrUserCrossRelationMapper"  class="com.ttmv.datacenter.usercenter.dao.implement.mapper.usercrossrelation.SolrUserCrossRelationMapper">
+		<property name="solrServer"  ref="solrUserCrossRelationCloudSolrServer"/>
+		<property name="quickSentry" ref="quickSentry"/>
+	</bean>
+	
+	<bean id="solrGroupMapper"  class="com.ttmv.datacenter.usercenter.dao.implement.mapper.group.SolrGroupMapper">
+		<property name="solrServer" ref="solrGroupCloudSolrServer"/>
+		<property name="quickSentry" ref="quickSentry"/>
+	</bean>
+	
+</beans>

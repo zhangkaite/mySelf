@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans
+							     	 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd ">
+
+	<!-- 活动Controller -->
+	<bean id="activityController" class="com.datacenter.dams.controller.ActivityController">
+		<property name="starInfoActivityService" ref="starInfoActivityService" />
+		<property name="quickSentry" ref="quickSentry" />
+		<property name="checkUserIdQuickSentry" ref="userIDSentry" />
+	</bean>
+	<!-- http请求发送服务 -->
+	<bean id="quickSentry" class="com.ttmv.datacenter.sentry.handle.QuickSentry">
+		<property name="httpRequestPost" ref="httpRequestPost"/>
+	</bean>
+	<bean id="httpRequestPost" class="com.ttmv.datacenter.sentry.http.HttpRequestPost">
+		<constructor-arg value="${ocms.host.url}"/>
+	</bean>
+	<!-- 验证用户ID请求发送服务 -->
+	<bean id="userIDSentry" class="com.ttmv.datacenter.sentry.handle.QuickSentry">
+		<property name="httpRequestPost" ref="userIDHttpRequestPost"/>
+	</bean>
+	<bean id="userIDHttpRequestPost" class="com.ttmv.datacenter.sentry.http.HttpRequestPost">
+		<constructor-arg value="${ocms.host.ocmscheckuseridactivityids.url}"/>
+	</bean>
+</beans> 

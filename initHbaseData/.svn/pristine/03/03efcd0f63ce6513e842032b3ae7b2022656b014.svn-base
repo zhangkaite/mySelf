@@ -1,0 +1,171 @@
+package com.ttmv.initHbaseData;
+
+import java.math.BigDecimal;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.collections.map.HashedMap;
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.hbase.Cell;
+import org.apache.hadoop.hbase.CellUtil;
+import org.apache.hadoop.hbase.HBaseConfiguration;
+import org.apache.hadoop.hbase.client.Result;
+import org.apache.hadoop.hbase.client.ResultScanner;
+
+
+@SuppressWarnings({"rawtypes","unchecked"})
+public class InitData2Hbase {
+
+	private static Configuration conf =HBaseConfiguration.create();
+	// hbase消费表
+	private static final String HBASEOPERATIONINFO_TABLENAME = "HbaseOperationInfo";
+	// hbase消费统计结果表
+	private static final String HBASERANKINGINFO_TABLENAME = "HbaseRankingInfo";
+
+	private static final String HBASEUSERINFO_COLUMN_DATA = "HbaseStaticDate";
+
+	public static void initDatas2Hbase(String startTime,String endTime) throws Exception{
+		
+		// 获取当前时间昨天的时间起始时间和结束时间
+				try {
+					// 获取当前时间前一天的所有消费数据，并且对相同频道消费的t豆进行累加  
+					Map result_map = scanByStartAndStopRow(HBASEOPERATIONINFO_TABLENAME, startTime, endTime);
+					// 将一天统计的结果数据写入hbase HbaseRankingInfo表中
+					
+					initStaticDatas2Hbase(startTime,result_map);
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+		
+	}
+	
+	
+	public static Map scanByStartAndStopRow(String tableName, String startRow, String stopRow) {
+		
+		ResultScanner rs = HbaseUtil.getRowsByStartEndTime(tableName, startRow, stopRow, conf);
+		List<BillInfoEntity> ls = new ArrayList<BillInfoEntity>();
+		for (Result r : rs) {
+			try {
+				BillInfoEntity bEntity = convert2Entity(r);
+				// 只填加消费类型和房间号不为空的数据
+				if ("-1".equals(bEntity.getType()) && null != bEntity.getRoomID()) {
+					ls.add(bEntity);
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		Map resultMap = getRomConSumerInfo(ls);
+		return resultMap;
+	}
+	
+	
+	/**
+	 * 将查询出的结果json串转换成对象
+	 *
+	 * @param result
+	 * @return
+	 * @throws Exception
+	 */
+	public static BillInfoEntity convert2Entity(Result result) throws Exception {
+		BillInfoEntity billInfoEntity = null;
+		for (Cell cell : result.rawCells()) {
+			String info = new String(CellUtil.cloneValue(cell));
+			billInfoEntity = (BillInfoEntity) JsonUtil.getObjectFromJson(info, BillInfoEntity.class);
+		}
+		return billInfoEntity;
+	}
+
+	/**
+	 * 根据list数组获取当天所有房间每个人消费总数 1、删选符合条件的数据 2、将所有的数据按照房间号分类 3、将同一房间号 同一用户的消费数据求和
+	 * 消费数据区分t券和t币
+	 *
+	 * @param ls
+	 * @return
+	 */
+
+	
+	public static Map getRomConSumerInfo(List<BillInfoEntity> ls) {
+		Map resultMap = new HashedMap();
+		for (Iterator iterator = ls.iterator(); iterator.hasNext();) {
+			BillInfoEntity billInfoEntity = (BillInfoEntity) iterator.next();
+			String rom_id = billInfoEntity.getRoomID();
+			// 如果房间号为空，则说明该数据不是房间T币消费数据
+			if (null == rom_id || "".equals(rom_id)) {
+				continue;
+			}
+			String user_id = String.valueOf(billInfoEntity.getUserId());
+			BigDecimal trade_num = billInfoEntity.getNumber();
+			// 判断当前消费类型是t币还是t券，t币乘以1000
+			if ("0".equals(billInfoEntity.getAccountType())) {
+				trade_num = trade_num.multiply(new BigDecimal(1000));
+			}
+			// 如果map中包含当前的房间号
+			if (!resultMap.containsKey(rom_id)) {
+				Map currUserTradeMap = new HashedMap();
+				currUserTradeMap.put(user_id, trade_num);
+				resultMap.put(rom_id, currUserTradeMap);
+			} else {
+				// 获取当前房间号的所有人员消费数据
+				HashedMap consumMap = (HashedMap) resultMap.get(rom_id);
+				if (consumMap.containsKey(user_id)) {
+					BigDecimal current_trade_num =new BigDecimal(consumMap.get(user_id).toString()) ;
+					BigDecimal new_trade_num = current_trade_num.add(trade_num);
+					consumMap.put(user_id, new_trade_num);
+					resultMap.put(rom_id, consumMap);
+				} else {
+					consumMap.put(user_id, trade_num);
+					resultMap.put(rom_id, consumMap);
+				}
+
+			}
+
+		}
+		return resultMap;
+	}
+
+	/**
+	 * 将统计的结果写入hbase中
+	 * @throws ParseException 
+	 */
+	public static void initStaticDatas2Hbase(String startTime,Map resulMap) throws ParseException {
+		// 如果hbase表不存在，先创建表
+		String[] clumnFamily = { HBASEUSERINFO_COLUMN_DATA };
+		try {
+			HbaseUtil.createTable(HBASERANKINGINFO_TABLENAME, clumnFamily, conf);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		// 组装hbase rowkey 13位时间戳+频道号+用户id
+		for (Object obj : resulMap.keySet()) {
+			String channel_id = (String) obj;
+			Map result_map = (Map) resulMap.get(channel_id);
+			for (Object result : result_map.keySet()) {
+				String user_id = (String) result;
+				String consume_num = String.valueOf(result_map.get(user_id));
+				String hbase_key = String.valueOf(DataUtil.getDate(startTime).getTime()) + channel_id + user_id;
+				RankingEntity rankingEntity = new RankingEntity();
+				rankingEntity.setChannel_id(channel_id);
+				rankingEntity.setUser_id(user_id);
+				rankingEntity.setConsume_num(consume_num);
+				try {
+					String value = JsonUtil.getObjectToJson(rankingEntity);
+					HbaseUtil.addRow(HBASERANKINGINFO_TABLENAME, hbase_key, HBASEUSERINFO_COLUMN_DATA,
+							HBASEUSERINFO_COLUMN_DATA, value, conf);
+					System.out.println("插入hbase的数据rowkey:"+hbase_key+";json数据:"+value);
+				} catch (Exception e) {
+					// TODO 添加报警机制
+
+					e.printStackTrace();
+				}
+			}
+		}
+
+	}
+
+}

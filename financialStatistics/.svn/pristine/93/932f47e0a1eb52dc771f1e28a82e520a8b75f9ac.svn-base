@@ -1,0 +1,26 @@
+package com.ttmv.financialStatistics;
+
+import java.util.Date;
+
+public class DataEntity {
+
+	private Date statisticDay;
+	private String outputPath;
+
+	public Date getStatisticDay() {
+		return statisticDay;
+	}
+
+	public void setStatisticDay(Date statisticDay) {
+		this.statisticDay = statisticDay;
+	}
+
+	public String getOutputPath() {
+		return outputPath;
+	}
+
+	public void setOutputPath(String outputPath) {
+		this.outputPath = outputPath;
+	}
+
+}

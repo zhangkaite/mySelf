@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="OFF">
+	<appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%-5level %d{yyyy-MM-dd HH:mm:ss }[%class{36}]  %msg%n" />
+		</Console>
+
+		<RollingFile name="RollingFile" fileName="/u01/log/pc_log/pc_logs/pCenterAll.log"
+			filePattern="log/$${date:yyyy-MM}/pCenterAll-%d{MM-dd-yyyy}-%i.log.gz">
+			<PatternLayout
+				pattern="%d{yyyy-MM-dd 'at' HH:mm:ss z} %-5level %class{36} %L %M - %msg%xEx%n" />
+			<SizeBasedTriggeringPolicy size="250MB" />
+		</RollingFile>
+
+		<RollingFile name="daoLogFile" fileName="/u01/log/pc_log/pc_logs/dao.log"
+			filePattern="pCenters/$${date:yyyy-MM}/payCenter_dao%d{MM-dd-yyyy}-%i.log.gz">
+			<PatternLayout>
+				<Pattern>%-5level %d{yyyy-MM-dd HH:mm:ss }[%class{36}] %msg%n
+				</Pattern>
+			</PatternLayout>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="500 MB" />
+			</Policies>
+		</RollingFile>
+
+		<RollingFile name="serviceLogFile" fileName="/u01/log/pc_log/pc_logs/service.log"
+			filePattern="pCenters/$${date:yyyy-MM}/payCenter_service%d{MM-dd-yyyy}-%i.log.gz">
+			<PatternLayout>
+				<Pattern>%-5level %d{yyyy-MM-dd HH:mm:ss }[%class{36}] %msg%n
+				</Pattern>
+			</PatternLayout>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="500 MB" />
+			</Policies>
+		</RollingFile>
+
+
+		<RollingFile name="gromitLogFile" fileName="/u01/log/pc_log/pc_logs/gromit.log"
+			filePattern="pCenters/$${date:yyyy-MM}/payCenter_gromit%d{MM-dd-yyyy}-%i.log.gz">
+			<PatternLayout>
+				<Pattern>%-5level %d{yyyy-MM-dd HH:mm:ss }[%class{36}] %msg%n
+				</Pattern>
+			</PatternLayout>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="250 MB" />
+			</Policies>
+		</RollingFile>
+
+		<RollingFile name="lockCenterLogFile" fileName="/u01/log/pc_log/pc_logs/lockCenter.log"
+			filePattern="pCenters/$${date:yyyy-MM}/payCenter_lockCenter%d{MM-dd-yyyy}-%i.log.gz">
+			<PatternLayout>
+				<Pattern>%-5level %d{yyyy-MM-dd HH:mm:ss }[%class{36}] %msg%n
+				</Pattern>
+			</PatternLayout>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="250 MB" />
+			</Policies>
+		</RollingFile>
+
+		<RollingFile name="uuidGeneratorLogFile" fileName="/u01/log/pc_log/pc_logs/uuidGenerator.log"
+			filePattern="pCenters/$${date:yyyy-MM}/payCenter_uuidGenerator%d{MM-dd-yyyy}-%i.log.gz">
+			<PatternLayout>
+				<Pattern>%-5level %d{yyyy-MM-dd HH:mm:ss }[%class{36}] %msg%n
+				</Pattern>
+			</PatternLayout>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="250 MB" />
+			</Policies>
+		</RollingFile>
+
+		<RollingFile name="ttnumGeneratorLogFile" fileName="/u01/log/pc_log/pc_logs/ttnumGenerator.log"
+			filePattern="pCenters/$${date:yyyy-MM}/payCenter_ttnumGenerator%d{MM-dd-yyyy}-%i.log.gz">
+			<PatternLayout>
+				<Pattern>%-5level %d{yyyy-MM-dd HH:mm:ss }[%class{36}] %msg%n
+				</Pattern>
+			</PatternLayout>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="250 MB" />
+			</Policies>
+		</RollingFile>
+
+		<RollingFile name="tokenCenterAgentLogFile" fileName="/u01/log/pc_log/pc_logs/tokenCenterAgent.log"
+			filePattern="pCenters/$${date:yyyy-MM}/payCenter_tokenCenterAgent%d{MM-dd-yyyy}-%i.log.gz">
+			<PatternLayout>
+				<Pattern>%-5level %d{yyyy-MM-dd HH:mm:ss }[%class{36}] %msg%n
+				</Pattern>
+			</PatternLayout>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="250 MB" />
+			</Policies>
+		</RollingFile>
+
+		<RollingFile name="redisAgentLogFile" fileName="/u01/log/pc_log/pc_logs/redisAgent.log"
+			filePattern="pCenters/$${date:yyyy-MM}/payCenter_redisAgent%d{MM-dd-yyyy}-%i.log.gz">
+			<PatternLayout>
+				<Pattern>%-5level %d{yyyy-MM-dd HH:mm:ss }[%class{36}] %msg%n
+				</Pattern>
+			</PatternLayout>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="250 MB" />
+			</Policies>
+		</RollingFile>
+		
+		<RollingFile name="workerLogFile" fileName="/u01/log/pc_log/pc_logs/worker.log"
+			filePattern="pCenters/$${date:yyyy-MM}/payCenter_worker%d{MM-dd-yyyy}-%i.log.gz">
+			<PatternLayout>
+				<Pattern>%-5level %d{yyyy-MM-dd HH:mm:ss }[%class{36}] %msg%n
+				</Pattern>
+			</PatternLayout>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="250 MB" />
+			</Policies>
+		</RollingFile>
+		
+		<RollingFile name="dataflowLog" fileName="/u01/log/pc_log/pc_logs/dataflow.log"
+			filePattern="pCenters/$${date:yyyy-MM}/payCenter_dataflow%d{MM-dd-yyyy}-%i.log.gz">
+			<PatternLayout>
+				<Pattern>%-5level %d{yyyy-MM-dd HH:mm:ss }[%class{36}] %msg%n
+				</Pattern>
+			</PatternLayout>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="250 MB" />
+			</Policies>
+		</RollingFile>
+
+	</appenders>
+	<loggers>
+		<logger name="com.ttmv.datacenter.gromit" level="info"
+			additivity="true">
+			<appender-ref ref="gromitLogFile" />
+		</logger>
+
+		<logger name="com.ttmv.datacenter.paycenter.service" level="debug"
+			additivity="true">
+			<appender-ref ref="serviceLogFile" />
+		</logger>
+
+		<logger name="com.ttmv.datacenter.paycenter.worker" level="info"
+			additivity="true">
+			<appender-ref ref="workerLogFile" />
+		</logger>
+
+
+		<logger name="com.ttmv.datacenter.paycenter.dao.implement"
+			level="debug" additivity="true">
+			<appender-ref ref="daoLogFile" />
+		</logger>
+
+		<logger name="com.ttmv.datacenter.agent.lockcenter" level="info"
+			additivity="true">
+			<appender-ref ref="lockCenterLogFile" />
+		</logger>
+		<logger name="com.ttmv.datacenter.generator.GUID" level="info"
+			additivity="true">
+			<appender-ref ref="uuidGeneratorLogFile" />
+		</logger>
+		<logger name="com.ttmv.datacenter.generator.ttnum" level="info"
+			additivity="true">
+			<appender-ref ref="ttnumGeneratorLogFile" />
+		</logger>
+		<logger name="com.ttmv.datacenter.agent.tokencenter" level="info"
+			additivity="true">
+			<appender-ref ref="tokenCenterAgentLogFile" />
+		</logger>
+		<logger name="com.ttmv.datacenter.agent.redis" level="info"
+			additivity="true">
+			<appender-ref ref="redisAgentLogFile" />
+		</logger>
+		<logger name="org.jam.dataflow" level="debug"
+			additivity="true">
+			<appender-ref ref="dataflowLog" />
+		</logger>
+
+		<root level="debug">
+			<appender-ref ref="RollingFile" />
+			<appender-ref ref="Console" />
+		</root>
+
+	</loggers>
+</configuration>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ttmv.monitoring.collection.mapper.CpuInfoDaoMapper">
+	<resultMap id="BaseResultMap" type="com.ttmv.monitoring.collection.entity.CpuInfo">
+	</resultMap>
+	<!-- 模糊条件查询 -->
+	<select id="selectCpuInfoList" resultMap="BaseResultMap" parameterType="com.ttmv.monitoring.collection.entity.CpuInfo" >
+		select * from cpuInfo
+		limit
+		#{start},#{pageSize}
+	</select>
+
+	<!-- 模糊条件查询 , 查询全部 -->
+	<select id="selectCpuInfoSumNum"  resultType="java.lang.Integer">
+		select count(*) from
+		cpuInfo
+	</select>
+
+</mapper>

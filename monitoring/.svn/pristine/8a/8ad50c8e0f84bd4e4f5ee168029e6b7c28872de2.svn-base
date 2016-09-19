@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemesh>
+    <!-- 指明满足“/*”的页面，将被“/WEB-INF/views/decorators/decorator.html”所装饰 -->
+    <mapping path="/common/*" decorator="/WEB-INF/pages/login.jsp"/>
+
+    <!-- 指明满足“/exclude.jsp*”的页面，将被排除，不被装饰 -->
+    <mapping path="/exclude/*" exclue="true"/>
+    <!--默认情况下，
+        sitemesh 只对 HTTP 响应头中 Content-Type 为 text/html 的类型进行拦截和装饰，
+        我们可以添加更多的 mime 类型-->
+    <mime-type>text/html</mime-type>
+    <mime-type>application/vnd.wap.xhtml+xml</mime-type>
+    <mime-type>application/xhtml+xml</mime-type>
+
+
+</sitemesh>

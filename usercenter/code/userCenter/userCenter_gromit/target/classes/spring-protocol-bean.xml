@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springwork.org/schema/tx"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans
+							     	 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+							     	 http://www.springframework.org/schema/context     
+							     	 http://www.springframework.org/schema/context/spring-context-3.0.xsd
+							     	 http://www.springframework.org/schema/tx
+							     	 http://www.springframework.org/schema/tx/spring-tx-3.0.xsd ">
+
+
+	<!-- 通用域 -->
+	<bean id="generalProBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.GeneralPro"
+		scope="prototype" />
+
+	<!-- 000_管控添加用户 -->
+	<bean id="adminAddUserBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.AdminAddUser"
+		scope="prototype" />
+
+	<!-- 001_用户注册 -->
+	<bean id="addUserBean" class="com.ttmv.datacenter.usercenter.domain.protocol.AddUser"
+		scope="prototype" />
+
+	<!-- 002_用户密码修改 -->
+	<bean id="resetPasswordBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.ResetPassword"
+		scope="prototype" />
+
+	<!-- 003_用户资料修改 -->
+	<bean id="modifyUserInfoBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.ModifyUserExtend"
+		scope="prototype" />
+
+	<!-- 004_登录方式开通 -->
+	<bean id="loginBindingBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.LoginBinding"
+		scope="prototype" />
+
+	<!-- 005_申请实名认证 -->
+	<bean id="applyRealNameRegBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.ApplyRealNameReg"
+		scope="prototype" />
+
+	<!-- 006_创建群分组 -->
+	<!-- <bean id="createCrowdGroupBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.CreateCrowdGroup"
+		scope="prototype" /> -->
+
+	<!-- 007_删除群分组 -->
+	<!-- <bean id="removeCrowdGroupBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.RemoveCrowdGroup"
+		scope="prototype" /> -->
+
+	<!-- 008_修改群分组 -->
+<!-- 	<bean id="modifyCrowdGroupBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.ModifyCrowdGroup"
+		scope="prototype" /> -->
+
+	<!-- 009_用户创建群 -->
+<!-- 	<bean id="createCrowdBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.CreateCrowd"
+		scope="prototype" /> -->
+
+	<!-- 010_用户解散群 -->
+<!-- 	<bean id="disbandCrowdBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.DisbandCrowd"
+		scope="prototype" /> -->
+
+	<!-- 011_用户修改群信息 -->
+<!-- 	<bean id="modifyCrowdBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.ModifyCrowd"
+		scope="prototype" /> -->
+
+	<!-- 012_创建好友分组 -->
+	<bean id="createFriendGroupBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.CreateFriendGroup"
+		scope="prototype" />
+
+	<!-- 013_修改好友分组 -->
+	<bean id="modifyFriendGroupBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.ModifyFriendGroup"
+		scope="prototype" />
+
+	<!-- 014_删除好友分组 -->
+	<bean id="removeFriendGroupBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.RemoveFriendGroup"
+		scope="prototype" />
+
+	<!-- 015_添加管理员和官方用户 -->
+<!-- 	<bean id="addAdminUserBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.AddAdminUser"
+		scope="prototype" /> -->
+
+	<!-- 016_修改管理员和官方用户 -->
+	<!-- <bean id="modifyAdminUserBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.ModifyAdminUser"
+		scope="prototype" /> -->
+
+	<!-- 017_用户信息绑定 -->
+	<bean id="userInfoBindingBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.UserInfoBinding"
+		scope="prototype" />
+
+	<!-- 018_账户信息校验 -->
+	<bean id="userValidationBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.UserValidation"
+		scope="prototype" />
+
+	<!-- 019_参数管理 -->
+	<bean id="parameterManageBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.ParameterManage"
+		scope="prototype" />
+
+	<!-- 020_用户登录 -->
+	<bean id="loginBean" class="com.ttmv.datacenter.usercenter.domain.protocol.Login"
+		scope="prototype" />
+
+	<!-- 021_用户注销 -->
+	<bean id="logoutBean" class="com.ttmv.datacenter.usercenter.domain.protocol.Logout"
+		scope="prototype" />
+
+	<!-- 022_审批实名认证 -->
+<!-- 	<bean id="realNameRegCheckingBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.RealNameRegChecking"
+		scope="prototype" /> -->
+
+	<!-- 023_封终端设备 -->
+	<bean id="forceOutDeviceBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.ForceOutDevice"
+		scope="prototype" />
+
+	<!-- 024_解封终端设备 -->
+	<bean id="unsetDeviceBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.UnsetDevice"
+		scope="prototype" />
+
+	<!-- 025_删除、冻结用户 -->
+	<bean id="forbiddenUserBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.ForbiddenUser"
+		scope="prototype" />
+
+	<!-- 026_解冻、撤销删除用户 -->
+	<bean id="removeForbiddenUserBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.RemoveForbiddenUser"
+		scope="prototype" />
+
+	<!-- 027_管控列表查询 -->
+<!-- 	<bean id="queryControlLogListBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.QueryControlLogList"
+		scope="prototype" /> -->
+
+	<!-- 028_查询群资料 -->
+<!-- 	<bean id="queryCrowdByIdBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.QueryCrowdById"
+		scope="prototype" /> -->
+
+	<!-- 029_查询群列表 -->
+	<!-- <bean id="queryCrowdsBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.QueryCrowds"
+		scope="prototype" /> -->
+
+	<!-- 030_终端禁用列表查询 -->
+<!-- 	<bean id="disableTerminalListBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.DisableTerminalList"
+		scope="prototype" /> -->
+
+	<!-- 031_冻结用户列表查询 -->
+<!-- 	<bean id="freezeUserListBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.FreezeUserList"
+		scope="prototype" /> -->
+
+	<!-- 032_用户上线记录查询 -->
+	<bean id="queryUserLogBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.QueryUserLog"
+		scope="prototype" />
+
+	<!-- 033_实名认证信息查询 -->
+<!-- 	<bean id="queryRealNameRegBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.QueryRealNameReg"
+		scope="prototype" /> -->
+
+	<!-- 034_用户基本信息查询 -->
+	<bean id="queryUserByIdBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.QueryUserById"
+		scope="prototype" />
+
+	<!-- 035_用户列表查询 -->
+	<bean id="queryUsersBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.QueryUsers"
+		scope="prototype" />
+
+	<!-- 036_用户好友列表查询 -->
+	<bean id="queryFriendBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.QueryFriend"
+		scope="prototype" />
+
+	<!-- 037_实名认证审核列表查询 -->
+<!-- 	<bean id="realNameRegCheckingListBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.RealNameRegCheckingList"
+		scope="prototype" /> -->
+
+	<!-- 038_用户安全信息查询 -->
+	<bean id="querySecurityInfoBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.QuerySecurityInfo"
+		scope="prototype" />
+
+	<!-- 039_用户关注 -->
+	<bean id="addAttentionBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.AddAttention"
+		scope="prototype" />
+
+	<!-- 040_用户取消关注 -->
+	<bean id="undoAttentionBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.UndoAttention"
+		scope="prototype" />
+
+	<!-- 041_用户添加好友 -->
+	<bean id="addFriendBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.AddFriend"
+		scope="prototype" />
+
+	<!-- 042_用户删除好友 -->
+	<bean id="removeFriendBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.RemoveFriend"
+		scope="prototype" />
+
+	<!-- 043_开启或关闭群 -->
+<!-- 	<bean id="onoffCrowdBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.OnoffCrowd"
+		scope="prototype" /> -->
+
+	<!-- 044_用户靓号状态修改 -->
+	<bean id="goodTTnumManageBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.GoodTTnumManage"
+		scope="prototype" />
+
+	<!-- 045_申诉账号检测 -->
+	<bean id="complainValidationBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.ComplainValidation"
+		scope="prototype" />
+
+	<!-- 046_好友信息DIY -->
+	<bean id="diyFiendInfoBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.DiyFiendInfo"
+		scope="prototype" />
+
+	<!-- 047_用户好友信息列表获取 -->
+	<bean id="queryFriendInfosBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.QueryFriendInfos"
+		scope="prototype" />
+
+	<!-- 048_查询用户好友分组关系 -->
+	<bean id="queryUserFriendGroupBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.QueryUserFriendGroup"
+		scope="prototype" />
+
+	<!-- 049_查询用户好友分组信息 -->
+	<bean id="queryFriendGroupInfoBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.QueryFriendGroupInfo"
+		scope="prototype" />
+
+	<!-- 050_第三方登录 -->
+	<bean id="sdkLoginBean" class="com.ttmv.datacenter.usercenter.domain.protocol.SdkLogin"
+		scope="prototype" />
+
+	<!-- 051_银行卡信息绑定 -->
+	<bean id="bindingBankCardBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.BindingBankCard"
+		scope="prototype" />
+
+	<!-- 052_用户token校验 -->
+	<bean id="tokenValidationBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.TokenValidation"
+		scope="prototype" />
+
+	<!-- 053_用户防骚扰设置 -->
+	<bean id="setFriendVerifyInfoBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.SetFriendVerifyInfo"
+		scope="prototype" />
+
+	<!-- 054_获取防骚扰信息 -->
+	<bean id="getFriendVerifyInfoBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.GetFriendVerifyInfo"
+		scope="prototype" />
+
+	<!-- 055_登录号解绑 -->
+	<bean id="relieveLoginBindingBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.RelieveLoginBinding"
+		scope="prototype" />
+
+	<!-- 056_密码是否在验证 -->
+	<bean id="pwdValidationBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.PwdValidation"
+		scope="prototype" />
+		
+	<!-- 057_开通，续费会员 -->
+	<bean id="openingVIPBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.OpeningVIP"
+		scope="prototype" />
+		
+	<!-- 058_生成用户ID -->
+	<bean id="takeUserIDBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.TakeUserID"
+		scope="prototype" />
+				
+	<!-- 059_贡献周榜查询 -->
+	<bean id="queryContributionListBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.QueryContributionList"
+		scope="prototype" />	
+
+	<!-- 060_成为主播 -->
+	<bean id="becomeAnnouncerBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.BecomeAnnouncer"
+		scope="prototype" />		
+				
+	<!-- XXX_vip到期回调 -->
+	<bean id="vipCallBackBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.VipCallBack"
+		scope="prototype" />
+	<!-- XXX_经验统计计算回调 -->
+	<bean id="levelCallBackBean"
+		class="com.ttmv.datacenter.usercenter.domain.protocol.LevelCallBack"
+		scope="prototype" />		
+		
+		
+
+</beans>

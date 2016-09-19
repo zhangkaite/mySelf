@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"  
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans
+							     	 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+							     	 http://www.springframework.org/schema/context     
+							     	 http://www.springframework.org/schema/context/spring-context-3.0.xsd
+							     	 http://www.springframework.org/schema/tx
+							     	 http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+							     	  http://www.springframework.org/schema/aop 
+							     	 http://www.springframework.org/schema/aop/spring-aop-3.0.xsd 
+							     	  ">
+
+	
+	<!-- 配置jdbc.properties -->
+	<context:property-placeholder location="classpath:jdbc.properties" />
+	
+	<!-- 导入各个配置文件-->
+	<import resource="spring-hbase-implement.xml"/> 
+	<import resource="spring-mysql-implement.xml"/>
+	<import resource="spring-redis-implement.xml"/>
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${jdbc.driver_m1}" />
+		<property name="jdbcUrl" value="${jdbc.url_m1}" />
+		<property name="user" value="${jdbc.username_m1}" />
+		<property name="password" value="${jdbc.password_m1}" />
+	</bean>
+	
+	<!-- 配置sqlSessionFactoryBean；绑定mybatis -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:sql_config.xml" />
+	</bean>
+
+	<!-- 配置事务；txManager事务管理 -->
+	<bean id="txManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+    <tx:advice id="txAdvice" transaction-manager="txManager">  
+        <tx:attributes>  
+            <tx:method name="add*" propagation="REQUIRED" />  
+        </tx:attributes>  
+    </tx:advice>  
+      
+    <aop:config>  
+        <aop:pointcut id="interceptorPointCuts"  expression="execution(* com.ttmv.datacenter.paycenter.dao.implement.impl.*.*(..))" />  
+        <aop:advisor advice-ref="txAdvice"  pointcut-ref="interceptorPointCuts" />          
+    </aop:config>     
+	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.ttmv.datacenter.paycenter.daoimplement" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+	</bean>
+	
+	<bean id="accountInfoDaoImpl" class="com.ttmv.datacenter.paycenter.dao.implement.impl.AccountInfoDaoImpl">
+		<property name="brokerageInfoDao" ref="brokerageInfoDaoImpl"/>
+		<property name="tcoinInfoDao" ref="tcoinInfoDaoImpl"/>
+		<property name="tquanInfoDao" ref="tquanInfoDaoImpl"/>
+		<!-- <property name="tableIdGenerate" ref="tableIdGenerate"/> -->
+	</bean>
+	
+	<bean id="brokerageInfoDaoImpl" class="com.ttmv.datacenter.paycenter.dao.implement.impl.BrokerageInfoDaoImpl">
+		<property name="redisBrokerageInfoMapper"  ref="redisBrokerageInfoMapper"/>
+		<property name="hbaseOperationInfoMapper" ref="hbaseOperationInfoMapper"> </property>		
+	</bean>
+	
+	<bean id="tcoinInfoDaoImpl"  class="com.ttmv.datacenter.paycenter.dao.implement.impl.TcoinInfoDaoImpl">
+		<property name="hbaseOperationInfoMapper" ref="hbaseOperationInfoMapper"> </property>	
+		<property name="redisTcoinInfoMapper" ref="redisTcoinInfoMapper"/>
+	</bean>
+	
+	<bean id="tquanInfoDaoImpl" class="com.ttmv.datacenter.paycenter.dao.implement.impl.TquanInfoDaoImpl">
+		<property name="redisTquanInfoMapper" ref="redisTquanInfoMapper"/>
+		<property name="hbaseOperationInfoMapper" ref="hbaseOperationInfoMapper"> </property>
+	</bean>
+	
+	<bean id="tableIdGenerate" class="com.ttmv.datacenter.paycenter.dao.implement.util.TableIdGenerate">
+			<constructor-arg>
+				<ref bean="unifyCounter"/>
+			</constructor-arg>
+	</bean>
+	
+	<bean id="unifyCounter" class="com.ttmv.datacenter.generator.GUID.UnifyCounter">
+		<constructor-arg value="dc_redis_counter" />
+		<constructor-arg value="50000" />
+	</bean>
+	
+</beans>

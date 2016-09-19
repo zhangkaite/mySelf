@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans
+							     	 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+							     	  ">
+
+	<!-- 富豪排行榜,定时任务 -->
+	<bean id="richerRankListWorker" class="com.datacenter.dams.output.queue.worker.RicherRankListWorker"/>
+	
+	<!-- 明星排行榜,定时任务 -->
+	<bean id="famouserRankListWorker" class="com.datacenter.dams.output.queue.worker.FamouserRankListWorker"/>	
+	
+	<!-- 明星积分排行榜,定时任务 -->
+	<bean id="activityStarRankOutputWorker" class="com.datacenter.dams.output.queue.worker.ActivityStarRankOutputWorker"/>	
+	
+	<!-- 用户积分排行榜,定时任务 -->
+	<bean id="activityUserRankOutputWorker" class="com.datacenter.dams.output.queue.worker.ActivityUserRankOutputWorker"/>	
+	
+	<!-- 吊牌活动排行榜,定时任务 -->
+	<bean id="activitySwingTagOutputWorker" class="com.datacenter.dams.output.redis.worker.ActivitySwingTagOutputWorker"/>	
+	
+	<!--用户经验变更对完推送,定时任务 -->
+	<bean id="userExpOutputWorker" class="com.datacenter.dams.output.redis.worker.UserExpOutputWorker"/>	
+	
+	<!-- 用户等级变更,定时任务 -->
+	<bean id="userLevelUpOutputWorker" class="com.datacenter.dams.output.redis.worker.UserLevelUpOutputWorker"/>	
+	
+</beans>

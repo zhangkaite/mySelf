@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ttmv.monitoring.imDataList.ShowImDataListDaoMapper">
+	<select id="selectMts">
+		select * from mts_server_data GROUP BY ip ORDER BY create_time desc LIMIT 0,1
+
+	</select>
+
+	<select id="selectMds">
+		select * from mds_server_data GROUP BY ip ORDER BY create_time desc LIMIT 0,1
+
+	</select>
+	<select id="selectMss">
+		select * from mss_server_data GROUP BY ip ORDER BY create_time desc LIMIT 0,1
+
+	</select>
+	<select id="selectRms">
+		select * from rms_server_data GROUP BY ip ORDER BY create_time desc LIMIT 0,1
+
+	</select>
+	<select id="selectPrs">
+		select * from prs_server_data GROUP BY ip ORDER BY create_time desc LIMIT 0,1
+
+	</select>
+	<select id="selectLbs">
+		select * from lbs_server_data GROUP BY ip ORDER BY create_time desc LIMIT 0,1
+
+	</select>
+	<select id="selectUms">
+		select * from ums_server_data GROUP BY ip ORDER BY create_time desc LIMIT 0,1
+
+	</select>
+	<select id="selectTas">
+		select * from tas_server_data GROUP BY ip ORDER BY create_time desc LIMIT 0,1
+
+	</select>
+
+
+
+</mapper>

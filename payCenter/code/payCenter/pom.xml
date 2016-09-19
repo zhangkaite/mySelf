@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.ttmv.datacenter.paycenter</groupId>
+  <artifactId>payCenter</artifactId>
+  <version>3.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <name>payCenter</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <payCenter.version>3.1-SNAPSHOT</payCenter.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  <modules>
+    <!--  <module>payCenter_web</module> -->
+    <module>payCenter_domain</module>
+    <module>payCenter_dao_implement</module>
+    <module>payCenter_dao_interface</module>
+    <module>payCenter_service_business</module>
+    <module>payCenter_gromit</module>
+    <module>payCenter_worker</module>
+    <module>payCenter_triger</module>
+  </modules>
+</project>

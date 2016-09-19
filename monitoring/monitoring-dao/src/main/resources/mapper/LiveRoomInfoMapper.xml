@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ttmv.monitoring.imp.LiveRootInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.ttmv.monitoring.entity.LiveRoomInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="root_id" property="rootId" jdbcType="VARCHAR" />
+    <result column="union_flag" property="unionFlag" jdbcType="INTEGER" />
+    <result column="capture_status" property="captureStatus" jdbcType="INTEGER" />
+    <result column="output_status" property="outputStatus" jdbcType="INTEGER" />
+    <result column="anchor_id" property="anchorId" jdbcType="BIGINT" />
+    <result column="partner_id" property="partnerId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, root_id, union_flag, capture_status, output_status, anchor_id, partner_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigInteger" >
+    select 
+    <include refid="Base_Column_List" />
+    from live_room_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigInteger" >
+    delete from live_room_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ttmv.monitoring.entity.LiveRoomInfo" >
+    insert into live_room_info (id, root_id, union_flag, 
+      capture_status, output_status, anchor_id, 
+      partner_id)
+    values (#{id,jdbcType=BIGINT}, #{rootId,jdbcType=VARCHAR}, #{unionFlag,jdbcType=INTEGER}, 
+      #{captureStatus,jdbcType=INTEGER}, #{outputStatus,jdbcType=INTEGER}, #{anchorId,jdbcType=BIGINT}, 
+      #{partnerId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ttmv.monitoring.entity.LiveRoomInfo" >
+    insert into live_room_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="rootId != null" >
+        root_id,
+      </if>
+      <if test="unionFlag != null" >
+        union_flag,
+      </if>
+      <if test="captureStatus != null" >
+        capture_status,
+      </if>
+      <if test="outputStatus != null" >
+        output_status,
+      </if>
+      <if test="anchorId != null" >
+        anchor_id,
+      </if>
+      <if test="partnerId != null" >
+        partner_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="rootId != null" >
+        #{rootId,jdbcType=VARCHAR},
+      </if>
+      <if test="unionFlag != null" >
+        #{unionFlag,jdbcType=INTEGER},
+      </if>
+      <if test="captureStatus != null" >
+        #{captureStatus,jdbcType=INTEGER},
+      </if>
+      <if test="outputStatus != null" >
+        #{outputStatus,jdbcType=INTEGER},
+      </if>
+      <if test="anchorId != null" >
+        #{anchorId,jdbcType=BIGINT},
+      </if>
+      <if test="partnerId != null" >
+        #{partnerId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ttmv.monitoring.entity.LiveRoomInfo" >
+    update live_room_info
+    <set >
+      <if test="rootId != null" >
+        root_id = #{rootId,jdbcType=VARCHAR},
+      </if>
+      <if test="unionFlag != null" >
+        union_flag = #{unionFlag,jdbcType=INTEGER},
+      </if>
+      <if test="captureStatus != null" >
+        capture_status = #{captureStatus,jdbcType=INTEGER},
+      </if>
+      <if test="outputStatus != null" >
+        output_status = #{outputStatus,jdbcType=INTEGER},
+      </if>
+      <if test="anchorId != null" >
+        anchor_id = #{anchorId,jdbcType=BIGINT},
+      </if>
+      <if test="partnerId != null" >
+        partner_id = #{partnerId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ttmv.monitoring.entity.LiveRoomInfo" >
+    update live_room_info
+    set root_id = #{rootId,jdbcType=VARCHAR},
+      union_flag = #{unionFlag,jdbcType=INTEGER},
+      capture_status = #{captureStatus,jdbcType=INTEGER},
+      output_status = #{outputStatus,jdbcType=INTEGER},
+      anchor_id = #{anchorId,jdbcType=BIGINT},
+      partner_id = #{partnerId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

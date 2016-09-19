@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.test.inter.UserContributionMapper" >
+  <resultMap id="BaseResultMap" type="com.ttmv.datacenter.usercenter.domain.data.UserContribution" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="room_id" property="roomId" jdbcType="BIGINT" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="contribution_sum" property="contributionSum" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_id, id, room_id, nick_name, contribution_sum
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigInteger" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_contribution
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectByUserIdAndRoomId" resultMap="BaseResultMap" parameterType="com.ttmv.datacenter.usercenter.dao.implement.mapper.bean.usercontribute.MysqlUserContribution" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_contribution
+    where user_id = #{userId,jdbcType=BIGINT} and room_id = #{roomId,jdbcType=BIGINT}
+  </select>
+  
+  <!-- 条件查询 -->
+   <select id="selectByRoomId" resultMap="BaseResultMap" parameterType="java.math.BigInteger" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_contribution
+    where room_id = #{roomId,jdbcType=BIGINT}
+   </select>
+  
+   <!-- 分页条件查询  -->
+   <select id="selectByRoomId" resultMap="BaseResultMap" parameterType="com.ttmv.datacenter.usercenter.dao.implement.mapper.bean.usercontribute.MysqlUserContribution" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_contribution
+    where room_id = #{roomId,jdbcType=BIGINT}
+    order by contribution_sum desc limit ${start},${pageSize}
+   </select>
+  
+   <!-- 分页条件查询 , 查询全部  -->
+   <select id="selectByRoomIdAll" resultType="java.lang.Integer" parameterType="com.ttmv.datacenter.usercenter.dao.implement.mapper.bean.usercontribute.MysqlUserContribution" >
+    select 
+    count(*)
+    from user_contribution
+    where room_id = #{roomId,jdbcType=BIGINT}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="com.ttmv.datacenter.usercenter.dao.implement.mapper.bean.usercontribute.MysqlUserContribution" >
+    delete from user_contribution
+    where user_id = #{userId,jdbcType=BIGINT} and contribution_sum = #{contributionSum,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.ttmv.datacenter.usercenter.domain.data.UserContribution" >
+    insert into user_contribution
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="roomId != null" >
+        room_id,
+      </if>
+      <if test="nickName != null" >
+        nick_name,
+      </if>
+      <if test="contributionSum != null" >
+        contribution_sum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="roomId != null" >
+        #{roomId,jdbcType=BIGINT},
+      </if>
+      <if test="nickName != null" >
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="contributionSum != null" >
+        #{contributionSum,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ttmv.datacenter.usercenter.domain.data.UserContribution" >
+    update user_contribution
+    <set >
+      <if test="id != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="roomId != null" >
+        room_id = #{roomId,jdbcType=BIGINT},
+      </if>
+      <if test="nickName != null" >
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="contributionSum != null" >
+        contribution_sum = #{contributionSum,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT} 
+  </update>
+</mapper>

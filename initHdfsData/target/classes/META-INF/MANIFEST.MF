@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Implementation-Vendor: Pivotal Software, Inc.
+Implementation-Title: com.datacenter.initHdfsData
+Implementation-Version: 1.0-SNAPSHOT
+Implementation-Vendor-Id: com.datacenter.initHdfsData
+Build-Jdk: 1.7.0_51
+Built-By: zkt
+Created-By: Maven Integration for Eclipse
+

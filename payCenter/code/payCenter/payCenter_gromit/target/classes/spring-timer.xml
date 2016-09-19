@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task" 
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans
+							     	 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+							     	 http://www.springframework.org/schema/context     
+							     	 http://www.springframework.org/schema/context/spring-context-3.0.xsd
+							     	 http://www.springframework.org/schema/task
+							     	 http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+	<!-- 常量类型初始化 -->
+	<bean id="trigger" class="com.ttmv.datacenter.paycenter.triger.triggerimpl.triggerconstant.Trigger">
+		<property name="collectionTmpObject">
+			<map>
+				<entry key ="trigger_reflush_redis_open" value-ref="reflushMysqlToRedisTrigger"/>
+			</map>
+		</property>
+	</bean>
+	
+	<!-- 定时：检查trigger的变量，并调用线程执行任务 -->						     	 
+	<bean id="checkTriggerTimer" class="com.ttmv.datacenter.paycenter.triger.CheckTriggerTimer"/>
+	<!-- <task:scheduled-tasks>
+		<task:scheduled ref="checkTriggerTimer" method="check" cron="0/30 * * * * ?" />
+	</task:scheduled-tasks> -->
+	
+	<!-- 定时：同步db中的值到Trigger中 -->
+	<bean id="triggerDBConstantMapperTimer" class="com.ttmv.datacenter.paycenter.triger.triggerimpl.triggerdb.TriggerDBConstantMapperTimer">
+		<property name="triggerDBMapper" ref="triggerDBMapper"/>
+	</bean>
+	<!-- <task:scheduled-tasks>
+		<task:scheduled ref="triggerDBConstantMapperTimer" method="mapper" cron="* 0/10 * * * ?" />
+	</task:scheduled-tasks> -->
+	
+	<!-- 初始化trigger变量，并将trigger中新增的变量，添加到db库 -->
+	
+    <bean id="triggerDBMapper" class="com.ttmv.datacenter.paycenter.triger.triggerimpl.triggerdb.TriggerDBMapper"/>
+    <bean id="reflushMysqlToRedisTrigger" class="com.ttmv.datacenter.paycenter.triger.triggerimpl.ReflushMysqlToRedisTrigger">
+   		<property name="mysqlBrokerageInfoMapper" ref="mysqlBrokerageInfoMapper"/>
+   		<property name="mysqlTcoinInfoMapper" ref="mysqlTcoinInfoMapper"/>
+   		<property name="mysqlTquanInfoMapper" ref="mysqlTquanInfoMapper"/>
+   		<property name="redisBrokerageInfoMapper" ref="redisBrokerageInfoMapper"/>
+   		<property name="redisTcoinInfoMapper" ref="redisTcoinInfoMapper"/>
+   		<property name="redisTquanInfoMapper" ref="redisTquanInfoMapper"/>
+    </bean>
+    
+    <bean id="initTriggerConstant" class="com.ttmv.datacenter.paycenter.triger.triggerimpl.triggerconstant.InitTriggerConstant" init-method="init"/>
+	<context:component-scan base-package="com.ttmv.datacenter.paycenter.triger" /> 
+	
+</beans>

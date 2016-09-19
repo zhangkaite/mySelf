@@ -1,0 +1,14 @@
+jdbc.driver_m1=com.mysql.jdbc.Driver
+jdbc.url_m1=jdbc:mysql://192.168.13.186:50030/monitor_center?charsetEncoding=utf-8
+jdbc.username_m1=ttmv
+jdbc.password_m1=ttmv.com_2015
+
+jdbc.driver_m1_s1=com.mysql.jdbc.Driver
+jdbc.url_m1_s1=jdbc:mysql://uc_mysql_m1_s1:50030/monitor_center?charsetEncoding=utf-8
+jdbc.username_m1_s1=ttmv
+jdbc.password_m1_s1=ttmv.com_2015
+
+jdbc.driver_m1_s2=com.mysql.jdbc.Driver
+jdbc.url_m1_s2=jdbc:mysql://uc_mysql_m1_s2:50030/monitor_center?charsetEncoding=utf-8
+jdbc.username_m1_s2=ttmv
+jdbc.password_m1_s2=ttmv.com_2015

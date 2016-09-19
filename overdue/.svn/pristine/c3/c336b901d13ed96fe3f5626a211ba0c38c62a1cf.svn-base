@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation=" http://www.springframework.org/schema/beans
+							     	 http://www.springframework.org/schema/beans/spring-beans-4.0.xsd 
+							     	 http://www.springframework.org/schema/context     
+							     	 http://www.springframework.org/schema/context/spring-context-4.0.xsd
+							     	">
+
+
+    <context:property-placeholder location="classpath:overdue.all.properties"/>
+
+    <!-- 会员到期回调用户中心 -->
+    <bean id="ucSentryAgentVIP" class="com.ttmv.datacenter.sentry.handle.QuickSentry">
+        <property name="httpRequestPost" ref="ucVipHttpRequestPost"></property>
+    </bean>
+    <bean id="ucVipHttpRequestPost" class="com.ttmv.datacenter.sentry.http.HttpRequestPost">
+        <constructor-arg value="${uc.ucServerVIP.agent.httpURL}"></constructor-arg>
+    </bean>
+
+    <!-- 解冻回调用户中心 -->
+    <bean id="ucSentryAgentUstate" class="com.ttmv.datacenter.sentry.handle.QuickSentry">
+        <property name="httpRequestPost" ref="ucDjHttpRequestPost"></property>
+    </bean>
+    <bean id="ucDjHttpRequestPost" class="com.ttmv.datacenter.sentry.http.HttpRequestPost">
+        <constructor-arg value="${uc.ucServerJD.agent.httpURL}"></constructor-arg>
+    </bean>
+
+    <!-- 查询用户资料（用户中心接口） -->
+    <bean id="ucSentryAgentGetUserInfo" class="com.ttmv.datacenter.sentry.handle.QuickSentry">
+        <property name="httpRequestPost" ref="ucGetUserInfoHttpRequestPost"></property>
+    </bean>
+    <bean id="ucGetUserInfoHttpRequestPost" class="com.ttmv.datacenter.sentry.http.HttpRequestPost">
+        <constructor-arg value="${uc.ucServerGetUserInfo.agent.httpURL}"></constructor-arg>
+    </bean>
+    
+
+</beans>

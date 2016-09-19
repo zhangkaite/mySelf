@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation=" http://www.springframework.org/schema/beans
+							     	 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+							     	">
+		
+		<!-- TB消费Center -->					     	 
+		<bean id="tcoinConsumeSpendCenter" class="com.datacenter.dams.business.center.input.TcoinConsumeSpendCenter">
+			<property name="tcoinConsumeRankListService" ref="tcoinConsumeRankListService"/>
+			<property name="tcoinConsumeActivityService" ref="tcoinConsumeActivityService"/>
+			<property name="hadoopOffLineTcoinSpendService" ref="hadoopOffLineTcoinSpendService"/>
+			<property name="tcoinConsumeLevelService" ref="tcoinConsumeLevelService"/>
+			<property name="tcoinConsumeFormService" ref="tcoinConsumeFormService"/>
+			<property name="tcoinBillService" ref="tcoinBillService"/>
+		</bean>
+		<!-- TQ消费Center -->					     	 
+		<bean id="tquanConsumeSpendCenter" class="com.datacenter.dams.business.center.input.TquanConsumeSpendCenter">
+			<property name="tquanConsumeRankListService" ref="tquanConsumeRankListService"/>
+			<property name="tquanConsumeActivityService" ref="tquanConsumeActivityService"/>
+			<property name="hadoopOffLineTquanSpendService" ref="hadoopOffLineTquanSpendService"/>
+			<property name="tquanConsumeLevelService" ref="tquanConsumeLevelService"/>
+			<property name="tquanConsumeFormService" ref="tquanConsumeFormService"/>
+			<property name="tquanBillService" ref="tquanBillService"/>
+		</bean>
+		<!-- TB充值Center -->
+		<bean id="tcoinRechargeServiceCenter" class="com.datacenter.dams.business.center.input.TcoinRechargeServiceCenter">
+			<property name="tcoinRechargeFormService" ref="tcoinRechargeFormService"/>
+			<property name="tcoinBillService" ref="tcoinBillService"/>
+		</bean>
+		<!-- TQ充值Center -->
+		<bean id="tquanRechargeServiceCenter" class="com.datacenter.dams.business.center.input.TquanRechargeServiceCenter">
+			<property name="tquanRechargeFormService" ref="tquanRechargeFormService"/>
+			<property name="tquanBillService" ref="tquanBillService"/>
+		</bean>
+		<!-- 佣金提现 -->
+		<bean id="brokerageConsumeSpendCenter" class="com.datacenter.dams.business.center.input.BrokerageConsumeSpendCenter">
+			<property name="brokerageConsumeFormService" ref="brokerageConsumeFormService"/>
+			<property name="brokerageBillService" ref="brokerageBillService"/>
+		</bean>
+		<!-- 佣金兑换 -->
+		<bean id="brokerageRechargeServiceCenter" class="com.datacenter.dams.business.center.input.BrokerageRechargeServiceCenter">
+			<property name="brokerageRechargeFormService" ref="brokerageRechargeFormService"/>
+			<property name="brokerageBillService" ref="brokerageBillService"/>
+		</bean>
+		<bean id="messageHandlerCenter" class="com.datacenter.dams.business.center.MessageHandlerCenter">
+			<property name="tcoinConsumeSpendCenter" ref="tcoinConsumeSpendCenter"/>
+			<property name="tquanConsumeSpendCenter" ref="tquanConsumeSpendCenter"/>
+			<property name="famouserRankListResultCenter" ref="famouserRankListResultCenter"/>
+			<property name="richerRankListResultCenter" ref="richerRankListResultCenter"/>
+			<property name="activityRankListResultCenter" ref="activityRankListResultCenter"/>
+			<property name="activityUserRankListResultCenter" ref="activityUserRankListResultCenter"/>
+			<property name="flowerConsumeCenter" ref="flowerConsumeCenter"/>
+			<property name="takeHeartConsumeCenter" ref="takeHeartConsumeCenter"/>
+			<property name="monthDownLevelCenter" ref="monthDownLevelCenter"/>
+			<property name="starExpIncrementCenter" ref="starExpIncrementCenter"/>
+			<property name="userExpIncrementCenter" ref="userExpIncrementCenter"/>
+			<property name="starOnlineSpendCenter" ref="starOnlineSpendCenter"/>
+			<property name="userOnlineSpendCenter" ref="userOnlineSpendCenter"/>
+			<property name="userLevelupOutputCenter" ref="userLevelupOutputCenter"/>
+			<property name="userExpOutPutCenter" ref="userExpOutPutCenter"/>
+			<property name="userExpResetCenter" ref="userExpResetCenter"/>
+			<property name="tcoinRechargeServiceCenter" ref="tcoinRechargeServiceCenter"/>
+			<property name="tquanRechargeServiceCenter" ref="tquanRechargeServiceCenter"/>
+			<property name="brokerageConsumeSpendCenter" ref="brokerageConsumeSpendCenter"/>
+			<property name="brokerageRechargeServiceCenter" ref="brokerageRechargeServiceCenter"/>
+			<property name="activitySwingTagResultCenter" ref="activitySwingTagResultCenter"/>
+			<property name="addUserCenter" ref="addUserCenter"/>
+			<property name="userLoginCenter" ref="userLoginCenter"/>
+		</bean>
+		
+		<!-- 富豪排行榜,Center -->
+		<bean id="richerRankListResultCenter" class="com.datacenter.dams.business.center.output.RicherRankListResultCenter">
+			<property name="richerRankListQueueDao" ref="richerRankListQueueDao"/>
+		</bean>
+		<!-- 明星排行榜,Center -->
+		<bean id="famouserRankListResultCenter" class="com.datacenter.dams.business.center.output.FamouserRankListResultCenter">
+			<property name="famouserRankListQueueDao" ref="famouserRankListQueueDao"/>
+		</bean>
+		<!-- 明星积分排行榜,Center -->
+		<bean id="activityRankListResultCenter" class="com.datacenter.dams.business.center.output.ActivityRankListResultCenter">
+			<property name="activityStarRankListQueueDao" ref="activityStarRankListQueueDao"/>
+		</bean>
+		<!-- 用户积分排行榜,Center -->
+		<bean id="activityUserRankListResultCenter" class="com.datacenter.dams.business.center.output.ActivityUserRankListResultCenter">
+			<property name="activityUserRankListQueueDao" ref="activityUserRankListQueueDao"/>
+		</bean>
+		<!-- 主播吊牌活动排行榜,Center -->
+		<bean id="activitySwingTagResultCenter" class="com.datacenter.dams.business.center.output.ActivitySwingTagResultCenter">
+			<property name="swingTagOutputDao" ref="swingTagOutputDao"/>
+		</bean>
+				
+		<!-- 送花,Center -->
+		<bean id="flowerConsumeCenter" class="com.datacenter.dams.business.center.input.FlowerConsumeCenter">
+		</bean>
+		<!-- 送心,Center -->
+		<bean id="takeHeartConsumeCenter" class="com.datacenter.dams.business.center.input.TakeHeartConsumeCenter">
+		</bean>
+		
+		<!-- 月度降级,Center -->
+		<bean id="monthDownLevelCenter" class="com.datacenter.dams.business.center.input.MonthDownLevelCenter">
+		</bean>
+		<!-- 主播经验增长,Center -->
+		<bean id="starExpIncrementCenter" class="com.datacenter.dams.business.center.input.StarExpIncrementCenter">
+		</bean>
+		<!-- 用户经验增长,Center -->
+		<bean id="userExpIncrementCenter" class="com.datacenter.dams.business.center.input.UserExpIncrementCenter">
+		</bean>
+		<!-- 明星在线麦时,Center -->
+		<bean id="starOnlineSpendCenter" class="com.datacenter.dams.business.center.input.StarOnlineSpendCenter">
+		</bean>
+		<!-- 用户在线时长,Center -->
+		<bean id="userOnlineSpendCenter" class="com.datacenter.dams.business.center.input.UserOnlineSpendCenter">
+		</bean>
+		<!-- 用户等级变更,Center -->
+		<bean id="userLevelupOutputCenter" class="com.datacenter.dams.business.center.output.UserLevelupOutputCenter">
+		</bean>
+		<!-- 用户经验变更,Center -->
+		<bean id="userExpOutPutCenter" class="com.datacenter.dams.business.center.output.UserExpOutPutCenter">
+			<property name="userExpQueueDao" ref="userExpQueueDao"/>
+		</bean>	
+		<!-- 用户经验清零,Center -->
+		<bean id="userExpResetCenter" class="com.datacenter.dams.business.center.input.UserExpResetCenter"/>
+		<!--用户注册记录Center -->	
+		<bean id="addUserCenter" class="com.datacenter.dams.business.center.input.AddUserCenter">
+			<property name="addUserFormService" ref="addUserFormService"/>
+		</bean>
+		<!--用户登录记录Center -->	
+		<bean id="userLoginCenter" class="com.datacenter.dams.business.center.input.UserLoginCenter">
+			<property name="userLoginFormService" ref="userLoginFormService"/>
+		</bean>
+</beans> 

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ttmv.monitoring.inter.MediaControlDataMapper" >
+  <resultMap id="BaseResultMap" type="com.ttmv.monitoring.entity.MediaControlData" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="server_type" property="serverType" jdbcType="VARCHAR" />
+    <result column="server_id" property="serverId" jdbcType="VARCHAR" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="port" property="port" jdbcType="INTEGER" />
+    <result column="timestamp" property="timestamp" jdbcType="TIMESTAMP" />
+    <result column="created_room_count" property="createdRoomCount" jdbcType="INTEGER" />
+    <result column="media_transmission_servers" property="mediaTransmissionServers" jdbcType="VARCHAR" />
+    <result column="input_messages" property="inputMessages" jdbcType="INTEGER" />
+    <result column="output_messages" property="outputMessages" jdbcType="INTEGER" />
+    <result column="cpu" property="cpu" jdbcType="INTEGER" />
+    <result column="disk" property="disk" jdbcType="INTEGER" />
+    <result column="mem" property="mem" jdbcType="INTEGER" />
+     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, server_type, server_id, ip, port, timestamp, created_room_count, media_transmission_servers, 
+    input_messages, output_messages, cpu, disk, mem,create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigInteger" >
+    select 
+    <include refid="Base_Column_List" />
+    from media_control_data
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+ <select id="selectSelected" resultMap="BaseResultMap" parameterType="com.ttmv.monitoring.entity.querybean.DataBeanQuery" >
+    select 
+    <include refid="Base_Column_List" />
+    from media_control_data
+    where 1=1
+    <if test="serverType != null" >
+       and server_type = #{serverType,jdbcType=VARCHAR}
+      </if>
+      <if test="ip != null" >
+       and ip = #{ip,jdbcType=VARCHAR}
+      </if>
+      <if test="port != null" >
+       and port = #{port,jdbcType=INTEGER}
+      </if>
+    	 group by ${groupField}
+  </select>
+ 
+  <select id="selectByIpAndServerTypeAndPort" resultMap="BaseResultMap" parameterType="com.ttmv.monitoring.entity.querybean.DataBeanQuery" >
+    select 
+    <include refid="Base_Column_List" />
+    from media_control_data
+    where ip = #{ip,jdbcType=VARCHAR}
+    and server_type = #{serverType,jdbcType=VARCHAR} 
+    and port = #{port,jdbcType=INTEGER} 
+    and create_time >= #{curentTime,jdbcType=VARCHAR} 
+    order by create_time desc limit 0,1;
+  </select>
+
+ <select id="selectListByIpAndServerTypeAndPort" resultMap="BaseResultMap" parameterType="com.ttmv.monitoring.entity.querybean.DataBeanQuery" >
+    select 
+    <include refid="Base_Column_List" />
+    from media_control_data
+    where ip = #{ip,jdbcType=VARCHAR}
+    and server_type = #{serverType,jdbcType=VARCHAR} 
+    and port = #{port,jdbcType=INTEGER} 
+    order by create_time desc limit 0,${sum};
+  </select>
+  
+  <select id="selectListOnDateByIpAndServerTypeAndPort" resultMap="BaseResultMap" parameterType="com.ttmv.monitoring.entity.querybean.DataBeanQuery" >
+    select 
+    <include refid="Base_Column_List" />
+    from media_control_data
+    where ip = #{ip,jdbcType=VARCHAR} 
+    and server_type = #{serverType,jdbcType=VARCHAR} 
+    and port = #{port,jdbcType=INTEGER} 
+    and create_time between #{previousTime,jdbcType=VARCHAR} and #{curentTime,jdbcType=VARCHAR}
+    order by create_time desc
+  </select>
+
+  <insert id="insertSelective" parameterType="com.ttmv.monitoring.entity.MediaControlData" >
+    insert into media_control_data
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="serverType != null" >
+        server_type,
+      </if>
+      <if test="serverId != null" >
+        server_id,
+      </if>
+      <if test="ip != null" >
+        ip,
+      </if>
+      <if test="port != null" >
+        port,
+      </if>
+      <if test="timestamp != null" >
+        timestamp,
+      </if>
+      <if test="createdRoomCount != null" >
+        created_room_count,
+      </if>
+      <if test="mediaTransmissionServers != null" >
+        media_transmission_servers,
+      </if>
+      <if test="inputMessages != null" >
+        input_messages,
+      </if>
+      <if test="outputMessages != null" >
+        output_messages,
+      </if>
+      <if test="cpu != null" >
+        cpu,
+      </if>
+      <if test="disk != null" >
+        disk,
+      </if>
+      <if test="mem != null" >
+        mem,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="serverType != null" >
+        #{serverType,jdbcType=VARCHAR},
+      </if>
+      <if test="serverId != null" >
+        #{serverId,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="port != null" >
+        #{port,jdbcType=INTEGER},
+      </if>
+      <if test="timestamp != null" >
+        #{timestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdRoomCount != null" >
+        #{createdRoomCount,jdbcType=INTEGER},
+      </if>
+      <if test="mediaTransmissionServers != null" >
+        #{mediaTransmissionServers,jdbcType=VARCHAR},
+      </if>
+      <if test="inputMessages != null" >
+        #{inputMessages,jdbcType=INTEGER},
+      </if>
+      <if test="outputMessages != null" >
+        #{outputMessages,jdbcType=INTEGER},
+      </if>
+      <if test="cpu != null" >
+        #{cpu,jdbcType=INTEGER},
+      </if>
+      <if test="disk != null" >
+        #{disk,jdbcType=INTEGER},
+      </if>
+      <if test="mem != null" >
+        #{mem,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

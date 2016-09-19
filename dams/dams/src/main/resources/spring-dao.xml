@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation=" http://www.springframework.org/schema/beans
+							     	 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+							     	">
+		
+		<!-- 富豪排行榜,对外推送queue队列Dao -->					     	 
+		<bean id="richerRankListQueueDao" class="com.datacenter.dams.business.dao.queue.RicherRankListQueueDao">
+			<property name="jmsTemplate" ref="outputJmsTemplate"/>
+			<property name="richerRankingListQueue" ref="destination_richerranklist"/>
+		</bean>
+		<!-- 明星排行榜,对外推送queue队列Dao -->
+		<bean id="famouserRankListQueueDao" class="com.datacenter.dams.business.dao.queue.FamouserRankListQueueDao">
+			<property name="jmsTemplate" ref="outputJmsTemplate"/>
+			<property name="famouserRankingQueue" ref="destination_famouserranklist"/>
+		</bean>
+		<!-- 用户活动积分排行榜,对外推送queue队列Dao -->					     	 
+		<bean id="activityUserRankListQueueDao" class="com.datacenter.dams.business.dao.queue.ActivityUserRankListQueueDao">
+			<property name="jmsTemplate" ref="outputJmsTemplate"/>
+			<property name="activityUserRankingQueue" ref="destination_useractivityrank"/>
+		</bean>
+		<!-- 明星活动积分排行榜,对外推送queue队列Dao -->
+		<bean id="activityStarRankListQueueDao" class="com.datacenter.dams.business.dao.queue.ActivityStarRankListQueueDao">
+			<property name="jmsTemplate" ref="outputJmsTemplate"/>
+			<property name="activityStarRankingQueue" ref="destination_staractivityrank"/>
+		</bean>
+		
+		<!-- TB消费,连接storm的redis队列dao -->
+		<bean id="tcoinConsumeRedisQueueInputDao" class="com.datacenter.dams.business.dao.redis.inner.input.TcoinConsumeRedisQueueInputDao">
+			<property name="redisQueueImpi" ref="innerRedisQueueImpi"/>
+		</bean>
+		<!-- TQ消费,连接storm的redis队列dao -->
+		<bean id="tquanConsumeRedisQueueInputDao" class="com.datacenter.dams.business.dao.redis.inner.input.TquanConsumeRedisQueueInputDao">
+			<property name="redisQueueImpi" ref="innerRedisQueueImpi"/>
+		</bean>
+		<!-- 消费,连接storm的redis队列dao -->
+		<bean id="activityRedisQueueInputDao" class="com.datacenter.dams.business.dao.redis.inner.input.ActivityRedisQueueInputDao">
+			<property name="redisQueueImpi" ref="innerRedisQueueImpi"/>
+		</bean>
+		
+		<!-- 明星积分排行榜,连接storm的redis队列dao -->
+		<bean id="activityStarRankListRedisQueueOutputDao" class="com.datacenter.dams.business.dao.redis.inner.output.ActivityStarRankListRedisQueueOutputDao">
+			<property name="redisQueueImpi" ref="innerRedisQueueImpi"/>
+		</bean>
+		<!-- 用户积分排行榜,连接storm的redis队列dao -->
+		<bean id="activityUserRankListRedisQueueOutputDao" class="com.datacenter.dams.business.dao.redis.inner.output.ActivityUserRankListRedisQueueOutputDao">
+			<property name="redisQueueImpi" ref="innerRedisQueueImpi"/>
+		</bean>
+		<!-- 吊牌活动排行榜,连接storm的redis队列dao -->
+		<bean id="activitySwingTagRedisQueueOutputDao" class="com.datacenter.dams.business.dao.redis.inner.output.ActivitySwingTagRedisQueueOutputDao">
+			<property name="redisQueueImpi" ref="innerRedisQueueImpi"/>
+		</bean>
+		
+		<!-- 吊牌活动信息,对外推送redis队列 -->
+		<bean id="swingTagOutputDao" class="com.datacenter.dams.business.dao.redis.output.SwingTagOutputDao">
+			<property name="redisQueueImpi" ref="outerRedisQueueImpi"/>
+		</bean>
+		
+		<bean id="offLineRedisQueueInputDao" class="com.datacenter.dams.business.dao.redis.inner.input.OffLineRedisQueueInputDao">
+			<property name="redisQueueImpi" ref="innerRedisQueueImpi"/>
+		</bean>
+		
+		<!--经验队列dao-->
+		<bean id="expRedisQueueDao" class="com.datacenter.dams.business.dao.redis.inner.input.ExpRedisQueueDao">
+			<property name="redisQueueImpi" ref="innerRedisQueueImpi"/>
+		</bean>
+		
+		<!--用户对外推送经验dao-->
+		<bean id="userExpQueueDao" class="com.datacenter.dams.business.dao.queue.UserExpQueueDao">
+			<property name="jmsTemplate" ref="userExpOutputJmsTemplate"/>
+			<property name="userExpQueue" ref="destination_userpexp"/>
+		</bean>
+		
+		<!-- 读取外部系统redis队列dao -->
+		<bean id="outerRedisQueueDao" class ="com.datacenter.dams.business.dao.redis.inner.input.OuterRedisQueueDao">
+			<property name="redisQueueImpi" ref="outInputRedisQueueImpi"/>
+		</bean>
+		
+		<!-- 推送到外部系统redis队列dao -->
+		<bean id="expLevelOutputRedisQueueDao" class ="com.datacenter.dams.business.dao.redis.output.ExpLevelOutputRedisQueueDao">
+			<property name="redisQueueImpi" ref="outerRedisQueueImpi"/>
+		</bean>
+		
+		<!-- 统计报表redis的dao -->
+		<bean id="redisQueueInputDao" class="com.datacenter.dams.business.dao.redis.inner.input.RedisQueueInputDao">
+			<property name="redisQueueImpi" ref="innerRedisQueueImpi"/>
+		</bean>
+		
+</beans> 

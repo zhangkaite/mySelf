@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- 加载映射文件 -->
+	<mappers>
+		<mapper resource="mapper/ScanRecordMapper.xml" />
+		<mapper resource="mapper/VipExpireMapper.xml" />
+		<mapper resource="mapper/GoodNumberExpireMapper.xml" />
+		<mapper resource="mapper/LuxuryExpireMapper.xml" />
+		<mapper resource="mapper/NobilityExpireMapper.xml" />
+		<mapper resource="mapper/UserForbiddenExpireMapper.xml" />
+		<mapper resource="mapper/CmpMapper.xml" />
+	</mappers>
+</configuration>

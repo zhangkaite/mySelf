@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springwork.org/schema/tx"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans
+							     	 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+							     	 http://www.springframework.org/schema/context     
+							     	 http://www.springframework.org/schema/context/spring-context-3.0.xsd
+							     	 http://www.springframework.org/schema/tx
+							     	 http://www.springframework.org/schema/tx/spring-tx-3.0.xsd ">
+	<import resource="/spring-dao.xml"/>
+	<!-- 消息消息发送服务 -->
+	<bean id="messageServiceImpl"
+		class="com.ttmv.monitoring.msgNotification.impl.MessageServiceImpl">
+		<property name="senderFactory" ref="senderFactory" />
+		<property name="smsSenderAdapt" ref="smsSenderAdapt" />
+		<property name="mailSenderAdapt" ref="mailSenderAdapt" />
+		<property name="iAlerterInfoInter" ref="iAlerterInfoInterImpl"/>
+		<property name="iUserInfoInter" ref="iUserInfoInterImpl"/>
+	</bean>
+	
+	<bean id="senderFactory" class="com.ttmv.monitoring.msgNotification.impl.SenderFactory">
+		<property name="smsSenderAdapt" ref="smsSenderAdapt" />
+		<property name="mailSenderAdapt" ref="mailSenderAdapt" />
+	</bean>
+
+	<bean id="mailSenderAdapt"
+		class="com.ttmv.monitoring.msgNotification.impl.email.MailSenderAdapt">
+		<property name="emailSender" ref="emailSenderImpl" />
+	</bean>
+	<bean id="smsSenderAdapt"
+		class="com.ttmv.monitoring.msgNotification.impl.sms.SmsSenderAdapt">
+		<property name="smsSender" ref="smsSenderImpl" />
+	</bean>
+	
+
+	<bean id="emailSenderImpl"
+		class="com.ttmv.monitoring.msgNotification.impl.email.EmailSenderImpl">
+	</bean>
+	<bean id="smsSenderImpl"
+		class="com.ttmv.monitoring.msgNotification.impl.sms.SmsSenderImpl">
+	</bean>
+
+
+
+
+
+
+</beans>

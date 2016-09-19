@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ttmv.datacenter.usercenter.dao.implement.mapper.MysqlUserCrossRelationMapper" >
+  <resultMap id="BaseResultMap" type="com.ttmv.datacenter.usercenter.dao.implement.mapper.bean.usercrossrelation.MysqlUserCrossRelation" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id_a" property="userIdA" jdbcType="BIGINT" />
+    <result column="user_id_b" property="userIdB" jdbcType="BIGINT" />
+    <result column="group_id" property="groupId" jdbcType="BIGINT" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="updated" property="updated" jdbcType="TIMESTAMP" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="remark_name" property="remarkName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id_a, user_id_b, group_id, created, updated, type, remark_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigInteger" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_cross_relation
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigInteger" >
+    delete from user_cross_relation
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ttmv.datacenter.usercenter.dao.implement.mapper.bean.usercrossrelation.MysqlUserCrossRelation" >
+    insert into user_cross_relation (id, user_id_a, user_id_b, 
+      group_id, created, updated, 
+      type, remark_name)
+    values (#{id,jdbcType=BIGINT}, #{userIdA,jdbcType=BIGINT}, #{userIdB,jdbcType=BIGINT}, 
+      #{groupId,jdbcType=BIGINT}, #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP}, 
+      #{type,jdbcType=INTEGER}, #{remarkName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ttmv.datacenter.usercenter.dao.implement.mapper.bean.usercrossrelation.MysqlUserCrossRelation" >
+    insert into user_cross_relation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userIdA != null" >
+        user_id_a,
+      </if>
+      <if test="userIdB != null" >
+        user_id_b,
+      </if>
+      <if test="groupId != null" >
+        group_id,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+      <if test="updated != null" >
+        updated,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="remarkName != null" >
+        remark_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userIdA != null" >
+        #{userIdA,jdbcType=BIGINT},
+      </if>
+      <if test="userIdB != null" >
+        #{userIdB,jdbcType=BIGINT},
+      </if>
+      <if test="groupId != null" >
+        #{groupId,jdbcType=BIGINT},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null" >
+        #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="remarkName != null" >
+        #{remarkName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ttmv.datacenter.usercenter.dao.implement.mapper.bean.usercrossrelation.MysqlUserCrossRelation" >
+    update user_cross_relation
+    <set >
+      <if test="userIdA != null" >
+        user_id_a = #{userIdA,jdbcType=BIGINT},
+      </if>
+      <if test="userIdB != null" >
+        user_id_b = #{userIdB,jdbcType=BIGINT},
+      </if>
+      <if test="groupId != null" >
+        group_id = #{groupId,jdbcType=BIGINT},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updated != null" >
+        updated = #{updated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="remarkName != null" >
+        remark_name = #{remarkName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ttmv.datacenter.usercenter.dao.implement.mapper.bean.usercrossrelation.MysqlUserCrossRelation" >
+    update user_cross_relation
+    set user_id_a = #{userIdA,jdbcType=BIGINT},
+      user_id_b = #{userIdB,jdbcType=BIGINT},
+      group_id = #{groupId,jdbcType=BIGINT},
+      created = #{created,jdbcType=TIMESTAMP},
+      updated = #{updated,jdbcType=TIMESTAMP},
+      type = #{type,jdbcType=INTEGER},
+      remark_name = #{remarkName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    					http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    					http://www.springframework.org/schema/context     
+						http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    					">
+
+
+	<context:property-placeholder location="classpath:payCenter.all.properties" />
+
+	<!-- 用户注册_资金账户初始化 service 异步队列 -->
+	<bean id="addUserAccountJmsReceiverListener"
+		class="com.ttmv.datacenter.paycenter.worker.listener.AddUserAccountJmsReceiverListener"
+		init-method="doStart">
+		<property name="url" value="${activeMQ.brokerURL}" />
+		<property name="queue" value="PC_service_initUserAccount_Queue" />
+		<property name="addUserAccountExcuteMessageServiceImpl" ref="addUserAccountExcuteMessageServiceImpl" />
+	</bean>
+	<!-- 注册worker分发器 -->
+	<bean id="addUserAccountExcuteMessageServiceImpl"
+		class="com.ttmv.datacenter.paycenter.worker.service.AddUserAccountExcuteMessageServiceImpl">
+		<property name="addUserAccountImpl" ref="addUserAccountImpl" />
+		<property name="initUserAccountTool" ref="initUserAccountTool" />
+	</bean>
+	
+	<!-- [账户初始化]处理serverImpl -->
+	<bean id="addUserAccountImpl"
+		class="com.ttmv.datacenter.paycenter.worker.service.AddUserAccountImpl">
+		<property name="initAccountDao" ref="initAccountDaoImpl" />
+	</bean>
+	
+	<!-- 2016年5月10日15:33:20 Damon -->
+	<bean id="connectionFactory" class="org.apache.activemq.pool.PooledConnectionFactory"
+		destroy-method="stop">
+		<property name="connectionFactory" ref="innerConnectionFactory" />
+		<property name="maxConnections" value="200" />
+	</bean>
+	<!-- MQ地址配置 -->
+	<bean id="innerConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+		<property name="brokerURL" value="${activeMQ.brokerURL}" />
+		<property name="useAsyncSend" value="true"></property><!--消息异步发送  -->
+	</bean>
+	<bean id="initUserAccountjmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="connectionFactory"></property>
+		<property name="defaultDestination" ref="initUserAccountdestination"></property>
+		<property name="receiveTimeout" value="600"></property>
+	</bean>
+	
+	<!-- 资金账户初始化 队列名 -->
+	<bean id="initUserAccountdestination" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg index="0"
+			value="PC_service_initUserAccount_Queue"></constructor-arg>
+	</bean>
+	
+	<!-- 资金账户初始化 消息生产 2016年5月10日14:58:10 Damon -->
+	<bean id="initUserAccountTool"
+		class="com.ttmv.datacenter.paycenter.worker.tool.InitUserAccountTool">
+		<property name="initUserAccountjmsTemplate" ref="initUserAccountjmsTemplate"></property>
+	</bean>
+
+	
+</beans>

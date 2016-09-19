@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springwork.org/schema/tx"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans
+							     	 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+							     	 http://www.springframework.org/schema/context     
+							     	 http://www.springframework.org/schema/context/spring-context-3.0.xsd
+							     	 http://www.springframework.org/schema/tx
+							     	 http://www.springframework.org/schema/tx/spring-tx-3.0.xsd 				     	 
+							     	 http://www.springframework.org/schema/task
+							     	 http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+	
+	<!-- gecko  -->
+	<bean id="retryPolicy" class="org.apache.curator.retry.ExponentialBackoffRetry">
+		<constructor-arg value="1000" />
+		<constructor-arg value="5" />
+		<constructor-arg value="60" />
+	</bean>
+	<bean id="zkCenterAgent"
+		class="com.ttmv.datacenter.hdsf.server.zookeeper.ZKCenterAgent">
+		<constructor-arg ref="retryPolicy" />
+		<constructor-arg value="${zookeeper.ttmv.zkCenterAgent}" />
+	</bean>	 	
+
+	<!-- TTnumGenerator -->
+    <bean id="TTnumGenerator_retryPolicy" class="org.apache.curator.retry.ExponentialBackoffRetry">
+		<constructor-arg value="1"></constructor-arg>
+		<constructor-arg value="2"></constructor-arg>
+		<constructor-arg value="1"></constructor-arg>
+	</bean>
+	<bean id="tTnumGenerator" class="com.ttmv.datacenter.generator.ttnum.ZkTTnumGenerator">
+		<constructor-arg value="/com/ttmv/datacenter/coordinator/TTnum/generate" />
+		<constructor-arg value="${zookeeper.uc.tTnumGenerator}" />
+		<constructor-arg ref="TTnumGenerator_retryPolicy" />
+	</bean>
+	
+	<!-- controlAgent -->
+	<bean id="controlAgent_retryPolicy" class="org.apache.curator.retry.ExponentialBackoffRetry">
+		<constructor-arg value="1"></constructor-arg>
+		<constructor-arg value="2"></constructor-arg>
+		<constructor-arg value="1"></constructor-arg>
+	</bean>
+	<bean id="controlAgent" class="com.ttmv.datacenter.agent.control.ControlAgent">
+		<constructor-arg ref="controlAgent_retryPolicy"></constructor-arg>
+		<constructor-arg value="${zookeeper.controlAgent}" />
+		<constructor-arg value="/com/ttmv/datacenter/control/usercenter" />
+		<constructor-arg value="5000" />
+	</bean>
+	
+	<!--*****************************   redis  ****************************************--> 
+    
+    <!--****** redis pool config连接池配置  ******-->
+	<bean id="redisPoolConfig" class="com.ttmv.datacenter.agent.redis.RedisPoolConfig">
+	    <constructor-arg value="108"></constructor-arg>
+		<constructor-arg value="20"></constructor-arg>
+		<constructor-arg value="60000"></constructor-arg>
+	</bean>	
+	
+	<!-- ******************************** -->
+	<!--******  redis uuidGenerator ******-->
+	<!-- ******************************** -->
+	<bean id="uuid_redisAgent" class="com.ttmv.datacenter.agent.redis.jedis.impl.JedisPoolAgent">
+	   <constructor-arg value="dc_redis_counter" />
+		<constructor-arg value="${redis.dc.counter.redisAgent.port}" />
+	    <constructor-arg ref="redisPoolConfig" />
+		<constructor-arg value="30000" />
+	</bean>	
+	<bean id="generator32" class="com.ttmv.datacenter.generator.GUID.GUIDGenerator32">
+		<constructor-arg ref="uuid_redisAgent" />
+	</bean>
+	<bean id="generator64" class="com.ttmv.datacenter.generator.GUID.GUIDGenerator64">
+		<constructor-arg ref="uuid_redisAgent" />
+	</bean>
+	
+	<!-- ************************ -->
+	<!--****** redis token  ******-->
+	<!-- ************************ -->
+	<bean id="token_redisAgent" class="com.ttmv.datacenter.agent.redis.jedis.impl.JedisPoolAgent">
+	    <constructor-arg value="uc_redis_token" />
+		<constructor-arg value="${uc.redis.token_redisAgent.port}" />
+	    <constructor-arg ref="redisPoolConfig" />
+		<constructor-arg value="30000" />
+	</bean>		
+	<bean id="tokenCenterAgent" class="com.ttmv.datacenter.agent.tokencenter.RedisTokenCenterAgent">
+	    <constructor-arg ref="token_redisAgent" />
+	</bean>
+	
+    <!-- ************************ -->
+    <!--****** lockCenter 锁 ******-->
+    <!-- ************************ -->
+    <bean id="locker_redisAgent" class="com.ttmv.datacenter.agent.redis.jedis.impl.JedisPoolAgent">
+	    <constructor-arg value="dc_redis_lock_m1" />
+		<constructor-arg value="${dc.redis.locker_redisAgent.port}" />
+	    <constructor-arg ref="redisPoolConfig" />
+		<constructor-arg value="30000" />
+	</bean>	
+	<bean id="locker" class="com.ttmv.datacenter.agent.lockcenter.LockCenterAgent">
+        <constructor-arg ref="locker_redisAgent"/>
+		<constructor-arg value="dc_hbase_lock"></constructor-arg>
+		<constructor-arg value="${dc.hbase.locker.port}"></constructor-arg>
+	</bean>
+	
+	<!-- 报警上报 -->
+	<bean id="quickSentry" class="com.ttmv.datacenter.sentry.handle.QuickSentry">
+	    <property name="httpRequestPost" ref="httpRequestPost"></property>
+	    <property name="queue" ref="queue"></property>
+	</bean>
+	<bean id="queue" class="java.util.LinkedList"></bean> 
+    <bean id="httpRequestPost" class="com.ttmv.datacenter.sentry.http.HttpRequestPost">
+       <constructor-arg value="${uc.sms.agent.httpURL}"></constructor-arg>
+    </bean>
+    <task:scheduled-tasks>
+		<task:scheduled ref="quickSentry" method="start" cron=" 0/10 * * * * ?" />
+	</task:scheduled-tasks>
+	
+	<!-- 会员到期 -->
+	<bean id="overSentryAgentVIP" class="com.ttmv.datacenter.sentry.handle.QuickSentry">
+	    <property name="httpRequestPost" ref="overdueVipHttpRequestPost"></property>
+	</bean>
+	<bean id="overdueVipHttpRequestPost" class="com.ttmv.datacenter.sentry.http.HttpRequestPost">
+       <constructor-arg value="${uc.overdueVIP.agent.httpURL}"></constructor-arg>
+    </bean>
+    
+    <!-- 冻结到期 -->
+   <bean id="overSentryAgentDJ" class="com.ttmv.datacenter.sentry.handle.QuickSentry">
+	    <property name="httpRequestPost" ref="overdueDjHttpRequestPost"></property>
+	</bean>
+	<bean id="overdueDjHttpRequestPost" class="com.ttmv.datacenter.sentry.http.HttpRequestPost">
+       <constructor-arg value="${uc.overdueDJ.agent.httpURL}"></constructor-arg>
+    </bean>
+
+    <!-- 靓号绑定与解绑 -->
+   <bean id="overdueManageTTnum" class="com.ttmv.datacenter.sentry.handle.QuickSentry">
+	    <property name="httpRequestPost" ref="overdueManageGoodTTNumPost"></property>
+	</bean>
+	<bean id="overdueManageGoodTTNumPost" class="com.ttmv.datacenter.sentry.http.HttpRequestPost">
+       <constructor-arg value="${uc.overdue.manageGoodTTNum.agent.httpURL}"></constructor-arg>
+    </bean>
+
+</beans>
