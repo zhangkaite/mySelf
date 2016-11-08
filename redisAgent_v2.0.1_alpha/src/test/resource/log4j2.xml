@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="OFF">
+	<appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%-5level %d{yyyy-MM-dd HH:mm:ss }[%class{36}]  %msg%n" />
+		</Console>
+		<RollingFile name="RollingFile" fileName="uc_logs/uCenterAll.log"
+			filePattern="log/$${date:yyyy-MM}/uCenterAll-%d{MM-dd-yyyy}-%i.log.gz">
+			<PatternLayout
+				pattern="%d{yyyy-MM-dd 'at' HH:mm:ss z} %-5level %class{36} %L %M - %msg%xEx%n" />
+			<SizeBasedTriggeringPolicy size="250MB" />
+		</RollingFile>
+		<RollingFile name="daoLogFile" fileName="uc_logs/dao.log"
+			filePattern="uCenters/$${date:yyyy-MM}/userCenter_dao
+			%d{MM-dd-yyyy}-%i.log.gz">
+			<PatternLayout>
+				<Pattern>%-5level %d{yyyy-MM-dd HH:mm:ss }[%class{36}] %msg%n
+				</Pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="250 MB" />
+			</Policies>
+		</RollingFile>
+		<RollingFile name="serviceLogFile" fileName="uc_logs/service.log"
+			filePattern="uCenters/$${date:yyyy-MM}/userCenter_service
+			%d{MM-dd-yyyy}-%i.log.gz">
+			<PatternLayout>
+				<Pattern>%-5level %d{yyyy-MM-dd HH:mm:ss }[%class{36}] %msg%n
+				</Pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="250 MB" />
+			</Policies>
+		</RollingFile>
+		 <RollingFile name="gromitLogFile" fileName="uc_logs/gromit.log"
+			filePattern="uCenters/$${date:yyyy-MM}/userCenter_gromit
+			%d{MM-dd-yyyy}-%i.log.gz">
+			<PatternLayout>
+				<Pattern>%-5level %d{yyyy-MM-dd HH:mm:ss }[%class{36}] %msg%n
+				</Pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="250 MB" />
+			</Policies>
+		</RollingFile>
+	</appenders>
+	<loggers>
+		<logger name="com.ttmv.datacenter.common.gromit"
+			level="info" additivity="true">
+			<appender-ref ref="gromitLogFile" />
+		</logger>
+		<logger name="com.ttmv.datacenter.usercenter.processor" level="debug"
+			additivity="true">
+			<appender-ref ref="serviceLogFile" />
+		</logger> 
+		<logger name="com.ttmv.datacenter.usercenter.daoimplement.impl"
+			level="debug" additivity="true">
+			<appender-ref ref="daoLogFile" />
+		</logger>
+		<root level="debug">
+			<appender-ref ref="RollingFile" />
+			<appender-ref ref="Console" />
+		</root>
+	</loggers>
+</configuration> 
